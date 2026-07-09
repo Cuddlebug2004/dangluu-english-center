@@ -1,0 +1,150 @@
+@media (max-width: 992px) {
+  .hero {
+    padding-top: 60px;
+  }
+
+  .hero-wrapper {
+    grid-template-columns: 1fr;
+
+    text-align: center;
+  }
+
+  .hero-content p {
+    margin: auto;
+
+    margin-bottom: 30px;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+
+    flex-wrap: wrap;
+  }
+
+  .hero-image {
+    margin-top: 50px;
+  }
+}
+
+/* WHY */
+
+@media (max-width: 1200px) {
+  .why-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ABOUT */
+
+@media (max-width: 992px) {
+  .about-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .about-image {
+    order: 2;
+  }
+
+  .about-content {
+    order: 1;
+  }
+
+  .about-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Vision */
+
+@media (max-width: 992px) {
+  .vision-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* CORE VALUES */
+
+@media (max-width: 992px) {
+  .core-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-banner h3 {
+    font-size: 24px;
+  }
+}
+/* PHILOSOPHY */
+
+@media (max-width: 992px) {
+  .philosophy-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .philosophy-quote h3 {
+    font-size: 30px;
+  }
+}
+/* COURSES */
+
+@media (max-width: 992px) {
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ROADMAP */
+
+@media (max-width: 992px) {
+  .roadmap-content {
+    grid-template-columns: 1fr;
+  }
+}
+/* METHOD */
+
+@media (max-width: 992px) {
+  .method-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* TEACHERS */
+
+@media (max-width: 992px) {
+  .teacher-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* CONTACT */
+
+@media (max-width: 992px) {
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-map iframe {
+    height: 350px;
+  }
+}
+/* FOOTER */
+
+@media (max-width: 992px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    text-align: center;
+  }
+
+  .footer-social {
+    justify-content: center;
+  }
+}

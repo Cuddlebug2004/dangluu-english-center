@@ -1,0 +1,270 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+
+  color: #222;
+}
+
+img {
+  max-width: 100%;
+
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  width: 1200px;
+
+  max-width: 92%;
+
+  margin: auto;
+}
+/* ==========================================
+   RESET
+========================================== */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #222;
+  background: #ffffff;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.container {
+  width: 92%;
+
+  max-width: 1280px;
+
+  margin: auto;
+}
+
+/* ==========================================
+   DESIGN SYSTEM
+========================================== */
+
+:root {
+  --primary: #eb5b28;
+
+  --primary-dark: #d94916;
+
+  --secondary: #fce6de;
+
+  --background: #f8f8f8;
+
+  --white: #ffffff;
+
+  --black: #202020;
+
+  --text: #555555;
+
+  --border: #ececec;
+
+  --shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+
+  --radius: 22px;
+
+  --transition: 0.35s;
+}
+
+/* ==========================================
+   TYPOGRAPHY
+========================================== */
+
+h1 {
+  font-size: 72px;
+
+  line-height: 1.05;
+
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 48px;
+
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+p {
+  color: var(--text);
+
+  line-height: 1.8;
+}
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+.btn-primary {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 15px 32px;
+
+  background: var(--primary);
+
+  color: #fff;
+
+  border-radius: 14px;
+
+  font-weight: 700;
+
+  transition: 0.35s;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+
+  transform: translateY(-3px);
+
+  box-shadow: 0 10px 25px rgba(235, 91, 40, 0.35);
+}
+
+/* ==========================================
+   SECTION
+========================================== */
+
+section {
+  padding: 90px 0;
+}
+
+.section-title {
+  text-align: center;
+
+  margin-bottom: 60px;
+}
+
+.section-title h2 {
+  margin-bottom: 12px;
+}
+
+.section-title p {
+  max-width: 700px;
+
+  margin: auto;
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.card {
+  background: #fff;
+
+  border-radius: 24px;
+
+  box-shadow: var(--shadow);
+}
+
+/* ==========================================
+   UTILITIES
+========================================== */
+
+.text-center {
+  text-align: center;
+}
+
+.mt-1 {
+  margin-top: 10px;
+}
+
+.mt-2 {
+  margin-top: 20px;
+}
+
+.mt-3 {
+  margin-top: 30px;
+}
+
+.mt-4 {
+  margin-top: 40px;
+}
+
+.mt-5 {
+  margin-top: 50px;
+}
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f3f3;
+}
+
+/* ==========================================
+   SELECTION
+========================================== */
+
+::selection {
+  background: var(--primary);
+
+  color: #fff;
+}
