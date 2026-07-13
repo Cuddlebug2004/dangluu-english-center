@@ -32,16 +32,12 @@ function closeSuccessModal() {
 // XỬ LÝ SỰ KIỆN ĐÓNG MODAL
 // ===============================
 
-// 1. Đóng khi bấm nút "Đóng"
-const closeModalBtn = document.getElementById("closeModal");
-if (closeModalBtn) {
-  closeModalBtn.addEventListener("click", closeSuccessModal);
-}
-
-// 2. Nâng cao: Đóng khi click chuột ra vùng tối xung quanh (backdrop)
+// Dùng 1 hàm duy nhất để bắt cả sự kiện bấm ra ngoài VÀ bấm nút Đóng
 window.addEventListener("click", (e) => {
   const modal = document.getElementById("successModal");
-  if (e.target === modal) {
+  
+  // Nếu người dùng click vào vùng tối (modal) HOẶC click trúng cái nút có id="closeModal"
+  if (e.target === modal || e.target.id === "closeModal") {
     closeSuccessModal();
   }
 });
