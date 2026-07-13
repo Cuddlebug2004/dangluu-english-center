@@ -84,27 +84,24 @@ button {
 ========================================== */
 
 :root {
-  --primary: #eb5b28;
-
-  --primary-dark: #d94916;
-
-  --secondary: #fce6de;
-
-  --background: #f8f8f8;
-
+  --primary: #ff6b35;
+  --primary-dark: #e85621;
+  --secondary: #fff1eb;
+  --background: #fafafa;
   --white: #ffffff;
+  --black: #1a1a1a;
+  --text: #4a5568;
+  --border: #edf2f7;
 
-  --black: #202020;
+  --shadow-sm:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow:
+    0 10px 30px -5px rgba(255, 107, 53, 0.08),
+    0 8px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 25px 50px -12px rgba(255, 107, 53, 0.15);
 
-  --text: #555555;
-
-  --border: #ececec;
-
-  --shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
-
-  --radius: 22px;
-
-  --transition: 0.35s;
+  --radius: 20px;
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==========================================
@@ -141,30 +138,25 @@ p {
 
 .btn-primary {
   display: inline-flex;
-
   align-items: center;
-
   justify-content: center;
-
-  padding: 15px 32px;
-
-  background: var(--primary);
-
+  padding: 16px 36px;
+  background: linear-gradient(
+    135deg,
+    var(--primary),
+    #ff8e53
+  ); /* Nút bấm dải màu */
   color: #fff;
-
-  border-radius: 14px;
-
-  font-weight: 700;
-
-  transition: 0.35s;
+  border-radius: 100px; /* Nút bo tròn hoàn toàn dạng viên thuốc */
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
 }
 
 .btn-primary:hover {
-  background: var(--primary-dark);
-
-  transform: translateY(-3px);
-
-  box-shadow: 0 10px 25px rgba(235, 91, 40, 0.35);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 25px rgba(255, 107, 53, 0.3);
 }
 
 /* ==========================================
