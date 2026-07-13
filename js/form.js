@@ -12,9 +12,6 @@ if (form) {
 
   const submitBtn = form.querySelector(".submit-btn");
 
-  const phoneRegex = /^(0|\+84)[0-9]{9}$/;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -23,19 +20,19 @@ if (form) {
     let valid = true;
 
     // Họ tên
-    if (fullname.value.trim() === "") {
+    if (!validateFullname(fullname.value)) {
       showError(fullname, "Vui lòng nhập họ và tên.");
       valid = false;
     }
 
     // Điện thoại
-    if (!phoneRegex.test(phone.value.trim())) {
+    if (!validatePhone(phone.value)) {
       showError(phone, "Số điện thoại không hợp lệ.");
       valid = false;
     }
 
     // Email (không bắt buộc)
-    if (email.value.trim() !== "" && !emailRegex.test(email.value.trim())) {
+    if (!validateEmail(email.value)) {
       showError(email, "Email không hợp lệ.");
       valid = false;
     }
@@ -65,36 +62,7 @@ if (form) {
       if (result.result !== "success") {
         throw new Error(result.message || "Không thể gửi dữ liệu.");
       }
-
-      const registerID = document.getElementById("registerID");
-      const registerTime = document.getElementById("registerTime");
-
-      if (registerID) {
-        registerID.textContent = result.id;
-      }
-
-      if (registerTime) {
-        registerTime.textContent = result.time;
-      }
-
-      document.getElementById("successModal")?.classList.add("show");
-
-      form.reset();
-
-      const result = await response.json();
-
-      const registerID = document.getElementById("registerID");
-      const registerTime = document.getElementById("registerTime");
-
-      if (registerID) {
-        registerID.textContent = result.id || "#" + Date.now();
-      }
-
-      if (registerTime) {
-        registerTime.textContent = data.registerTime;
-      }
-
-      document.getElementById("successModal")?.classList.add("show");
+      showSuccessModal(result.id, result.time);
 
       form.reset();
     } catch (error) {
@@ -133,7 +101,5 @@ function clearErrors() {
 const closeModal = document.getElementById("closeModal");
 
 if (closeModal) {
-  closeModal.addEventListener("click", () => {
-    document.getElementById("successModal")?.classList.remove("show");
-  });
+  closeModal.addEventListener("click", closeSuccessModal);
 }
