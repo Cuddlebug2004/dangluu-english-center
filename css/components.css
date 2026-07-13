@@ -224,21 +224,31 @@
 .hero {
   background: linear-gradient(180deg, #f8f8f8, #f2f2f2);
 
-  padding-top: 0;
-
-  padding-bottom: 60px;
+  padding: 40px 0 80px;
 }
 
 .hero-container {
   display: grid;
+
   grid-template-columns: minmax(420px, 520px) 1fr;
+
   gap: clamp(40px, 5vw, 70px);
 
   align-items: center;
 
-  min-height: calc(100vh - 90px);
+  min-height: auto;
 
-  padding: 40px 0;
+  padding: 20px 0;
+}
+
+.hero-left {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  margin-bottom: 40px;
 }
 
 .hero-subtitle {
@@ -288,6 +298,26 @@
   width: min(260px, 100%);
 
   min-height: 90px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: #f6b29c;
+
+  border-radius: 24px;
+
+  color: #fff;
+
+  font-weight: 700;
+
+  font-size: 22px;
+
+  transition: 0.3s;
 }
 
 .hero-btn span {
@@ -307,10 +337,27 @@
 .hero-btn:hover {
   transform: translateY(-6px);
 }
+
 .course-btn {
   width: min(230px, 100%);
 
   min-height: 78px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-around;
+
+  background: #e8e8e8;
+
+  border-radius: 20px;
+
+  font-weight: 700;
+
+  color: #222;
+
+  transition: 0.3s;
 }
 
 .course-btn .circle {
@@ -338,12 +385,13 @@
 .hero-image {
   position: relative;
 
+  width: 100%;
+
+  max-width: 620px;
+
   aspect-ratio: 4/5;
 
-  height: auto;
-
-  min-height: 500px;
-  background: #fff;
+  margin-left: auto;
 
   border-radius: 32px;
 
@@ -359,6 +407,8 @@
   height: 100%;
 
   object-fit: cover;
+
+  display: block;
 }
 .hero-shape {
   position: absolute;
