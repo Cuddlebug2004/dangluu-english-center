@@ -1,7 +1,9 @@
 /* ==========================================
    RESET & GLOBAL
 ========================================== */
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -94,9 +96,11 @@ h3 {
 ========================================== */
 
 .container {
-  width: 90%;
-  max-width: 1400px; /* Giữ nội dung ở 1400px là đẹp nhất cho màn 24 inch */
-  margin: 0 auto;
+  width: min(1200px, 92%);
+
+  margin-inline: auto;
+
+  padding-inline: 0;
 }
 
 section {

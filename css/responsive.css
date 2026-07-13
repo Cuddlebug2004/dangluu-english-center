@@ -227,7 +227,7 @@ body {
 
   /* Giảm khoảng cách (padding) của các section để đỡ trống trải */
   section {
-    padding: 60px 0;
+    padding: 70px 0;
   }
   .about,
   .core-values,
@@ -272,20 +272,32 @@ body {
 
 /* 1. Mặc định: Cho màn hình rất lớn (24 inch trở lên) */
 .container {
-    max-width: 1600px; 
-    margin: 0 auto;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 /* 2. Khi màn hình nhỏ hơn 1600px (Laptop tầm trung) */
 @media (max-width: 1600px) {
-    .container {
-        max-width: 1200px; /* Tự động co lại cho vừa vặn */
-    }
+  .container {
+    max-width: 1200px; /* Tự động co lại cho vừa vặn */
+  }
 }
 
 /* 3. Khi màn hình nhỏ hơn 1200px (Laptop nhỏ, máy tính bảng ngang) */
 @media (max-width: 1200px) {
-    .container {
-        max-width: 960px;
-    }
+  .container {
+    max-width: 960px;
+  }
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+* {
+  max-width: 100%;
 }
