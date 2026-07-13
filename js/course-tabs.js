@@ -109,12 +109,11 @@ tabs.forEach((tab) => {
 
     image.src = course.image;
     Object.values(courseData).forEach((course) => {
-    const img = new Image();
-    img.src = course.image;
-});
+      const img = new Image();
+      img.src = course.image;
+    });
   });
-}
-);
+});
 
 // Đặt ở cuối cùng file course-tabs.js, bên ngoài vòng lặp tabs.forEach
 Object.values(courseData).forEach((course) => {

@@ -163,3 +163,11 @@
 
   font-weight: 400;
 }
+
+/* Đảm bảo nút đóng luôn ẩn nếu modal không có class .show */
+#closeModal {
+  display: none !important;
+}
+.success-modal.show #closeModal {
+  display: inline-flex !important;
+}
