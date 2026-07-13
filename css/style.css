@@ -1,56 +1,3 @@
-/*style.css*/
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body {
-  width: 100%;
-  overflow-x: hidden;
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Be Vietnam Pro", sans-serif;
-  font-size: 16px;
-  color: #222;
-  background: #ffffff;
-  overflow-x: hidden;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Be Vietnam Pro", sans-serif !important;
-}
-
-img {
-  max-width: 100%;
-
-  display: block;
-}
-
-a {
-  text-decoration: none;
-}
-
-ul {
-  list-style: none;
-}
-
-.container {
-  width: min(1200px, 92%);
-  margin-inline: auto;
-}
 /* ==========================================
    RESET
 ========================================== */
@@ -67,18 +14,28 @@ html {
   scroll-behavior: smooth;
 }
 
-img {
-  max-width: 100%;
-  display: block;
+body {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #222;
+  background: #fff;
 }
 
-ul {
-  list-style: none;
+img {
+  display: block;
+  max-width: 100%;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+ul {
+  list-style: none;
 }
 
 button,
@@ -109,12 +66,15 @@ button {
 
   --shadow-sm:
     0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+
   --shadow:
     0 10px 30px -5px rgba(255, 107, 53, 0.08),
     0 8px 10px -5px rgba(0, 0, 0, 0.04);
+
   --shadow-hover: 0 25px 50px -12px rgba(255, 107, 53, 0.15);
 
   --radius: 20px;
+
   --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -122,17 +82,23 @@ button {
    TYPOGRAPHY
 ========================================== */
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
 h1 {
   font-size: 72px;
-
   line-height: 1.05;
-
   font-weight: 800;
 }
 
 h2 {
   font-size: 48px;
-
   font-weight: 700;
 }
 
@@ -142,69 +108,18 @@ h3 {
 
 p {
   color: var(--text);
-
   line-height: 1.8;
+  font-weight: 400;
 }
 
 /* ==========================================
-   BUTTON
+   LAYOUT
 ========================================== */
 
-/* Nút Đăng ký (Cam Gradient) */
-.btn-primary,
-.hero-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 56px;
-  padding: 0 32px;
-  background: linear-gradient(135deg, var(--primary), #ff8e53);
-  color: #ffffff !important;
-  border-radius: 100px;
-  font-weight: 600;
-  border: none;
-  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-  white-space: nowrap;
-  transition: all 0.3s ease;
-  cursor: pointer;
+.container {
+  width: min(1200px, 92%);
+  margin-inline: auto;
 }
-
-/* Nút Xem chương trình (Nền trắng, viền xám) */
-.btn-outline,
-.course-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 56px;
-  padding: 0 32px;
-  background: #ffffff;
-  color: var(--black) !important;
-  border: 2px solid #e2e8f0;
-  border-radius: 100px;
-  font-weight: 600;
-  white-space: nowrap;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-/* Hiệu ứng khi di chuột vào */
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
-}
-.btn-outline:hover {
-  border-color: var(--primary);
-  color: var(--primary) !important;
-}
-
-.btn-primary:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 15px 25px rgba(255, 107, 53, 0.3);
-}
-
-/* ==========================================
-   SECTION
-========================================== */
 
 section {
   padding: 90px 0;
@@ -212,7 +127,6 @@ section {
 
 .section-title {
   text-align: center;
-
   margin-bottom: 60px;
 }
 
@@ -222,8 +136,70 @@ section {
 
 .section-title p {
   max-width: 700px;
-
   margin: auto;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.btn-primary,
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  padding: 0 32px;
+
+  background: linear-gradient(135deg, var(--primary), #ff8e53);
+  color: #fff !important;
+
+  border: none;
+  border-radius: 100px;
+
+  font-weight: 600;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+
+  transition: var(--transition);
+}
+
+.btn-primary:hover,
+.hero-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 25px rgba(255, 107, 53, 0.4);
+}
+
+.btn-outline,
+.course-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 56px;
+  padding: 0 32px;
+
+  background: #fff;
+  color: var(--black) !important;
+
+  border: 2px solid #e2e8f0;
+  border-radius: 100px;
+
+  font-weight: 600;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition: var(--transition);
+}
+
+.btn-outline:hover,
+.course-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary) !important;
 }
 
 /* ==========================================
@@ -232,9 +208,7 @@ section {
 
 .card {
   background: #fff;
-
   border-radius: 24px;
-
   box-shadow: var(--shadow);
 }
 
@@ -274,60 +248,55 @@ section {
   width: 10px;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--primary);
-
-  border-radius: 30px;
-}
-
 ::-webkit-scrollbar-track {
   background: #f3f3f3;
 }
 
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 30px;
+}
+
 /* ==========================================
-   SELECTION
+   TEXT SELECTION
 ========================================== */
 
 ::selection {
   background: var(--primary);
-
   color: #fff;
 }
 
-/*==================================================
-                BACK TO TOP
-==================================================*/
+/* ==========================================
+   BACK TO TOP
+========================================== */
 
 #backToTop {
   position: fixed;
-
   right: 30px;
-
   bottom: 30px;
 
   width: 55px;
-
   height: 55px;
 
-  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  border: none;
   border-radius: 50%;
 
   background: var(--primary);
-
   color: #fff;
 
-  cursor: pointer;
-
   font-size: 20px;
+  cursor: pointer;
 
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 
   opacity: 0;
-
   visibility: hidden;
 
-  transition: 0.35s;
+  transition: var(--transition);
 
   z-index: 999;
 }
@@ -338,6 +307,5 @@ section {
 
 #backToTop.show {
   opacity: 1;
-
   visibility: visible;
 }
