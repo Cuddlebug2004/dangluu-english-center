@@ -149,3 +149,122 @@
     display: none;
   }
 }
+
+/* ==========================================
+   KHÓA TRỤC NGANG (CHẶN KHOẢNG TRẮNG)
+========================================== */
+html,
+body {
+  overflow-x: hidden !important;
+  width: 100%;
+  position: relative;
+}
+
+/* ==========================================
+   TỐI ƯU TABLET (Dưới 992px)
+========================================== */
+@media (max-width: 992px) {
+  /* Chuyển các layout 2 cột (1 to, 1 nhỏ) thành 1 cột dọc */
+  .about-wrapper,
+  .philosophy-wrapper,
+  .roadmap-content,
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  /* Thu nhỏ chiều cao các ảnh bị set cứng */
+  .about-image-box,
+  .philosophy-image,
+  .roadmap-image,
+  .contact-map iframe {
+    height: 400px;
+    width: 100%;
+  }
+
+  /* Đưa các danh sách/thẻ về giữa */
+  .about-list,
+  .course-features {
+    text-align: left;
+    max-width: 500px;
+    margin-inline: auto;
+  }
+
+  /* Chuyển các grid nhiều cột xuống còn 2-3 cột */
+  .why-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .vision-grid {
+    grid-template-columns: 1fr;
+  }
+  .core-grid,
+  .course-grid,
+  .teacher-grid,
+  .method-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ==========================================
+   TỐI ƯU ĐIỆN THOẠI (Dưới 768px)
+========================================== */
+@media (max-width: 768px) {
+  /* Ép TẤT CẢ các grid về 1 cột trên điện thoại */
+  .why-grid,
+  .core-grid,
+  .course-grid,
+  .teacher-grid,
+  .method-grid,
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Giảm khoảng cách (padding) của các section để đỡ trống trải */
+  section {
+    padding: 60px 0;
+  }
+  .about,
+  .core-values,
+  .philosophy,
+  .roadmap,
+  .method,
+  .gallery,
+  .contact {
+    padding: 60px 0;
+  }
+
+  /* Thu nhỏ chữ tiêu đề */
+  h1 {
+    font-size: 38px !important;
+  }
+  h2 {
+    font-size: 28px !important;
+  }
+  .section-title {
+    margin-bottom: 40px;
+  }
+
+  /* Ép ảnh nhỏ lại trên mobile */
+  .about-image-box,
+  .philosophy-image,
+  .roadmap-image {
+    height: 300px;
+  }
+
+  /* Chỉnh lại footer */
+  .footer {
+    padding-top: 50px;
+  }
+  .footer-container {
+    text-align: center;
+    gap: 30px;
+  }
+  .footer-social {
+    justify-content: center;
+  }
+}
