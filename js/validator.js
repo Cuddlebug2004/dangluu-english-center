@@ -1,3 +1,4 @@
+//validator.js
 /**
  * Kiểm tra họ tên
  */

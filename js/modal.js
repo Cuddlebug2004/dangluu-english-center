@@ -1,3 +1,4 @@
+//modal.js
 /**
  * Hiển thị modal đăng ký thành công
  * @param {string} id

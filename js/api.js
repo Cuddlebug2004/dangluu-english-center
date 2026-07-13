@@ -1,4 +1,4 @@
-/**
+/** api.js
  * Gửi thông tin đăng ký tới Google Apps Script
  * @param {Object} data
  * @returns {Promise<Object>}
