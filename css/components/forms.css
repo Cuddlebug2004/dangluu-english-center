@@ -1,61 +1,47 @@
 /*==================================================
-                    CONTACT
+                  CONTACT
 ==================================================*/
 
 .contact {
   padding: 120px 0;
-
   background: #fff8f3;
 }
 
 .contact-wrapper {
   display: grid;
-
   grid-template-columns: 1.2fr 1fr;
-
   gap: 60px;
-
   align-items: start;
-
   margin-top: 70px;
 }
 
 .contact-map {
   overflow: hidden;
-
   border-radius: 24px;
-
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
 }
 
 .contact-map iframe {
   width: 100%;
-
   height: 620px;
-
   border: 0;
 }
 
 .contact-form {
   background: white;
-
   padding: 40px;
-
   border-radius: 24px;
-
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
 }
+
 .form-group {
   display: flex;
-
   flex-direction: column;
-
   margin-bottom: 22px;
 }
 
 .form-group label {
   margin-bottom: 8px;
-
   font-weight: 600;
 }
 
@@ -63,93 +49,84 @@
 .form-group select,
 .form-group textarea {
   padding: 15px;
-
   border: 1px solid #ddd;
-
   border-radius: 12px;
-
   font-size: 15px;
-
   transition: 0.3s;
-
   font-family: inherit;
 }
+
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: var(--primary);
-
   outline: none;
-
   box-shadow: 0 0 0 3px rgba(235, 91, 40, 0.15);
 }
+
 .form-group small {
   color: red;
-
   margin-top: 6px;
-
   font-size: 13px;
 }
+
 .submit-btn {
   width: 100%;
-
   padding: 18px;
-
   font-size: 17px;
 }
+
 .submit-btn:disabled {
   opacity: 0.7;
-
   cursor: not-allowed;
 }
-/* SUCCESS MODAL */
 
-/* ================== SUCCESS MODAL ================== */
+/* ================== SUCCESS MODAL (FIXED) ================== */
 .success-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
 
-  /* CẤU HÌNH TRẠNG THÁI ẨN */
+  /* Cấu hình trạng thái ẩn tuyệt đối */
   opacity: 0;
   visibility: hidden;
   z-index: -9999;
-  pointer-events: none;
-  backdrop-filter: none; /* QUAN TRỌNG: Tắt mờ khi ẩn */
+  pointer-events: none; /* Quan trọng: Cho phép click xuyên qua */
 
-  transition: all 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  /* Tránh làm mờ vùng nội dung bên dưới */
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .success-modal.show {
   opacity: 1;
   visibility: visible;
   z-index: 9999;
-  pointer-events: auto;
-  backdrop-filter: blur(5px); /* CHỈ BẬT MỜ KHI HIỆN */
+  pointer-events: auto; /* Chỉ bật click khi modal hiện */
 }
+
 .success-box {
   background: white;
-
   padding: 50px;
-
   border-radius: 24px;
-
   max-width: 420px;
-
   text-align: center;
+  position: relative;
 }
 
 .success-box i {
   font-size: 70px;
-
   color: #4caf50;
-
   margin-bottom: 20px;
 }
 
@@ -157,15 +134,11 @@
   margin-bottom: 15px;
 }
 
-.form-group label small {
-  color: #888;
-
-  font-size: 13px;
-
-  font-weight: 400;
-}
-
-/* Đảm bảo nút đóng luôn ẩn nếu modal không có class .show */
 #closeModal {
   display: none !important;
+}
+
+.success-modal.show #closeModal {
+  display: inline-flex !important;
+  margin-top: 20px;
 }
