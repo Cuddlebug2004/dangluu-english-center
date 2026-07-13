@@ -22,6 +22,7 @@ body {
   line-height: 1.6;
   color: #222;
   background: #fff;
+  background-color: #fafafa;
 }
 
 img {
@@ -117,8 +118,9 @@ p {
 ========================================== */
 
 .container {
-  width: min(1600px, 94%);
-  margin: auto;
+  width: 90%;
+  max-width: 1400px; /* Giữ nội dung ở 1400px là đẹp nhất cho màn 24 inch */
+  margin: 0 auto;
 }
 
 section {
@@ -201,7 +203,13 @@ section {
   border-color: var(--primary);
   color: var(--primary) !important;
 }
-
+/* Ép lại style cho nút để lấy lại độ nổi */
+button#closeModal {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin-top: 20px;
+}
 /* ==========================================
    CARD
 ========================================== */

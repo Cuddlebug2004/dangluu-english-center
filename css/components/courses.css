@@ -80,29 +80,22 @@
 }
 
 .roadmap-tabs {
-  position: relative;
-  z-index: 50;
-
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Sửa thành nowrap để giữ các nút trên 1 dòng */
   justify-content: center;
   gap: 15px;
-
-  margin-bottom: 40px;
+  overflow-x: auto; /* Cho phép cuộn ngang nếu màn hình quá nhỏ */
+  padding-bottom: 10px;
 }
 
 .roadmap-tabs button,
 .tab-btn {
-  position: relative;
-  z-index: 51;
-
-  overflow: hidden;
-
-  cursor: pointer;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-
-  transition: var(--transition);
+  background: #ffffff;
+  border: 1px solid #eee;
+  padding: 12px 25px;
+  border-radius: 50px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Viền nổi */
+  white-space: nowrap;
 }
 
 .tab-btn::before {
@@ -124,12 +117,8 @@
 }
 
 .tab-btn.active {
-  background: linear-gradient(135deg, #eb5b28, #ff824e);
-  color: #fff;
-
-  transform: translateY(-5px);
-
-  box-shadow: 0 12px 25px rgba(235, 91, 40, 0.3);
+  background: var(--primary);
+  color: white;
 }
 
 .roadmap-content {
