@@ -1,0 +1,660 @@
+/*==========================================
+            WHY CHOOSE US
+==========================================*/
+
+.why {
+  padding: 90px 0;
+
+  background: #fff;
+}
+
+.why-grid {
+  display: grid;
+
+  grid-template-columns: repeat(6, 1fr);
+
+  gap: 25px;
+
+  margin-top: 55px;
+}
+
+.why-card {
+  background: #fff;
+
+  border-radius: 22px;
+
+  padding: 40px 20px;
+
+  text-align: center;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+
+  transition: 0.35s;
+
+  cursor: pointer;
+}
+
+.why-card:hover {
+  transform: translateY(-12px);
+
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+}
+
+.why-icon {
+  width: 85px;
+
+  height: 85px;
+
+  background: var(--primary);
+
+  color: #fff;
+
+  border-radius: 50%;
+
+  margin: auto;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  font-size: 32px;
+
+  margin-bottom: 28px;
+}
+
+.why-card h3 {
+  font-size: 22px;
+
+  margin-bottom: 12px;
+
+  font-weight: 700;
+}
+
+.why-card p {
+  color: #666;
+
+  line-height: 1.7;
+}
+/*==========================================
+                ABOUT
+==========================================*/
+
+.about {
+  background: #fff8f4;
+
+  padding: 100px 0;
+}
+
+.about-wrapper {
+  display: grid;
+
+  grid-template-columns: 500px 1fr;
+
+  gap: 70px;
+
+  align-items: center;
+}
+.about-image-box {
+  height: 600px;
+
+  border-radius: 32px;
+
+  background: #fff;
+
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  color: #999;
+
+  font-size: 22px;
+}
+.about-subtitle {
+  display: inline-block;
+
+  color: var(--primary);
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  margin-bottom: 18px;
+}
+.about-content h2 {
+  font-size: 46px;
+
+  margin-bottom: 25px;
+}
+.about-content p {
+  color: #666;
+
+  line-height: 2;
+
+  margin-bottom: 35px;
+}
+.about-list {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 40px;
+}
+.about-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  font-weight: 600;
+}
+.about-item i {
+  color: var(--primary);
+
+  font-size: 22px;
+}
+/*==================================================
+                VISION
+==================================================*/
+
+.vision {
+  padding: 110px 0;
+
+  background: #ffffff;
+}
+
+.vision-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 35px;
+
+  margin-top: 60px;
+}
+
+.vision-card {
+  background: #fff;
+
+  border-radius: 28px;
+
+  padding: 50px;
+
+  text-align: center;
+
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+
+  transition: 0.35s;
+}
+
+.vision-card:hover {
+  transform: translateY(-10px);
+}
+
+.vision-icon {
+  width: 90px;
+
+  height: 90px;
+
+  margin: auto;
+
+  margin-bottom: 30px;
+
+  border-radius: 50%;
+
+  background: #fff1eb;
+
+  color: var(--primary);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 34px;
+}
+
+.vision-card h3 {
+  font-size: 30px;
+
+  margin-bottom: 20px;
+}
+
+.vision-card p {
+  line-height: 2;
+
+  color: #666;
+}
+/*==================================================
+                CORE VALUES
+==================================================*/
+
+.core-values {
+  padding: 120px 0;
+
+  background: #fff8f3;
+}
+
+.brand-banner {
+  margin: 60px auto;
+
+  max-width: 900px;
+
+  background: linear-gradient(135deg, #eb5b28, #ff8b52);
+
+  border-radius: 28px;
+
+  padding: 40px;
+
+  text-align: center;
+
+  box-shadow: 0 20px 45px rgba(235, 91, 40, 0.25);
+}
+
+.brand-banner h3 {
+  color: #fff;
+
+  font-size: 32px;
+
+  font-weight: 700;
+
+  line-height: 1.6;
+}
+.core-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 35px;
+}
+
+.core-card {
+  background: #fff;
+
+  padding: 45px 35px;
+
+  border-radius: 28px;
+
+  text-align: center;
+
+  transition: 0.35s;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+.core-card:hover {
+  transform: translateY(-12px);
+
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+.core-icon {
+  width: 95px;
+
+  height: 95px;
+
+  margin: auto;
+
+  margin-bottom: 30px;
+
+  border-radius: 50%;
+
+  background: #fff2ec;
+
+  color: #eb5b28;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  font-size: 38px;
+
+  transition: 0.35s;
+}
+.core-card:hover .core-icon {
+  background: #eb5b28;
+
+  color: #fff;
+
+  transform: rotate(-8deg) scale(1.1);
+}
+.core-card h3 {
+  margin-bottom: 20px;
+
+  font-size: 28px;
+
+  color: #202020;
+}
+
+.core-card p {
+  line-height: 1.9;
+
+  color: #666;
+}
+/*==================================================
+            EDUCATIONAL PHILOSOPHY
+==================================================*/
+
+.philosophy {
+  padding: 120px 0;
+
+  background: #ffffff;
+}
+.philosophy-quote {
+  max-width: 900px;
+
+  margin: 60px auto;
+
+  text-align: center;
+}
+
+.philosophy-quote i {
+  font-size: 40px;
+
+  color: var(--primary);
+
+  margin-bottom: 25px;
+}
+
+.philosophy-quote h3 {
+  font-size: 42px;
+
+  line-height: 1.6;
+
+  font-weight: 700;
+}
+.philosophy-wrapper {
+  margin-top: 80px;
+
+  display: grid;
+
+  grid-template-columns: 500px 1fr;
+
+  gap: 70px;
+
+  align-items: center;
+}
+.philosophy-image {
+  height: 600px;
+
+  border-radius: 32px;
+
+  overflow: hidden;
+
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.12);
+}
+
+.philosophy-image img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+}
+.philosophy-content {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 28px;
+}
+
+.philosophy-content p {
+  line-height: 2;
+
+  color: #666;
+
+  font-size: 18px;
+}
+
+/*==================================================
+            TEACHING METHOD
+==================================================*/
+
+.method {
+  padding: 120px 0;
+
+  background: white;
+}
+
+.method-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 30px;
+
+  margin-top: 70px;
+}
+.method-card {
+  position: relative;
+
+  background: white;
+
+  padding: 40px 30px;
+
+  border-radius: 28px;
+
+  text-align: center;
+
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+
+  transition: 0.4s;
+}
+.method-card:hover {
+  transform: translateY(-15px);
+}
+.method-number {
+  position: absolute;
+
+  top: 20px;
+
+  right: 25px;
+
+  font-size: 52px;
+
+  font-weight: 800;
+
+  color: #f3f3f3;
+}
+.method-icon {
+  width: 90px;
+
+  height: 90px;
+
+  margin: auto;
+
+  margin-bottom: 25px;
+
+  border-radius: 50%;
+
+  background: #fff1eb;
+
+  color: var(--primary);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  font-size: 34px;
+
+  transition: 0.35s;
+}
+.method-card:hover .method-icon {
+  background: var(--primary);
+
+  color: white;
+
+  transform: rotate(-10deg);
+}
+.method-card h3 {
+  font-size: 28px;
+
+  margin-bottom: 18px;
+}
+
+.method-card p {
+  color: #666;
+
+  line-height: 1.9;
+}
+/*==================================================
+                    TEACHERS
+==================================================*/
+
+.teachers {
+  padding: 120px 0;
+
+  background: #fff8f4;
+}
+
+.teacher-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 35px;
+
+  margin-top: 70px;
+}
+.teacher-card {
+  background: white;
+
+  border-radius: 28px;
+
+  overflow: hidden;
+
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+
+  transition: 0.4s;
+}
+.teacher-card:hover {
+  transform: translateY(-12px);
+}
+.teacher-image {
+  height: 360px;
+
+  overflow: hidden;
+}
+
+.teacher-image img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: 0.4s;
+}
+.teacher-card:hover img {
+  transform: scale(1.08);
+}
+.teacher-info {
+  padding: 35px;
+}
+
+.teacher-info h3 {
+  font-size: 28px;
+
+  margin-bottom: 10px;
+}
+
+.teacher-info span {
+  color: var(--primary);
+
+  font-weight: 600;
+}
+.teacher-info ul {
+  margin-top: 25px;
+}
+
+.teacher-info li {
+  margin-bottom: 14px;
+
+  color: #666;
+}
+/*==================================================
+            LEARNING ENVIRONMENT
+==================================================*/
+
+.gallery {
+  padding: 120px 0;
+
+  background: #fff;
+}
+
+.gallery-grid {
+  display: grid;
+
+  grid-template-columns: 2fr 1fr;
+
+  gap: 25px;
+
+  margin-top: 70px;
+}
+
+.gallery-main {
+  height: 620px;
+
+  border-radius: 30px;
+
+  overflow: hidden;
+}
+
+.gallery-main img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: 0.5s;
+}
+
+.gallery-main:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-side {
+  display: grid;
+
+  gap: 25px;
+}
+
+.gallery-side img {
+  height: 190px;
+
+  width: 100%;
+
+  object-fit: cover;
+
+  border-radius: 24px;
+
+  transition: 0.4s;
+}
+
+.gallery-side img:hover {
+  transform: translateY(-6px);
+}
+/* GALLERY */
+
+@media (max-width: 992px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-main {
+    height: 420px;
+  }
+}

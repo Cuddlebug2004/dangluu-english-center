@@ -258,3 +258,51 @@ section {
 
   color: #fff;
 }
+
+/*==================================================
+                BACK TO TOP
+==================================================*/
+
+#backToTop {
+  position: fixed;
+
+  right: 30px;
+
+  bottom: 30px;
+
+  width: 55px;
+
+  height: 55px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  font-size: 20px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transition: 0.35s;
+
+  z-index: 999;
+}
+
+#backToTop:hover {
+  transform: translateY(-5px);
+}
+
+#backToTop.show {
+  opacity: 1;
+
+  visibility: visible;
+}
