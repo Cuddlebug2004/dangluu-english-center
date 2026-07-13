@@ -60,13 +60,7 @@ if (form) {
     };
 
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const result = await registerStudent(data);
 
       if (!response.ok) {
         throw new Error("Không thể gửi dữ liệu.");
