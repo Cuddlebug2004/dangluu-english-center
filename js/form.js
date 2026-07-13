@@ -4,102 +4,114 @@
 
 const form = document.getElementById("registerForm");
 
-const fullname = document.getElementById("fullname");
-const phone = document.getElementById("phone");
-const email = document.getElementById("email");
-const course = document.getElementById("course");
+if (form) {
+  const fullname = document.getElementById("fullname");
+  const phone = document.getElementById("phone");
+  const email = document.getElementById("email");
+  const course = document.getElementById("course");
 
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
+  const submitBtn = form.querySelector(".submit-btn");
 
-  let isValid = true;
-
-  clearErrors();
-
-  // Họ tên
-  if (fullname.value.trim() === "") {
-    showError(fullname, "Vui lòng nhập họ và tên.");
-    isValid = false;
-  }
-
-  // Số điện thoại
   const phoneRegex = /^(0|\+84)[0-9]{9}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!phoneRegex.test(phone.value.trim())) {
-    showError(phone, "Số điện thoại không hợp lệ.");
-    isValid = false;
-  }
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  // Email
-  const emailValue = email.value.trim();
+    clearErrors();
 
-  if (emailValue !== "" && !emailRegex.test(emailValue)) {
-    showError(email, "Email không hợp lệ.");
+    let valid = true;
 
-    isValid = false;
-  }
+    // Họ tên
+    if (fullname.value.trim() === "") {
+      showError(fullname, "Vui lòng nhập họ và tên.");
+      valid = false;
+    }
 
-  // Khóa học
-  if (course.value === "") {
-    showError(course, "Vui lòng chọn khóa học.");
-    isValid = false;
-  }
+    // Điện thoại
+    if (!phoneRegex.test(phone.value.trim())) {
+      showError(phone, "Số điện thoại không hợp lệ.");
+      valid = false;
+    }
 
-  if (isValid) {
-    const btn = document.querySelector(".submit-btn");
+    // Email (không bắt buộc)
+    if (email.value.trim() !== "" && !emailRegex.test(email.value.trim())) {
+      showError(email, "Email không hợp lệ.");
+      valid = false;
+    }
 
-    btn.disabled = true;
+    // Khóa học
+    if (course.value === "") {
+      showError(course, "Vui lòng chọn khóa học.");
+      valid = false;
+    }
 
-    btn.innerHTML = "Đang gửi...";
+    if (!valid) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Đang gửi...";
 
     const data = {
       parent: fullname.value.trim(),
-
-      student: student.value.trim(),
-
-      age: age.value,
-
       phone: phone.value.trim(),
-
-      course: course.value,
-
       email: email.value.trim(),
-
-      note: message.value.trim(),
+      course: course.value,
+      registerTime: new Date().toLocaleString("vi-VN"),
     };
-    fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        document.getElementById("registerID").textContent = data.id;
 
-        document.getElementById("successModal").classList.add("show");
-
-        form.reset();
-      })
-      .catch(() => {
-        alert("Có lỗi xảy ra.");
-      })
-      .finally(() => {
-        btn.disabled = false;
-        btn.innerHTML = "Gửi đăng ký";
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
-  }
-});
+
+      if (!response.ok) {
+        throw new Error("Không thể gửi dữ liệu.");
+      }
+
+      const result = await response.json();
+
+      const registerID = document.getElementById("registerID");
+      const registerTime = document.getElementById("registerTime");
+
+      if (registerID) {
+        registerID.textContent = result.id || "#" + Date.now();
+      }
+
+      if (registerTime) {
+        registerTime.textContent = data.registerTime;
+      }
+
+      document.getElementById("successModal")?.classList.add("show");
+
+      form.reset();
+    } catch (error) {
+      console.error(error);
+
+      alert("Không thể gửi đăng ký. Vui lòng thử lại.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Gửi đăng ký";
+    }
+  });
+}
 
 function showError(input, message) {
   const small = input.parentElement.querySelector("small");
 
-  small.innerText = message;
+  if (small) {
+    small.textContent = message;
+  }
 
-  input.style.borderColor = "red";
+  input.style.borderColor = "#e53935";
 }
 
 function clearErrors() {
   document.querySelectorAll(".form-group small").forEach((small) => {
-    small.innerText = "";
+    small.textContent = "";
   });
 
   document
@@ -108,6 +120,11 @@ function clearErrors() {
       input.style.borderColor = "#ddd";
     });
 }
-document.getElementById("closeModal").addEventListener("click", () => {
-  document.getElementById("successModal").classList.remove("show");
-});
+
+const closeModal = document.getElementById("closeModal");
+
+if (closeModal) {
+  closeModal.addEventListener("click", () => {
+    document.getElementById("successModal")?.classList.remove("show");
+  });
+}
