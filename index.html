@@ -79,33 +79,26 @@
 
       <nav class="navbar">
         <div class="container navbar-wrapper">
-          <!-- Logo -->
-
-          <a href="index.html" class="logo">
+          <a href="#home" class="logo">
             <img src="images/logo/logo.png" alt="Logo" />
-
             <div class="logo-text">
               <h2>ĐĂNG LƯU</h2>
-
               <p>ENGLISH CENTER</p>
             </div>
           </a>
 
-          <!-- Menu -->
+          <div class="menu-toggle" id="mobile-menu">
+            <i class="fa-solid fa-bars"></i>
+          </div>
 
           <ul class="menu">
-            <li><a class="active" href="#">Trang chủ</a></li>
-
-            <li><a href="about.html">Giới thiệu</a></li>
-
-            <li><a href="courses.html">Chương trình học</a></li>
-
-            <li><a href="contact.html">Liên hệ</a></li>
+            <li><a class="nav-link active" href="#home">Trang chủ</a></li>
+            <li><a class="nav-link" href="#about">Giới thiệu</a></li>
+            <li><a class="nav-link" href="#courses">Chương trình học</a></li>
+            <li><a class="nav-link" href="#contact">Liên hệ</a></li>
           </ul>
 
-          <!-- Button -->
-
-          <a href="#contact" class="btn-primary"> ĐĂNG KÝ HỌC THỬ </a>
+          <a href="#contact" class="btn-primary desktop-btn"> ĐĂNG KÝ HỌC THỬ </a>
         </div>
       </nav>
       <link rel="stylesheet" href="css/responsive.css" />
@@ -113,7 +106,7 @@
 
     <!--================ HERO =================-->
 
-    <section class="hero">
+    <section class="hero" id="home">
       <div class="container hero-container">
         <!-- LEFT -->
 
@@ -238,7 +231,7 @@
 
     <!-- ================= ABOUT ================= -->
 
-    <section class="about" data-aos="fade-up">
+    <section class="about" id="about" data-aos="fade-up">
       <div class="container about-wrapper">
         <!-- LEFT -->
 
