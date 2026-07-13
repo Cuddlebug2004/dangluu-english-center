@@ -5,6 +5,17 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Be Vietnam Pro", sans-serif;
   font-size: 16px;
@@ -139,23 +150,51 @@ p {
    BUTTON
 ========================================== */
 
-.btn-primary {
+/* Nút Đăng ký (Cam Gradient) */
+.btn-primary,
+.hero-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 36px;
-  background: linear-gradient(
-    135deg,
-    var(--primary),
-    #ff8e53
-  ); /* Nút bấm dải màu */
-  color: #fff;
-  border-radius: 100px; /* Nút bo tròn hoàn toàn dạng viên thuốc */
+  height: 56px;
+  padding: 0 32px;
+  background: linear-gradient(135deg, var(--primary), #ff8e53);
+  color: #ffffff !important;
+  border-radius: 100px;
   font-weight: 600;
-  letter-spacing: 0.5px;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+  border: none;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
   white-space: nowrap;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Nút Xem chương trình (Nền trắng, viền xám) */
+.btn-outline,
+.course-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  padding: 0 32px;
+  background: #ffffff;
+  color: var(--black) !important;
+  border: 2px solid #e2e8f0;
+  border-radius: 100px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Hiệu ứng khi di chuột vào */
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+}
+.btn-outline:hover {
+  border-color: var(--primary);
+  color: var(--primary) !important;
 }
 
 .btn-primary:hover {

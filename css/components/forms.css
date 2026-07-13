@@ -104,32 +104,32 @@
 }
 /* SUCCESS MODAL */
 
+/* ================== SUCCESS MODAL ================== */
 .success-modal {
   position: fixed;
-
-  inset: 0;
-
-  background: rgba(0, 0, 0, 0.45);
-
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
   display: flex;
-
+  align-items: center;
   justify-content: center;
 
-  align-items: center;
-
-  visibility: hidden;
-
+  /* 3 Lệnh cốt lõi để tàng hình Modal */
   opacity: 0;
+  visibility: hidden;
+  z-index: -1;
 
-  transition: 0.3s;
-
-  z-index: 9999;
+  transition: all 0.3s ease;
 }
 
+/* Chỉ hiện ra khi Javascript thêm class .show vào */
 .success-modal.show {
-  visibility: visible;
-
   opacity: 1;
+  visibility: visible;
+  z-index: 9999;
 }
 
 .success-box {
