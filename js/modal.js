@@ -1,4 +1,4 @@
-/**
+/**modal.js
  * Hiển thị modal đăng ký thành công
  * @param {string} id
  * @param {string} time
@@ -32,12 +32,15 @@ function closeSuccessModal() {
 // XỬ LÝ SỰ KIỆN ĐÓNG MODAL
 // ===============================
 
-// Dùng 1 hàm duy nhất để bắt cả sự kiện bấm ra ngoài VÀ bấm nút Đóng
-window.addEventListener("click", (e) => {
-  const modal = document.getElementById("successModal");
-  
-  // Nếu người dùng click vào vùng tối (modal) HOẶC click trúng cái nút có id="closeModal"
-  if (e.target === modal || e.target.id === "closeModal") {
-    closeSuccessModal();
-  }
-});
+const modal = document.getElementById("successModal");
+
+if (modal) {
+  // Chỉ lắng nghe click trên chính cái modal
+  modal.addEventListener("click", (e) => {
+    // Chỉ đóng nếu click trúng vùng tối (modal)
+    // HOẶC click trúng cái nút có id="closeModal"
+    if (e.target === modal || e.target.id === "closeModal") {
+      closeSuccessModal();
+    }
+  });
+}

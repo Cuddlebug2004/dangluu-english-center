@@ -113,14 +113,12 @@
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  /* 3 Lệnh cốt lõi để tàng hình Modal */
+  /* Ẩn hoàn toàn và bỏ chặn click chuột */
   opacity: 0;
   visibility: hidden;
-  z-index: -1;
+  z-index: -999;
+  pointer-events: none; /* Lệnh này giúp chuột "xuyên qua" Modal khi nó ẩn */
 
   transition: all 0.3s ease;
 }
@@ -130,6 +128,7 @@
   opacity: 1;
   visibility: visible;
   z-index: 9999;
+  pointer-events: auto; /* Chỉ chặn click khi modal hiện lên */
 }
 
 .success-box {
