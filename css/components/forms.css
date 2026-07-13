@@ -169,6 +169,3 @@
 #closeModal {
   display: none !important;
 }
-.success-modal.show #closeModal {
-  display: inline-flex !important;
-}
