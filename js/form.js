@@ -98,9 +98,3 @@ function clearErrors() {
       input.style.borderColor = "#ddd";
     });
 }
-
-const closeModal = document.getElementById("closeModal");
-
-if (closeModal) {
-  closeModal.addEventListener("click", closeSuccessModal);
-}
