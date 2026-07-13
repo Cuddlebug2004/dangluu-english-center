@@ -1,0 +1,218 @@
+/*==================================================
+                    HEADER
+==================================================*/
+
+.header {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 999;
+
+  background: #fff;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+
+  transition: 0.35s;
+}
+
+.header.scrolled {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+  backdrop-filter: blur(15px);
+}
+
+/*================ TOP BAR ================*/
+
+.topbar {
+  height: 42px;
+
+  border-bottom: 1px solid #ececec;
+
+  background: #fff;
+}
+
+.topbar-wrapper {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  height: 100%;
+}
+
+.topbar-left,
+.topbar-right {
+  display: flex;
+
+  align-items: center;
+
+  gap: 35px;
+}
+
+.top-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #666;
+
+  font-size: 14px;
+}
+
+.top-item i {
+  color: var(--primary);
+}
+
+/*================ NAVBAR ================*/
+
+.navbar {
+  height: 72px;
+}
+
+.navbar-wrapper {
+  height: 100%;
+
+  display: grid;
+
+  grid-template-columns: 300px 1fr 220px;
+
+  align-items: center;
+}
+
+/*================ LOGO ================*/
+
+.logo {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  text-decoration: none;
+}
+
+.logo img {
+  width: 74px;
+
+  height: 74px;
+
+  object-fit: contain;
+}
+
+.logo-text {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.logo-text h2 {
+  color: #eb5b28;
+
+  font-size: 28px;
+
+  font-weight: 800;
+
+  line-height: 1;
+}
+
+.logo-text p {
+  margin-top: 5px;
+
+  font-size: 14px;
+
+  letter-spacing: 2px;
+
+  color: #666;
+
+  font-weight: 600;
+}
+
+/*================ MENU ================*/
+
+.menu {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 46px;
+}
+
+.menu li {
+  list-style: none;
+}
+
+.menu a {
+  color: #222;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: 0.3s;
+
+  white-space: nowrap;
+
+  position: relative;
+}
+
+.menu a:hover {
+  color: var(--primary);
+}
+
+.menu a.active {
+  color: var(--primary);
+}
+
+.menu a.active::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  bottom: -16px;
+
+  width: 32px;
+
+  height: 4px;
+
+  background: var(--primary);
+
+  border-radius: 50px;
+}
+
+/*================ BUTTON ================*/
+
+.btn-primary {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: var(--primary);
+
+  color: #fff;
+
+  height: 54px;
+
+  border-radius: 14px;
+
+  font-weight: 700;
+
+  transition: 0.35s;
+}
+
+.btn-primary:hover {
+  background: #d94f1e;
+
+  transform: translateY(-2px);
+}
