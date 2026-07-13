@@ -69,32 +69,22 @@ form.addEventListener("submit", function (e) {
     };
     fetch(API_URL, {
       method: "POST",
-
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
-
       .then((data) => {
-        document.getElementById("registerID").innerHTML = data.id;
+        document.getElementById("registerID").textContent = data.id;
 
-        successModal.classList.add("show");
-      });
-
-    fetch(API_URL, {
-      method: "POST",
-
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-
-      .then(() => {
         document.getElementById("successModal").classList.add("show");
 
         form.reset();
       })
-
       .catch(() => {
         alert("Có lỗi xảy ra.");
+      })
+      .finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = "Gửi đăng ký";
       });
   }
 });

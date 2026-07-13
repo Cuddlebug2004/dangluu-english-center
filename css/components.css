@@ -223,6 +223,7 @@
 
 .hero {
   background: linear-gradient(180deg, #f8f8f8, #f2f2f2);
+  padding: 40px 0 80px;
 }
 
 .hero-container {

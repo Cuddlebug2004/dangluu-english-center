@@ -107,5 +107,9 @@ tabs.forEach((tab) => {
     document.querySelector(".roadmap-content").classList.add("fade");
 
     image.src = course.image;
+    Object.values(courseData).forEach((course) => {
+    const img = new Image();
+    img.src = course.image;
+});
   });
 });
