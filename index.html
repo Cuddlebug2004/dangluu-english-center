@@ -875,13 +875,21 @@
     <div class="success-modal" id="successModal">
       <div class="success-box">
         <i class="fa-solid fa-circle-check"></i>
-
         <h3>Đăng ký thành công!</h3>
-
         <p>
-          Cảm ơn bạn đã đăng ký. Đội ngũ Đăng Lưu sẽ liên hệ trong thời gian sớm
-          nhất.
+          Cảm ơn bạn đã đăng ký. Đội ngũ Đăng Lưu sẽ liên hệ trong thời gian sớm nhất.
         </p>
+        
+        <!-- THÊM ĐOẠN NÀY ĐỂ JS ĐỔ DỮ LIỆU VÀO -->
+        <div style="margin: 20px 0; padding: 15px; background: #f8f8f8; border-radius: 12px; font-size: 14px; text-align: left;">
+            <p><strong>Mã đăng ký:</strong> <span id="registerID">...</span></p>
+            <p><strong>Thời gian:</strong> <span id="registerTime">...</span></p>
+        </div>
+        <!-- KẾT THÚC PHẦN THÊM -->
+
+        <button id="closeModal" class="btn-primary">Đóng</button>
+      </div>
+    </div>
 
         <!--==================== FOOTER ====================-->
 
