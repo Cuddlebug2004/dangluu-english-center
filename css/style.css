@@ -25,10 +25,7 @@ ul {
 }
 
 .container {
-  width: 1200px;
-
-  max-width: 92%;
-
+  width: min(1320px, 94%);
   margin: auto;
 }
 /* ==========================================

@@ -70,7 +70,7 @@
 /*================ NAVBAR ================*/
 
 .navbar {
-  height: 90px;
+  height: 72px;
 }
 
 .navbar-wrapper {
@@ -223,7 +223,10 @@
 
 .hero {
   background: linear-gradient(180deg, #f8f8f8, #f2f2f2);
-  padding: 40px 0 80px;
+
+  padding-top: 0;
+
+  padding-bottom: 60px;
 }
 
 .hero-container {
@@ -235,7 +238,7 @@
 
   align-items: center;
 
-  min-height: 700px;
+  min-height: 620px;
 }
 
 .hero-subtitle {
@@ -375,7 +378,7 @@
 .hero-image {
   position: relative;
 
-  height: 540px;
+  height: 500px;
 
   background: #fff;
 
