@@ -14,9 +14,21 @@ async function registerStudent(data) {
     body: JSON.stringify(data),
   });
 
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
-  }
+  async function registerStudent(data) {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-  return await response.json();
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || `HTTP ${response.status}`);
+    }
+
+    return result;
+  }
 }

@@ -62,9 +62,24 @@ if (form) {
     try {
       const result = await registerStudent(data);
 
-      if (!response.ok) {
-        throw new Error("Không thể gửi dữ liệu.");
+      if (result.result !== "success") {
+        throw new Error(result.message || "Không thể gửi dữ liệu.");
       }
+
+      const registerID = document.getElementById("registerID");
+      const registerTime = document.getElementById("registerTime");
+
+      if (registerID) {
+        registerID.textContent = result.id;
+      }
+
+      if (registerTime) {
+        registerTime.textContent = result.time;
+      }
+
+      document.getElementById("successModal")?.classList.add("show");
+
+      form.reset();
 
       const result = await response.json();
 
