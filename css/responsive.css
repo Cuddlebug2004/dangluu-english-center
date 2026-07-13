@@ -269,3 +269,23 @@ body {
     justify-content: center;
   }
 }
+
+/* 1. Mặc định: Cho màn hình rất lớn (24 inch trở lên) */
+.container {
+    max-width: 1600px; 
+    margin: 0 auto;
+}
+
+/* 2. Khi màn hình nhỏ hơn 1600px (Laptop tầm trung) */
+@media (max-width: 1600px) {
+    .container {
+        max-width: 1200px; /* Tự động co lại cho vừa vặn */
+    }
+}
+
+/* 3. Khi màn hình nhỏ hơn 1200px (Laptop nhỏ, máy tính bảng ngang) */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 960px;
+    }
+}
