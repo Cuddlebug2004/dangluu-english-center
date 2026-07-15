@@ -14,12 +14,15 @@
     <meta name="author" content="Đăng Lưu English Center" />
     <meta name="theme-color" content="#EB5B28" />
     <link rel="icon" href="images/logo/favicon.png" />
-    
+
     <!-- Google Font -->
     <link rel="preload" as="image" href="images/logo/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Font Awesome -->
 
@@ -31,16 +34,16 @@
     <!-- CSS -->
 
     <link rel="stylesheet" href="css/style.css" />
-    
+
     <link rel="stylesheet" href="css/layout/header.css" />
     <link rel="stylesheet" href="css/layout/footer.css" />
-    
+
     <link rel="stylesheet" href="css/components/hero.css" />
     <link rel="stylesheet" href="css/components/courses.css" />
     <link rel="stylesheet" href="css/components/forms.css" />
-    
+
     <link rel="stylesheet" href="css/pages/home.css" />
-    
+
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/responsive.css" />
   </head>
@@ -99,10 +102,11 @@
             <li><a class="nav-link" href="#contact">Liên hệ</a></li>
           </ul>
 
-          <a href="#contact" class="btn-primary desktop-btn"> ĐĂNG KÝ HỌC THỬ </a>
+          <a href="#contact" class="btn-primary desktop-btn">
+            ĐĂNG KÝ HỌC THỬ
+          </a>
         </div>
       </nav>
-      <link rel="stylesheet" href="css/responsive.css" />
     </header>
 
     <!--================ HERO =================-->
@@ -772,39 +776,51 @@
           <!-- RIGHT -->
 
           <div class="contact-form">
-            <form id="registerForm">
+            <form id="registerForm" novalidate>
               <div class="form-group">
-                <label>Họ và tên phụ huynh</label>
-
-                <input type="text" id="fullname" placeholder="Nhập họ tên" />
-
-                <small></small>
+                <label for="fullname">Họ và tên phụ huynh</label>
+                <input
+                  type="text"
+                  id="fullname"
+                  name="fullname"
+                  autocomplete="name"
+                  required
+                />
+                <small class="form-error"></small>
               </div>
 
               <div class="form-group">
-                <label>Số điện thoại</label>
-
-                <input type="tel" id="phone" placeholder="09xxxxxxxx" />
-
-                <small></small>
+                <label for="phone">Số điện thoại</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  inputmode="tel"
+                  autocomplete="tel"
+                  required
+                />
+                <small class="form-error"></small>
               </div>
 
               <div class="form-group">
-                <label>Email <small>(Tùy chọn)</small></label>
+                <label for="email">
+                  Email <span class="optional-note">(Tùy chọn)</span>
+                </label>
 
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   placeholder="example@gmail.com"
+                  autocomplete="email"
                 />
 
-                <small></small>
+                <small class="form-error"></small>
               </div>
 
               <div class="form-group">
-                <label>Chương trình quan tâm</label>
-
-                <select id="course">
+                <label for="course">Chương trình quan tâm</label>
+                <select id="course" name="course" required>
                   <option value="">-- Chọn khóa học --</option>
 
                   <option>Cambridge Starters</option>
@@ -820,14 +836,14 @@
                   <option>Cambridge FCE</option>
                 </select>
 
-                <small></small>
+                <small class="form-error"></small>
               </div>
 
               <div class="form-group">
-                <label>Ghi chú</label>
-
+                <label for="message">Ghi chú</label>
                 <textarea
                   id="message"
+                  name="message"
                   rows="4"
                   placeholder="Thông tin cần tư vấn..."
                 ></textarea>
@@ -842,14 +858,14 @@
       </div>
     </section>
     <!--==================== END HEADER ====================-->
-
-    <script src="js/main.js" defer></script>
-    <script src="js/course-tabs.js"></script>
     <script src="js/config.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/validator.js"></script>
-    <script src="js/modal.js"></script>
-    <script src="js/form.js"></script>
+<script src="js/api.js"></script>
+<script src="js/validator.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/form.js"></script>
+<script src="js/course-tabs.js"></script>
+<script src="js/mobile-menu.js"></script>
+<script src="js/main.js"></script>
     <!--==================== BACK TO TOP ====================-->
 
     <button id="backToTop">
@@ -864,112 +880,117 @@
       });
     </script>
     <script src="js/mobile-menu.js"></script>
-    <script src="js/scroll-spy.js"></script>
     <div class="success-modal" id="successModal">
       <div class="success-box">
-        <button id="closeModal" class="btn-primary">Đóng</button>
+        <button id="closeModal" class="btn-primary<form id="registerForm" novalidate>">Đóng</button>
         <i class="fa-solid fa-circle-check"></i>
         <h3>Đăng ký thành công!</h3>
         <p>
-          Cảm ơn bạn đã đăng ký. Đội ngũ Đăng Lưu sẽ liên hệ trong thời gian sớm nhất.
+          Cảm ơn bạn đã đăng ký. Đội ngũ Đăng Lưu sẽ liên hệ trong thời gian sớm
+          nhất.
         </p>
-        
+
         <!-- THÊM ĐOẠN NÀY ĐỂ JS ĐỔ DỮ LIỆU VÀO -->
-        <div style="margin: 20px 0; padding: 15px; background: #f8f8f8; border-radius: 12px; font-size: 14px; text-align: left;">
-            <p><strong>Mã đăng ký:</strong> <span id="registerID">...</span></p>
-            <p><strong>Thời gian:</strong> <span id="registerTime">...</span></p>
-        </div>        <!-- KẾT THÚC PHẦN THÊM -->
+        <div class="registration-result">
+          <p>
+            <strong>Mã đăng ký:</strong>
+            <span id="registerID">...</span>
+          </p>
+
+          <p>
+            <strong>Thời gian:</strong>
+            <span id="registerTime">...</span>
+          </p>
+        </div>
+        <!-- KẾT THÚC PHẦN THÊM -->
       </div>
     </div>
 
-        <!--==================== FOOTER ====================-->
+    <!--==================== FOOTER ====================-->
 
-        <footer class="footer">
-          <div class="container footer-container">
-            <!-- Logo -->
+    <footer class="footer">
+      <div class="container footer-container">
+        <!-- Logo -->
 
-            <div class="footer-col">
-              <img src="images/logo/logo.png" alt="Logo" loading="lazy" />
+        <div class="footer-col">
+          <img src="images/logo/logo.png" alt="Logo" loading="lazy" />
 
-              <h3>ĐĂNG LƯU</h3>
+          <h3>ĐĂNG LƯU</h3>
 
-              <span>ENGLISH CENTER</span>
+          <span>ENGLISH CENTER</span>
 
-              <p>
-                Kiến tạo năng lực hội nhập toàn cầu bằng ngôn ngữ, tư duy và bản
-                lĩnh.
-              </p>
-            </div>
+          <p>
+            Kiến tạo năng lực hội nhập toàn cầu bằng ngôn ngữ, tư duy và bản
+            lĩnh.
+          </p>
+        </div>
 
-            <!-- Quick Links -->
+        <!-- Quick Links -->
 
-            <div class="footer-col">
-              <h4>Liên kết</h4>
+        <div class="footer-col">
+          <h4>Liên kết</h4>
 
-              <ul>
-                <li><a href="#home">Trang chủ</a></li>
+          <ul>
+            <li><a href="#home">Trang chủ</a></li>
 
-                <li><a href="#about">Giới thiệu</a></li>
+            <li><a href="#about">Giới thiệu</a></li>
 
-                <li><a href="#courses">Chương trình</a></li>
+            <li><a href="#courses">Chương trình</a></li>
 
-                <li><a href="#contact">Liên hệ</a></li>
-              </ul>
-            </div>
+            <li><a href="#contact">Liên hệ</a></li>
+          </ul>
+        </div>
 
-            <!-- Courses -->
+        <!-- Courses -->
 
-            <div class="footer-col">
-              <h4>Chương trình</h4>
+        <div class="footer-col">
+          <h4>Chương trình</h4>
 
-              <ul>
-                <li>Starters</li>
+          <ul>
+            <li>Starters</li>
 
-                <li>Movers</li>
+            <li>Movers</li>
 
-                <li>Flyers</li>
+            <li>Flyers</li>
 
-                <li>KET</li>
+            <li>KET</li>
 
-                <li>PET</li>
+            <li>PET</li>
 
-                <li>FCE</li>
-              </ul>
-            </div>
+            <li>FCE</li>
+          </ul>
+        </div>
 
-            <!-- Contact -->
+        <!-- Contact -->
 
-            <div class="footer-col">
-              <h4>Liên hệ</h4>
+        <div class="footer-col">
+          <h4>Liên hệ</h4>
 
-              <p>
-                <i class="fa-solid fa-location-dot"></i> 125 Bùi Ngọc Thu,
-                TP.HCM
-              </p>
+          <p>
+            <i class="fa-solid fa-location-dot"></i> 125 Bùi Ngọc Thu, TP.HCM
+          </p>
 
-              <p><i class="fa-solid fa-phone"></i> 0965 2727 24</p>
+          <p><i class="fa-solid fa-phone"></i> 0965 2727 24</p>
 
-              <p><i class="fa-solid fa-envelope"></i> info@dangleu.edu.vn</p>
+          <p><i class="fa-solid fa-envelope"></i> info@dangleu.edu.vn</p>
 
-              <p><i class="fa-regular fa-clock"></i> 08:00 - 21:00</p>
+          <p><i class="fa-regular fa-clock"></i> 08:00 - 21:00</p>
 
-              <div class="footer-social">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
 
-                <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
 
-                <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
 
-                <a href="#"><i class="fa-solid fa-comment"></i></a>
-              </div>
-            </div>
+            <a href="#"><i class="fa-solid fa-comment"></i></a>
           </div>
-
-          <div class="footer-bottom">
-            © 2026 Đăng Lưu English Center. All Rights Reserved.
-          </div>
-        </footer>
+        </div>
       </div>
-    </div>
+
+      <div class="footer-bottom">
+        © 2026 Đăng Lưu English Center. All Rights Reserved.
+      </div>
+    </footer>
   </body>
 </html>

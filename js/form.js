@@ -1,100 +1,133 @@
-//form.js
 // ===============================
 // REGISTER FORM
 // ===============================
 
-const form = document.getElementById("registerForm");
+const registerForm = document.getElementById("registerForm");
 
-if (form) {
-  const fullname = document.getElementById("fullname");
-  const phone = document.getElementById("phone");
-  const email = document.getElementById("email");
-  const course = document.getElementById("course");
+if (registerForm) {
+  const fullnameInput = document.getElementById("fullname");
+  const phoneInput = document.getElementById("phone");
+  const emailInput = document.getElementById("email");
+  const courseInput = document.getElementById("course");
+  const messageInput = document.getElementById("message");
+  const submitButton = registerForm.querySelector(".submit-btn");
 
-  const submitBtn = form.querySelector(".submit-btn");
+  registerForm.addEventListener("submit", handleRegisterSubmit);
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  async function handleRegisterSubmit(event) {
+    event.preventDefault();
 
     clearErrors();
 
-    let valid = true;
+    const isFullnameValid = validateFullname(fullnameInput.value);
+    const isPhoneValid = validatePhone(phoneInput.value);
+    const isEmailValid = validateEmail(emailInput.value);
+    const isCourseValid = courseInput.value.trim() !== "";
 
-    // Họ tên
-    if (!validateFullname(fullname.value)) {
-      showError(fullname, "Vui lòng nhập họ và tên.");
-      valid = false;
+    if (!isFullnameValid) {
+      showError(fullnameInput, "Vui lòng nhập họ và tên phụ huynh.");
+    } else {
+      showValid(fullnameInput);
     }
 
-    // Điện thoại
-    if (!validatePhone(phone.value)) {
-      showError(phone, "Số điện thoại không hợp lệ.");
-      valid = false;
+    if (!isPhoneValid) {
+      showError(phoneInput, "Số điện thoại không hợp lệ. Ví dụ: 0965272724.");
+    } else {
+      showValid(phoneInput);
     }
 
-    // Email (không bắt buộc)
-    if (!validateEmail(email.value)) {
-      showError(email, "Email không hợp lệ.");
-      valid = false;
+    if (!isEmailValid) {
+      showError(emailInput, "Email không đúng định dạng.");
+    } else if (emailInput.value.trim() !== "") {
+      showValid(emailInput);
     }
 
-    // Khóa học
-    if (course.value === "") {
-      showError(course, "Vui lòng chọn khóa học.");
-      valid = false;
+    if (!isCourseValid) {
+      showError(courseInput, "Vui lòng chọn chương trình quan tâm.");
+    } else {
+      showValid(courseInput);
     }
 
-    if (!valid) return;
+    const isFormValid =
+      isFullnameValid && isPhoneValid && isEmailValid && isCourseValid;
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Đang gửi...";
+    if (!isFormValid) {
+      const firstInvalidField = registerForm.querySelector(".is-invalid");
 
-    const data = {
-      parent: fullname.value.trim(),
-      phone: phone.value.trim(),
-      email: email.value.trim(),
-      course: course.value,
-      registerTime: new Date().toLocaleString("vi-VN"),
+      if (firstInvalidField) {
+        firstInvalidField.focus();
+      }
+
+      return;
+    }
+
+    const formData = {
+      parent: fullnameInput.value.trim(),
+      phone: phoneInput.value.trim(),
+      email: emailInput.value.trim(),
+      course: courseInput.value,
+      message: messageInput.value.trim(),
     };
 
+    setSubmittingState(true);
+
     try {
-      const result = await registerStudent(data);
+      const result = await registerStudent(formData);
 
       if (result.result !== "success") {
-        throw new Error(result.message || "Không thể gửi dữ liệu.");
+        throw new Error(result.message || "Không thể gửi dữ liệu đăng ký.");
       }
-      showSuccessModal(result.id, result.time);
 
-      form.reset();
+      registerForm.reset();
+      clearErrors();
+
+      showSuccessModal(
+        result.id || "Đang cập nhật",
+        result.time || formData.registerTime,
+      );
     } catch (error) {
-      console.error(error);
+      console.error("Register form error:", error);
 
-      alert("Không thể gửi đăng ký. Vui lòng thử lại.");
+      alert(
+        "Không thể gửi đăng ký lúc này. Vui lòng thử lại hoặc liên hệ trực tiếp qua số 0965 2727 24.",
+      );
     } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Gửi đăng ký";
+      setSubmittingState(false);
     }
-  });
-}
-
-function showError(input, message) {
-  const small = input.parentElement.querySelector("small");
-
-  if (small) {
-    small.textContent = message;
   }
 
-  input.style.borderColor = "#e53935";
-}
+  function showError(input, message) {
+    const formGroup = input.closest(".form-group");
+    const errorElement = formGroup?.querySelector(".form-error");
 
-function clearErrors() {
-  document.querySelectorAll(".form-group small").forEach((small) => {
-    small.textContent = "";
-  });
+    input.classList.add("is-invalid");
+    input.classList.remove("is-valid");
+    input.setAttribute("aria-invalid", "true");
 
-  document
-    .querySelectorAll(".form-group input, .form-group select")
-    .forEach((input) => {
-      input.style.borderColor = "#ddd";
+    if (errorElement) {
+      errorElement.textContent = message;
+    }
+  }
+
+  function showValid(input) {
+    input.classList.remove("is-invalid");
+    input.classList.add("is-valid");
+    input.removeAttribute("aria-invalid");
+  }
+
+  function clearErrors() {
+    registerForm.querySelectorAll(".form-error").forEach((errorElement) => {
+      errorElement.textContent = "";
     });
+
+    registerForm.querySelectorAll(".is-invalid, .is-valid").forEach((input) => {
+      input.classList.remove("is-invalid", "is-valid");
+      input.removeAttribute("aria-invalid");
+    });
+  }
+
+  function setSubmittingState(isSubmitting) {
+    submitButton.disabled = isSubmitting;
+    submitButton.textContent = isSubmitting ? "ĐANG GỬI..." : "ĐĂNG KÝ HỌC THỬ";
+  }
 }

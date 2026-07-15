@@ -183,13 +183,6 @@ section {
   border-color: var(--primary);
   color: var(--primary) !important;
 }
-/* Ép lại style cho nút để lấy lại độ nổi */
-button#closeModal {
-  display: inline-flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  margin-top: 20px;
-}
 /* ==========================================
    CARD
 ========================================== */

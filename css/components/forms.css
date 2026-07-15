@@ -1,4 +1,5 @@
-/*==================================================
+/* form.css
+==================================================
                   CONTACT
 ==================================================*/
 
@@ -64,10 +65,34 @@
   box-shadow: 0 0 0 3px rgba(235, 91, 40, 0.15);
 }
 
-.form-group small {
-  color: red;
-  margin-top: 6px;
+.optional-note {
+  color: #718096;
   font-size: 13px;
+  font-weight: 400;
+}
+
+.form-error {
+  min-height: 20px;
+  margin-top: 6px;
+  color: #e53935;
+  font-size: 13px;
+}
+
+.form-group input.is-invalid,
+.form-group select.is-invalid,
+.form-group textarea.is-invalid {
+  border-color: #e53935;
+  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.12);
+}
+
+.form-group input.is-valid,
+.form-group select.is-valid,
+.form-group textarea.is-valid {
+  border-color: #43a047;
+}
+
+.form-error:empty {
+  display: none;
 }
 
 .submit-btn {
@@ -134,11 +159,25 @@
   margin-bottom: 15px;
 }
 
-#closeModal {
-  display: none !important;
+.registration-result {
+  margin: 20px 0;
+  padding: 15px;
+
+  background: #f8f8f8;
+  border-radius: 12px;
+
+  font-size: 14px;
+  text-align: left;
 }
 
-.success-modal.show #closeModal {
-  display: inline-flex !important;
+.registration-result p {
+  margin: 0;
+}
+
+.registration-result p + p {
+  margin-top: 8px;
+}
+
+#closeModal {
   margin-top: 20px;
 }
