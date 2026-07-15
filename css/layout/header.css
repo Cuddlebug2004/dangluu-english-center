@@ -96,48 +96,38 @@
 
 .logo {
   display: flex;
-
   align-items: center;
-
-  gap: 14px;
-
+  gap: 8px;
   text-decoration: none;
 }
 
 .logo img {
-  width: 74px;
-
-  height: 74px;
-
+  width: 64px;
+  height: 64px;
   object-fit: contain;
 }
 
 .logo-text {
   display: flex;
-
   flex-direction: column;
+  justify-content: center;
 }
 
 .logo-text h2 {
   color: #eb5b28;
-
   font-size: 28px;
-
   font-weight: 800;
-
   line-height: 1;
+  margin: 0;
 }
 
 .logo-text p {
-  margin-top: 5px;
-
-  font-size: 14px;
-
-  letter-spacing: 2px;
-
+  margin-top: 2px;
+  font-size: 13px;
+  letter-spacing: 1.4px;
   color: #666;
-
   font-weight: 600;
+  margin-bottom: 0;
 }
 
 /*================ MENU ================*/

@@ -647,14 +647,3 @@
 .gallery-side img:hover {
   transform: translateY(-6px);
 }
-/* GALLERY */
-
-@media (max-width: 992px) {
-  .gallery-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .gallery-main {
-    height: 420px;
-  }
-}

@@ -1,48 +1,134 @@
-/*responsive.css*/
+/*==================================================
+                    RESPONSIVE
+==================================================*/
 
-/* ==========================================
-   LARGE DESKTOP
-========================================== */
-@media (max-width: 1400px) {
-}
+/*
+  Breakpoints:
+  - 1200px: Laptop
+  - 992px: Tablet và menu mobile
+  - 768px: Mobile
+  - 576px: Mobile nhỏ
+*/
 
-/* ==========================================
-   LAPTOP
-========================================== */
+/*==================================================
+                    LAPTOP
+==================================================*/
+
 @media (max-width: 1200px) {
+  /* HEADER */
+
+  .navbar-wrapper {
+    grid-template-columns: 260px minmax(0, 1fr) 190px;
+    gap: 20px;
+  }
+
+  .logo img {
+    width: 62px;
+    height: 62px;
+  }
+
+  .logo-text h2 {
+    font-size: 24px;
+  }
+
+  .logo-text p {
+    font-size: 12px;
+    letter-spacing: 1.6px;
+  }
+
+  .menu {
+    gap: 28px;
+  }
+
+  /* HERO */
+
+  .hero-container {
+    grid-template-columns: minmax(380px, 480px) minmax(0, 1fr);
+    gap: 48px;
+  }
+
+  /* WHY */
+
+  .why-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* ROADMAP */
+
+  .roadmap-content {
+    grid-template-columns: 460px minmax(0, 1fr);
+    gap: 50px;
+  }
+
+  /* FOOTER */
+
+  .footer-container {
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: 36px;
+  }
 }
 
-/* ==========================================
-   TABLET & MOBILE MENU
-========================================== */
+/*==================================================
+            TABLET VÀ MOBILE MENU
+==================================================*/
+
 @media (max-width: 992px) {
-  /* --- HERO SECTION --- */
-  .hero-container {
-    grid-template-columns: 1fr;
+  /* SECTION SPACING */
+
+  .why,
+  .about,
+  .vision,
+  .core-values,
+  .philosophy,
+  .courses,
+  .roadmap,
+  .method,
+  .teachers,
+  .gallery,
+  .contact {
+    padding: 85px 0;
   }
 
-  .hero-left {
-    order: 2;
-    text-align: center;
+  .section-title {
+    margin-bottom: 48px;
   }
 
-  .hero-left p {
-    margin-inline: auto;
+  /* TOPBAR */
+
+  .topbar {
+    height: auto;
+    min-height: 42px;
   }
 
-  .hero-image {
-    order: 1;
-    max-width: 500px;
-    margin: auto;
+  .topbar-wrapper {
+    min-height: 42px;
+    padding: 7px 0;
+    gap: 16px;
   }
 
-  .hero-buttons {
-    justify-content: center;
+  .topbar-left,
+  .topbar-right {
+    gap: 16px;
+    flex-wrap: wrap;
   }
 
-  /* --- MENU MOBILE (KÍNH MỜ) --- */
+  .top-item {
+    font-size: 13px;
+  }
+
+  /* NAVBAR */
+
+  .navbar {
+    height: 70px;
+  }
+
+  .header.scrolled .navbar {
+    height: 66px;
+  }
+
   .navbar-wrapper {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 20px;
   }
 
   .desktop-btn {
@@ -50,33 +136,60 @@
   }
 
   .menu-toggle {
-    display: block;
-    font-size: 26px;
-    color: var(--primary);
-    cursor: pointer;
+    position: relative;
     z-index: 1001;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+
+    color: var(--primary);
+    background: var(--secondary);
+
+    border-radius: 12px;
+
+    font-size: 24px;
+    cursor: pointer;
   }
 
   .menu {
     position: fixed;
     top: 0;
-    right: -100%;
-    width: 280px;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(15px);
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 100px 40px 0;
-    margin: 0;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
-    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    right: 0;
     z-index: 1000;
+
+    width: min(320px, 86vw);
+    height: 100dvh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+
+    gap: 8px;
+    padding: 100px 28px 40px;
+    margin: 0;
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+
+    box-shadow: -12px 0 35px rgba(0, 0, 0, 0.12);
+
+    transform: translateX(105%);
+
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .menu.active {
-    right: 0;
+    transform: translateX(0);
   }
 
   .menu li {
@@ -84,220 +197,687 @@
   }
 
   .menu a {
-    font-size: 18px;
     display: block;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
+
+    width: 100%;
+    padding: 14px 16px;
+
+    border-bottom: 1px solid #edf2f7;
+    border-radius: 10px;
+
+    font-size: 17px;
+  }
+
+  .menu a.active {
+    color: var(--primary);
+    background: var(--secondary);
+  }
+
+  .menu a.active::after {
+    display: none;
+  }
+
+  /* HERO */
+
+  .hero {
+    padding: 45px 0 75px;
+  }
+
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 20px 0;
+
+    text-align: center;
+  }
+
+  .hero-left {
+    order: 1;
+    align-items: center;
+    margin-bottom: 0;
+  }
+
+  .hero-right {
+    order: 2;
+  }
+
+  .hero-left p {
+    margin-inline: auto;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-image {
+    max-width: 420px;
+    margin-inline: auto;
+  }
+
+  /* ABOUT */
+
+  .about-wrapper,
+  .philosophy-wrapper {
+    grid-template-columns: 1fr;
+    gap: 48px;
+
+    text-align: center;
+  }
+
+  .about-image,
+  .philosophy-image {
+    width: 100%;
+    max-width: 620px;
+    margin-inline: auto;
+  }
+
+  .about-image-box,
+  .philosophy-image {
+    height: 430px;
+  }
+
+  .about-list {
+    max-width: 620px;
+    margin-inline: auto;
+    margin-bottom: 40px;
+
+    text-align: left;
+  }
+
+  /* VISION, CORE VALUES */
+
+  .vision-grid {
+    gap: 25px;
+  }
+
+  .core-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* PHILOSOPHY */
+
+  .philosophy-quote {
+    margin: 45px auto;
+  }
+
+  .philosophy-wrapper {
+    margin-top: 55px;
+  }
+
+  .philosophy-content {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  /* METHOD */
+
+  .method-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 50px;
+  }
+
+  /* TEACHERS */
+
+  .teacher-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 50px;
+  }
+
+  /* COURSES */
+
+  .course-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* ROADMAP */
+
+  .roadmap-tabs {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .roadmap-content {
+    grid-template-columns: 1fr;
+    gap: 45px;
+
+    text-align: center;
+  }
+
+  .roadmap-image {
+    width: 100%;
+    max-width: 620px;
+    height: 430px;
+    margin-inline: auto;
+  }
+
+  .roadmap-info {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .course-features {
+    max-width: 540px;
+    margin-inline: auto;
+    margin-bottom: 40px;
+
+    text-align: left;
+  }
+
+  /* GALLERY */
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-main {
+    height: 440px;
+  }
+
+  .gallery-side {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .gallery-side img {
+    height: 170px;
+  }
+
+  /* CONTACT */
+
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+    gap: 45px;
+    margin-top: 50px;
+  }
+
+  .contact-map,
+  .contact-form {
+    width: 100%;
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .contact-map iframe {
+    height: 430px;
+  }
+
+  /* FOOTER */
+
+  .footer-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 45px;
   }
 }
 
-/* ==========================================
-   DESKTOP MENU (Ẩn nút Menu Mobile)
-========================================== */
+/*==================================================
+                    DESKTOP MENU
+==================================================*/
+
 @media (min-width: 993px) {
   .menu-toggle {
     display: none;
   }
 }
 
-/* ==========================================
-   MOBILE
-========================================== */
+/*==================================================
+                    MOBILE
+==================================================*/
+
 @media (max-width: 768px) {
+  /* SECTION SPACING */
+
+  .why,
+  .about,
+  .vision,
+  .core-values,
+  .philosophy,
+  .courses,
+  .roadmap,
+  .method,
+  .teachers,
+  .gallery,
+  .contact {
+    padding: 68px 0;
+  }
+
+  .section-title {
+    margin-bottom: 38px;
+  }
+
+  .section-title h2 {
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.25;
+  }
+
+  .section-title p {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  /* TOPBAR */
+
+  .topbar-left {
+    display: none;
+  }
+
+  .topbar-wrapper {
+    justify-content: center;
+  }
+
+  .topbar-right .top-item:last-child {
+    display: none;
+  }
+
+  /* HEADER */
+
+  .logo {
+    gap: 6px;
+  }
+
+  .logo img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .logo-text h2 {
+    font-size: 19px;
+  }
+
+  .logo-text p {
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  /* HERO */
+
   .hero {
-    padding: 20px 0 60px;
+    padding: 35px 0 65px;
   }
 
   .hero-container {
-    gap: 35px;
+    gap: 38px;
     padding: 10px 0;
   }
 
+  .hero-left h1 {
+    font-size: clamp(42px, 13vw, 60px);
+  }
+
+  .hero-left h3 {
+    font-size: clamp(19px, 5vw, 24px);
+  }
+
   .hero-buttons {
+    width: 100%;
     flex-direction: column;
-    align-items: center;
   }
 
   .hero-btn,
   .course-btn {
     width: 100%;
-    max-width: 320px;
+    max-width: 360px;
+  }
+
+  .hero-image {
+    max-width: 360px;
+  }
+
+  /* WHY */
+
+  .why-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 40px;
+  }
+
+  .why-card {
+    padding: 30px 18px;
+  }
+
+  .why-icon {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 20px;
+
+    font-size: 27px;
+  }
+
+  .why-card h3 {
+    font-size: 18px;
+  }
+
+  /* ABOUT */
+
+  .about-wrapper,
+  .philosophy-wrapper {
+    gap: 38px;
+  }
+
+  .about-image-box,
+  .philosophy-image {
+    height: 340px;
+  }
+
+  .about-content h2 {
+    font-size: 34px;
+  }
+
+  .about-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* VISION */
+
+  .vision-grid {
+    grid-template-columns: 1fr;
+    margin-top: 42px;
+  }
+
+  .vision-card {
+    padding: 36px 26px;
+  }
+
+  /* CORE VALUES */
+
+  .brand-banner {
+    margin: 40px auto;
+    padding: 30px 22px;
+  }
+
+  .brand-banner h3 {
+    font-size: 25px;
+  }
+
+  .core-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* PHILOSOPHY */
+
+  .philosophy-quote h3 {
+    font-size: clamp(27px, 7vw, 35px);
+  }
+
+  .philosophy-content p {
+    font-size: 16px;
+  }
+
+  /* METHOD */
+
+  .method-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .method-card {
+    padding: 34px 22px;
+  }
+
+  .method-card h3 {
+    font-size: 23px;
+  }
+
+  /* TEACHERS */
+
+  .teacher-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .teacher-image {
+    height: 340px;
+  }
+
+  /* COURSES */
+
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .course-card {
+    padding: 32px 26px;
+  }
+
+  /* ROADMAP TABS */
+
+  .roadmap-tabs {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+
+    margin-inline: -4%;
+    padding: 4px 4% 12px;
+
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+
+    scrollbar-width: none;
+  }
+
+  .roadmap-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-btn {
+    flex: 0 0 auto;
+    padding: 11px 24px;
+  }
+
+  .roadmap-image {
+    height: 330px;
+  }
+
+  .roadmap-info h3 {
+    font-size: 34px;
+  }
+
+  /* GALLERY */
+
+  .gallery-main {
+    height: 340px;
+  }
+
+  .gallery-side {
+    gap: 15px;
+  }
+
+  .gallery-side img {
+    height: 135px;
+  }
+
+  /* CONTACT */
+
+  .contact-map iframe {
+    height: 340px;
+  }
+
+  .contact-form {
+    padding: 30px 24px;
+  }
+
+  /* MODAL */
+
+  .success-box {
+    width: calc(100% - 32px);
+    padding: 36px 26px;
+  }
+
+  /* FOOTER */
+
+  .footer {
+    padding-top: 60px;
+  }
+
+  .footer-container {
+    gap: 35px;
+  }
+
+  .footer-bottom {
+    margin-top: 45px;
   }
 }
 
-/* ==========================================
-   SMALL MOBILE
-========================================== */
+/*==================================================
+                  SMALL MOBILE
+==================================================*/
+
 @media (max-width: 576px) {
-  .hero-image {
-    min-height: 320px;
-    border-radius: 20px;
+  /* HEADER */
+
+  .topbar {
+    display: none;
+  }
+
+  .navbar,
+  .header.scrolled .navbar {
+    height: 64px;
+  }
+
+  .logo img {
+    width: 46px;
+    height: 46px;
+  }
+
+  .logo-text h2 {
+    font-size: 18px;
+  }
+
+  .logo-text p {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .menu-toggle {
+    width: 42px;
+    height: 42px;
+
+    font-size: 22px;
+  }
+
+  .menu {
+    width: 88vw;
+    padding: 88px 22px 35px;
+  }
+
+  /* HERO */
+
+  .hero {
+    padding: 28px 0 55px;
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .hero-left h1 {
+    font-size: clamp(40px, 14vw, 52px);
   }
 
   .hero-left p {
     font-size: 15px;
   }
 
-  .hero-subtitle {
-    font-size: 15px;
+  .hero-image {
+    max-width: 310px;
   }
 
-  .hero-left h1 {
-    line-height: 1.1;
+  .hero-image img {
+    border-width: 6px;
+    border-radius: 30px 90px 30px 30px;
   }
 
   .hero-shape {
     display: none;
   }
-}
 
-/* ==========================================
-   KHÓA TRỤC NGANG (CHẶN KHOẢNG TRẮNG)
-========================================== */
-html,
-body {
-  overflow-x: hidden !important;
-  width: 100%;
-  position: relative;
-}
+  /* WHY */
 
-/* ==========================================
-   TỐI ƯU TABLET (Dưới 992px)
-========================================== */
-@media (max-width: 992px) {
-  /* Chuyển các layout 2 cột (1 to, 1 nhỏ) thành 1 cột dọc */
-  .about-wrapper,
-  .philosophy-wrapper,
-  .roadmap-content,
-  .contact-wrapper {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    text-align: center;
-  }
-
-  /* Thu nhỏ chiều cao các ảnh bị set cứng */
-  .about-image-box,
-  .philosophy-image,
-  .roadmap-image,
-  .contact-map iframe {
-    height: 400px;
-    width: 100%;
-  }
-
-  /* Đưa các danh sách/thẻ về giữa */
-  .about-list,
-  .course-features {
-    text-align: left;
-    max-width: 500px;
-    margin-inline: auto;
-  }
-
-  /* Chuyển các grid nhiều cột xuống còn 2-3 cột */
   .why-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .vision-grid {
     grid-template-columns: 1fr;
   }
-  .core-grid,
-  .course-grid,
-  .teacher-grid,
+
+  /* CARDS */
+
   .method-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .footer-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* ==========================================
-   TỐI ƯU ĐIỆN THOẠI (Dưới 768px)
-========================================== */
-@media (max-width: 768px) {
-  /* Ép TẤT CẢ các grid về 1 cột trên điện thoại */
-  .why-grid,
-  .core-grid,
-  .course-grid,
-  .teacher-grid,
-  .method-grid,
-  .footer-container {
     grid-template-columns: 1fr;
-    gap: 20px;
   }
 
-  /* Giảm khoảng cách (padding) của các section để đỡ trống trải */
-  section {
-    padding: 70px 0;
-  }
-  .about,
-  .core-values,
-  .philosophy,
-  .roadmap,
-  .method,
-  .gallery,
-  .contact {
-    padding: 60px 0;
+  .core-card,
+  .vision-card,
+  .method-card {
+    padding: 34px 24px;
   }
 
-  /* Thu nhỏ chữ tiêu đề */
-  h1 {
-    font-size: 38px !important;
-  }
-  h2 {
-    font-size: 28px !important;
-  }
-  .section-title {
-    margin-bottom: 40px;
-  }
+  /* IMAGES */
 
-  /* Ép ảnh nhỏ lại trên mobile */
   .about-image-box,
   .philosophy-image,
   .roadmap-image {
+    height: 280px;
+  }
+
+  .teacher-image {
     height: 300px;
   }
 
-  /* Chỉnh lại footer */
-  .footer {
-    padding-top: 50px;
+  /* GALLERY */
+
+  .gallery-main {
+    height: 280px;
   }
+
+  .gallery-side {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-side img {
+    height: 220px;
+  }
+
+  /* CONTACT */
+
+  .contact-map iframe {
+    height: 300px;
+  }
+
+  .contact-form {
+    padding: 26px 18px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px;
+  }
+
+  /* FOOTER */
+
   .footer-container {
+    grid-template-columns: 1fr;
+
     text-align: center;
-    gap: 30px;
   }
+
+  .footer-col img {
+    margin-inline: auto;
+  }
+
   .footer-social {
     justify-content: center;
   }
-}
 
-/* 1. Mặc định: Cho màn hình rất lớn (24 inch trở lên) */
-.container {
-  max-width: 1600px;
-  margin: 0 auto;
-}
+  .footer-bottom {
+    padding: 22px 16px;
 
-/* 2. Khi màn hình nhỏ hơn 1600px (Laptop tầm trung) */
-@media (max-width: 1600px) {
-  .container {
-    max-width: 1200px; /* Tự động co lại cho vừa vặn */
+    font-size: 13px;
   }
-}
 
-/* 3. Khi màn hình nhỏ hơn 1200px (Laptop nhỏ, máy tính bảng ngang) */
-@media (max-width: 1200px) {
-  .container {
-    max-width: 960px;
+  /* BACK TO TOP */
+
+  #backToTop {
+    right: 18px;
+    bottom: 18px;
+
+    width: 48px;
+    height: 48px;
   }
-}
-
-html {
-  overflow-x: hidden;
-}
-
-body {
-  overflow-x: hidden;
-}
-
-* {
-  max-width: 100%;
 }
