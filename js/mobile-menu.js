@@ -8,16 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuButton = document.getElementById("mobile-menu");
   const menu = document.getElementById("primary-menu");
   const header = document.querySelector(".header");
+
   const navLinks = Array.from(document.querySelectorAll(".nav-link"));
 
   if (!menuButton || !menu) {
-    console.warn("Không tìm thấy nút hoặc danh sách mobile menu.");
+    console.warn("Không tìm thấy mobile menu.");
     return;
   }
 
   const icon = menuButton.querySelector("i");
 
-  // Tạo lớp nền tối phía sau menu.
   const overlay = document.createElement("div");
 
   overlay.className = "menu-overlay";
@@ -25,15 +25,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.body.appendChild(overlay);
 
+  let savedScrollPosition = 0;
+
   /**
-   * Kiểm tra menu đang mở hay không.
+   * Kiểm tra menu đang mở.
    */
   function isMenuOpen() {
     return menu.classList.contains("active");
   }
 
   /**
-   * Cập nhật icon và thuộc tính accessibility.
+   * Khóa trang tại đúng vị trí cuộn hiện tại.
+   */
+  function lockPageScroll() {
+    savedScrollPosition = window.scrollY;
+
+    document.documentElement.classList.add("menu-open");
+    document.body.classList.add("menu-open");
+
+    document.body.style.top = `-${savedScrollPosition}px`;
+  }
+
+  /**
+   * Mở khóa trang và trả lại đúng vị trí cuộn.
+   */
+  function unlockPageScroll() {
+    document.documentElement.classList.remove("menu-open");
+    document.body.classList.remove("menu-open");
+
+    document.body.style.removeProperty("top");
+
+    window.scrollTo({
+      top: savedScrollPosition,
+      left: 0,
+      behavior: "auto",
+    });
+  }
+
+  /**
+   * Cập nhật nút hamburger.
    */
   function updateMenuButtonState(isOpen) {
     menuButton.setAttribute("aria-expanded", String(isOpen));
@@ -52,31 +82,38 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Mở mobile menu.
+   * Mở menu.
    */
   function openMenu() {
+    if (isMenuOpen()) {
+      return;
+    }
+
+    lockPageScroll();
+
     menu.classList.add("active");
     overlay.classList.add("show");
-    document.body.classList.add("menu-open");
+
+    overlay.setAttribute("aria-hidden", "false");
 
     updateMenuButtonState(true);
-
-    const firstLink = menu.querySelector("a");
-
-    window.requestAnimationFrame(() => {
-      firstLink?.focus();
-    });
   }
 
   /**
-   * Đóng mobile menu.
+   * Đóng menu.
    */
   function closeMenu({ restoreFocus = false } = {}) {
+    if (!isMenuOpen()) {
+      return;
+    }
+
     menu.classList.remove("active");
     overlay.classList.remove("show");
-    document.body.classList.remove("menu-open");
+
+    overlay.setAttribute("aria-hidden", "true");
 
     updateMenuButtonState(false);
+    unlockPageScroll();
 
     if (restoreFocus) {
       menuButton.focus();
@@ -95,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Cuộn đến section và trừ chiều cao Header.
+   * Cuộn tới section và trừ chiều cao header.
    */
   function scrollToSection(targetElement) {
     const headerHeight = header?.offsetHeight || 0;
@@ -105,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.scrollTo({
       top: Math.max(targetPosition, 0),
+      left: 0,
       behavior: "smooth",
     });
   }
@@ -134,6 +172,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  /*
+   * Chặn thao tác kéo trên overlay.
+   * passive: false là bắt buộc để preventDefault hoạt động.
+   */
+  overlay.addEventListener(
+    "touchmove",
+    (event) => {
+      event.preventDefault();
+    },
+    {
+      passive: false,
+    },
+  );
+
   navLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
       const href = link.getAttribute("href");
@@ -146,6 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const targetElement = document.querySelector(href);
 
       if (!targetElement) {
+        closeMenu();
         return;
       }
 
@@ -154,14 +207,17 @@ document.addEventListener("DOMContentLoaded", () => {
       setActiveLink(link);
       closeMenu();
 
-      scrollToSection(targetElement);
+      window.requestAnimationFrame(() => {
+        scrollToSection(targetElement);
+      });
 
-      // Cập nhật hash mà không làm trình duyệt nhảy vị trí.
       window.history.replaceState(null, "", href);
     });
   });
 
-  // Đóng menu bằng phím Escape.
+  /**
+   * Đóng bằng phím Escape.
+   */
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && isMenuOpen()) {
       closeMenu({
@@ -170,44 +226,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Giữ focus bên trong menu khi menu đang mở.
-  document.addEventListener("keydown", (event) => {
-    if (event.key !== "Tab" || !isMenuOpen()) {
-      return;
-    }
-
-    const focusableElements = [
-      menuButton,
-      ...menu.querySelectorAll(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      ),
-    ];
-
-    if (focusableElements.length === 0) {
-      return;
-    }
-
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    if (event.shiftKey && document.activeElement === firstElement) {
-      event.preventDefault();
-      lastElement.focus();
-    } else if (!event.shiftKey && document.activeElement === lastElement) {
-      event.preventDefault();
-      firstElement.focus();
-    }
-  });
-
-  // Reset menu khi chuyển từ mobile lên desktop.
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > BREAKPOINT && isMenuOpen()) {
-      closeMenu();
-    }
-  });
+  /**
+   * Reset khi đổi từ mobile lên desktop.
+   */
+  window.addEventListener(
+    "resize",
+    () => {
+      if (window.innerWidth > BREAKPOINT && isMenuOpen()) {
+        closeMenu();
+      }
+    },
+    {
+      passive: true,
+    },
+  );
 
   /**
-   * Scroll Spy bằng IntersectionObserver.
+   * Scroll Spy.
    */
   const observedSections = navLinks
     .map((link) => {

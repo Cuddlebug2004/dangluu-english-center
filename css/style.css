@@ -11,25 +11,35 @@
 
 html {
   width: 100%;
+  max-width: 100%;
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+
+  overflow-x: clip;
+
   font-family: "Be Vietnam Pro", sans-serif;
   font-size: 16px;
   line-height: 1.8;
   color: var(--text);
   background: var(--background);
-  /* Xóa mọi filter gây mờ */
+
   filter: none !important;
   opacity: 1 !important;
 }
-
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
 img {
   display: block;
   max-width: 100%;
