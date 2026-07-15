@@ -17,8 +17,10 @@
 }
 
 .header.scrolled {
+  background: rgba(255, 255, 255, 0.94);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 
+  -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
 }
 
@@ -71,8 +73,15 @@
 
 .navbar {
   height: 72px;
-}
 
+  transition:
+    height 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.header.scrolled .navbar {
+  height: 66px;
+}
 .navbar-wrapper {
   height: 100%;
 

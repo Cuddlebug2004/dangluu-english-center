@@ -1,52 +1,52 @@
-/* Animations */
+/*==================================================
+                    ANIMATIONS
+==================================================*/
+
 .hero-left {
-  animation: slideLeft 1s ease;
+  animation: heroSlideLeft 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .hero-right {
-  animation: slideRight 1s ease;
+  animation: heroSlideRight 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-@keyframes slideLeft {
+
+@keyframes heroSlideLeft {
   from {
     opacity: 0;
-
-    transform: translateX(-80px);
+    transform: translate3d(-40px, 0, 0);
   }
 
   to {
     opacity: 1;
-
-    transform: none;
+    transform: translate3d(0, 0, 0);
   }
 }
 
-@keyframes slideRight {
+@keyframes heroSlideRight {
   from {
     opacity: 0;
-
-    transform: translateX(80px);
+    transform: translate3d(40px, 0, 0);
   }
 
   to {
     opacity: 1;
-
-    transform: none;
+    transform: translate3d(0, 0, 0);
   }
 }
-.hero-btn {
-  animation: float 3s ease-in-out infinite;
-}
 
-@keyframes float {
-  0% {
-    transform: translateY(0);
+/* Tôn trọng cài đặt giảm chuyển động của người dùng */
+@media (prefers-reduced-motion: reduce) {
+  .hero-left,
+  .hero-right {
+    animation: none;
   }
 
-  50% {
-    transform: translateY(-6px);
-  }
-
-  100% {
-    transform: translateY(0);
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

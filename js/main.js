@@ -1,51 +1,56 @@
-//main.js
-window.addEventListener("scroll", () => {
-  const nav = document.querySelector(".navbar");
+// ===============================
+// MAIN
+// ===============================
 
-  if (window.scrollY > 20) {
-    nav.style.height = "72px";
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.querySelector(".header");
+  const backToTopButton = document.getElementById("backToTop");
 
-    nav.style.backdropFilter = "blur(18px)";
+  let scrollTicking = false;
 
-    nav.style.boxShadow = "0 8px 30px rgba(0,0,0,.08)";
-  } else {
-    nav.style.height = "82px";
+  /**
+   * Cập nhật giao diện dựa trên vị trí cuộn.
+   */
+  function updateScrollUI() {
+    const scrollPosition = window.scrollY;
 
-    nav.style.boxShadow = "none";
+    if (header) {
+      header.classList.toggle("scrolled", scrollPosition > 50);
+    }
+
+    if (backToTopButton) {
+      backToTopButton.classList.toggle("show", scrollPosition > 500);
+    }
+
+    scrollTicking = false;
   }
-});
-//==============================
-// BACK TO TOP
-//==============================
 
-const backToTop = document.getElementById("backToTop");
+  /**
+   * Giới hạn số lần xử lý trong lúc cuộn.
+   */
+  function handleScroll() {
+    if (scrollTicking) {
+      return;
+    }
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 500) {
-    backToTop.classList.add("show");
-  } else {
-    backToTop.classList.remove("show");
+    scrollTicking = true;
+
+    window.requestAnimationFrame(updateScrollUI);
   }
-});
 
-backToTop.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-
-    behavior: "smooth",
+  window.addEventListener("scroll", handleScroll, {
+    passive: true,
   });
-});
 
-//==============================
-// HEADER
-//==============================
-
-const header = document.querySelector(".header");
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 50) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
+  if (backToTopButton) {
+    backToTopButton.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
   }
+
+  // Thiết lập đúng trạng thái ngay khi tải trang.
+  updateScrollUI();
 });
