@@ -19,7 +19,13 @@
     <link rel="icon" href="images/logo/favicon.png" />
 
     <!-- Preload logo -->
-    <link rel="preload" as="image" href="images/logo/logo.png" />
+    <link
+  rel="preload"
+  as="image"
+  href="images/hero/hero.webp"
+  type="image/webp"
+  fetchpriority="high"
+/>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -171,10 +177,11 @@
           <div class="hero-right">
             <div class="hero-image">
               <img
-                src="images/hero/hero.png"
-                alt="Học viên tại Đăng Lưu English Center"
-                fetchpriority="high"
-              />
+  src="images/hero/hero.webp"
+  alt="Học viên tại Đăng Lưu English Center"
+  fetchpriority="high"
+  decoding="async"
+/>
 
               <div class="hero-shape shape1"></div>
               <div class="hero-shape shape2"></div>
@@ -441,11 +448,12 @@
           <div class="philosophy-wrapper">
             <div class="philosophy-image">
               <img
-                src="images/about/about.jpg"
+                src="images/about/about.webp"
                 alt="Lớp học tại Đăng Lưu English Center"
                 width="600"
                 height="450"
                 loading="lazy"
+                decoding="async"
               />
             </div>
 
@@ -513,7 +521,7 @@
             <div class="roadmap-image">
               <img
                 id="courseImage"
-                src="images/courses/starters.jpg"
+                src="images/courses/starters.webp"
                 alt="Khóa học Cambridge Starters"
                 loading="lazy"
               />
@@ -654,9 +662,10 @@
             <div class="teacher-card">
               <div class="teacher-image">
                 <img
-                  src="images/teachers/teacher1.jpg"
+                  src="images/teachers/teacher1.webp"
                   alt="Giảng viên Cambridge tiếng Anh thiếu nhi"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
 
@@ -676,9 +685,10 @@
             <div class="teacher-card">
               <div class="teacher-image">
                 <img
-                  src="images/teachers/teacher2.jpg"
+                  src="images/teachers/teacher2.webp"
                   alt="Giảng viên Cambridge tiếng Anh thiếu niên"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
 
@@ -698,9 +708,10 @@
             <div class="teacher-card">
               <div class="teacher-image">
                 <img
-                  src="images/teachers/teacher3.jpg"
+                  src="images/teachers/teacher3.webp"
                   alt="Giảng viên luyện thi Cambridge"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
 
@@ -741,29 +752,33 @@
           <div class="gallery-grid">
             <div class="gallery-main">
               <img
-                src="images/gallery/classroom.jpg"
+                src="images/gallery/classroom.webp"
                 alt="Không gian lớp học tại Đăng Lưu"
                 loading="lazy"
+                decoding="async"
               />
             </div>
 
             <div class="gallery-side">
               <img
-                src="images/gallery/activity1.jpg"
+                src="images/gallery/activity1.webp"
                 alt="Hoạt động học tập tại Đăng Lưu"
                 loading="lazy"
+                decoding="async"
               />
 
               <img
-                src="images/gallery/activity2.jpg"
+                src="images/gallery/activity2.webp"
                 alt="Học viên tham gia hoạt động tiếng Anh"
                 loading="lazy"
+                decoding="async"
               />
 
               <img
-                src="images/gallery/activity3.jpg"
+                src="images/gallery/activity3.webp"
                 alt="Không gian học tập tại Đăng Lưu"
                 loading="lazy"
+                decoding="async"
               />
             </div>
           </div>

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
       age: "6 - 8 tuổi",
       time: "72 buổi",
       output: "YLE Starters",
-      image: "images/courses/starters.jpg",
+      image: "images/courses/starters.webp",
     },
 
     movers: {
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       age: "8 - 10 tuổi",
       time: "80 buổi",
       output: "YLE Movers",
-      image: "images/courses/movers.jpg",
+      image: "images/courses/movers.webp",
     },
 
     flyers: {
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       age: "10 - 12 tuổi",
       time: "90 buổi",
       output: "YLE Flyers",
-      image: "images/courses/flyers.jpg",
+      image: "images/courses/flyers.webp",
     },
 
     ket: {
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       age: "12+",
       time: "100 buổi",
       output: "A2 Key",
-      image: "images/courses/ket.jpg",
+      image: "images/courses/ket.webp",
     },
 
     pet: {
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       age: "13+",
       time: "110 buổi",
       output: "B1 Preliminary",
-      image: "images/courses/pet.jpg",
+      image: "images/courses/pet.webp",
     },
 
     fce: {
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
       age: "15+",
       time: "120 buổi",
       output: "B2 First",
-      image: "images/courses/fce.jpg",
+      image: "images/courses/fce.webp",
     },
   });
 
