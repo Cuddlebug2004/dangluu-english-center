@@ -1,104 +1,150 @@
-<!--index.html-->
 <!doctype html>
 <html lang="vi">
   <head>
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Đăng Lưu English Center | Học tiếng Anh chuẩn Cambridge</title>
+
     <meta
       name="description"
       content="Đăng Lưu English Center đào tạo tiếng Anh Cambridge cho trẻ em và thiếu niên với lộ trình từ Starters đến FCE. Môi trường học tập hiện đại, giáo viên tận tâm và phương pháp học lấy học viên làm trung tâm."
     />
+
     <meta name="author" content="Đăng Lưu English Center" />
+
     <meta name="theme-color" content="#EB5B28" />
+
     <link rel="icon" href="images/logo/favicon.png" />
 
-    <!-- Google Font -->
+    <!-- Preload logo -->
     <link rel="preload" as="image" href="images/logo/logo.png" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
       rel="stylesheet"
     />
 
     <!-- Font Awesome -->
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
 
-    <!-- CSS -->
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 
+    <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css" />
 
+    <!-- Layout CSS -->
     <link rel="stylesheet" href="css/layout/header.css" />
+
     <link rel="stylesheet" href="css/layout/footer.css" />
 
+    <!-- Component CSS -->
     <link rel="stylesheet" href="css/components/hero.css" />
+
     <link rel="stylesheet" href="css/components/courses.css" />
+
+    <link rel="stylesheet" href="css/components/forms.css" />
+
     <link rel="stylesheet" href="css/components/faq.css" />
+
+    <!-- Page CSS -->
     <link rel="stylesheet" href="css/pages/home.css" />
+
+    <!-- Animation and responsive -->
     <link rel="stylesheet" href="css/animations.css" />
+
     <link rel="stylesheet" href="css/responsive.css" />
   </head>
 
   <body>
-    <!--==================== HEADER ====================-->
-
-    <!-- ================= HEADER ================= -->
+    <!--==================================================
+                          HEADER
+    ==================================================-->
 
     <header class="header">
-      <!-- TOP BAR -->
+      <!-- Topbar -->
 
       <div class="topbar">
         <div class="container topbar-wrapper">
           <div class="topbar-left">
             <div class="top-item">
-              <i class="fa-solid fa-location-dot"></i>
-              <span>125 Bùi Ngọc Thu, Chánh Hiệp, TP. Hồ Chí Minh</span>
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+
+              <span> 125 Bùi Ngọc Thu, Chánh Hiệp, TP. Hồ Chí Minh </span>
             </div>
           </div>
 
           <div class="topbar-right">
             <div class="top-item">
-              <i class="fa-solid fa-phone"></i>
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+
               <span>0965.2727.24</span>
             </div>
 
             <div class="top-item">
-              <i class="fa-regular fa-clock"></i>
-              <span>08:00 - 21:00 (Thứ 2 - Chủ nhật)</span>
+              <i class="fa-regular fa-clock" aria-hidden="true"></i>
+
+              <span> 08:00 - 21:00 (Thứ 2 - Chủ nhật) </span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- NAVBAR -->
+      <!-- Navbar -->
 
       <nav class="navbar">
         <div class="container navbar-wrapper">
-          <a href="#home" class="logo">
-            <img src="images/logo/logo.png" alt="Logo" />
+          <!-- Logo -->
+
+          <a href="#home" class="logo" aria-label="Đăng Lưu English Center">
+            <img
+              src="images/logo/logo.png"
+              alt="Logo Đăng Lưu English Center"
+            />
+
             <div class="logo-text">
               <h2>ĐĂNG LƯU</h2>
               <p>ENGLISH CENTER</p>
             </div>
           </a>
 
-          <div class="menu-toggle" id="mobile-menu">
-            <i class="fa-solid fa-bars"></i>
+          <!-- Mobile menu button -->
+
+          <div class="menu-toggle" id="mobile-menu" aria-label="Mở menu">
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
           </div>
 
+          <!-- Navigation links -->
+
           <ul class="menu">
-            <li><a class="nav-link active" href="#home">Trang chủ</a></li>
-            <li><a class="nav-link" href="#about">Giới thiệu</a></li>
-            <li><a class="nav-link" href="#courses">Chương trình học</a></li>
-            <li><a class="nav-link" href="#contact">Liên hệ</a></li>
+            <li>
+              <a class="nav-link active" href="#home"> Trang chủ </a>
+            </li>
+
+            <li>
+              <a class="nav-link" href="#about"> Giới thiệu </a>
+            </li>
+
+            <li>
+              <a class="nav-link" href="#courses"> Chương trình học </a>
+            </li>
+
+            <li>
+              <a class="nav-link" href="#contact"> Liên hệ </a>
+            </li>
           </ul>
+
+          <!-- Desktop CTA -->
 
           <a href="#contact" class="btn-primary desktop-btn">
             ĐĂNG KÝ HỌC THỬ
@@ -107,12 +153,12 @@
       </nav>
     </header>
 
-    <!--================ HERO =================-->
+    <!--==================================================
+                            HERO
+    ==================================================-->
 
     <section class="hero" id="home">
       <div class="container hero-container">
-        <!-- LEFT -->
-
         <div class="hero-left">
           <span class="hero-subtitle"> TRUNG TÂM NGOẠI NGỮ </span>
 
@@ -130,7 +176,7 @@
             </a>
 
             <a href="#courses" class="course-btn">
-              <i class="fa-solid fa-book-open"></i>
+              <i class="fa-solid fa-book-open" aria-hidden="true"></i>
 
               XEM CHƯƠNG TRÌNH
 
@@ -139,27 +185,25 @@
           </div>
         </div>
 
-        <!-- RIGHT -->
-
         <div class="hero-right">
           <div class="hero-image">
             <img
               src="images/hero/hero.png"
-              alt="Học viên Đăng Lưu"
+              alt="Học viên tại Đăng Lưu English Center"
               fetchpriority="high"
             />
 
             <div class="hero-shape shape1"></div>
-
             <div class="hero-shape shape2"></div>
-
             <div class="hero-shape shape3"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= WHY CHOOSE US ================= -->
+    <!--==================================================
+                       WHY CHOOSE US
+    ==================================================-->
 
     <section class="why">
       <div class="container">
@@ -170,82 +214,72 @@
         <div class="why-grid">
           <div class="why-card">
             <div class="why-icon">
-              <i class="fa-solid fa-users"></i>
+              <i class="fa-solid fa-users" aria-hidden="true"></i>
             </div>
 
             <h3>LỚP HỌC</h3>
-
             <p>Tối đa 10 học viên</p>
           </div>
 
           <div class="why-card">
             <div class="why-icon">
-              <i class="fa-solid fa-user-graduate"></i>
+              <i class="fa-solid fa-user-graduate" aria-hidden="true"></i>
             </div>
 
             <h3>GIÁO VIÊN</h3>
-
             <p>Tận tâm • Giàu kinh nghiệm</p>
           </div>
 
           <div class="why-card">
             <div class="why-icon">
-              <i class="fa-solid fa-chart-line"></i>
+              <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
             </div>
 
             <h3>BÁO CÁO TIẾN ĐỘ</h3>
-
             <p>Gửi phụ huynh hàng tháng</p>
           </div>
 
           <div class="why-card">
             <div class="why-icon">
-              <i class="fa-solid fa-laptop"></i>
+              <i class="fa-solid fa-laptop" aria-hidden="true"></i>
             </div>
 
             <h3>PHÒNG LAB</h3>
-
             <p>Hiện đại • Tương tác</p>
           </div>
 
           <div class="why-card">
             <div class="why-icon">
-              <i class="fa-solid fa-certificate"></i>
+              <i class="fa-solid fa-certificate" aria-hidden="true"></i>
             </div>
 
             <h3>CAMBRIDGE</h3>
-
             <p>Lộ trình chuẩn quốc tế</p>
           </div>
 
           <div class="why-card">
             <div class="why-icon">
-              <i class="fa-solid fa-gift"></i>
+              <i class="fa-solid fa-gift" aria-hidden="true"></i>
             </div>
 
             <h3>HỌC THỬ</h3>
-
             <p>Miễn phí</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= ABOUT ================= -->
+    <!--==================================================
+                            ABOUT
+    ==================================================-->
 
     <section class="about" id="about" data-aos="fade-up">
       <div class="container about-wrapper">
-        <!-- LEFT -->
-
         <div class="about-image">
           <div class="about-image-box">
-            <!-- sau này thay bằng ảnh -->
-
             <span>HÌNH GIỚI THIỆU</span>
           </div>
         </div>
-
-        <!-- RIGHT -->
 
         <div class="about-content">
           <span class="about-subtitle"> GIỚI THIỆU </span>
@@ -260,22 +294,26 @@
 
           <div class="about-list">
             <div class="about-item">
-              <i class="fa-solid fa-circle-check"></i>
-              <span>Lớp học tối đa 10 học viên</span>
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+
+              <span> Lớp học tối đa 10 học viên </span>
             </div>
 
             <div class="about-item">
-              <i class="fa-solid fa-circle-check"></i>
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+
               <span>Giáo viên tận tâm</span>
             </div>
 
             <div class="about-item">
-              <i class="fa-solid fa-circle-check"></i>
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+
               <span>Lộ trình Cambridge</span>
             </div>
 
             <div class="about-item">
-              <i class="fa-solid fa-circle-check"></i>
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+
               <span>Phòng học hiện đại</span>
             </div>
           </div>
@@ -285,14 +323,16 @@
       </div>
     </section>
 
-    <!--==================== VISION ====================-->
+    <!--==================================================
+                       VISION AND MISSION
+    ==================================================-->
 
     <section class="vision">
       <div class="container">
         <div class="section-title">
           <span>THƯƠNG HIỆU</span>
 
-          <h2>Tầm nhìn & Sứ mệnh</h2>
+          <h2>Tầm nhìn &amp; Sứ mệnh</h2>
 
           <p>
             Chúng tôi không chỉ dạy tiếng Anh, mà còn đồng hành cùng học viên
@@ -303,7 +343,7 @@
         <div class="vision-grid">
           <div class="vision-card">
             <div class="vision-icon">
-              <i class="fa-regular fa-eye"></i>
+              <i class="fa-regular fa-eye" aria-hidden="true"></i>
             </div>
 
             <h3>Tầm nhìn</h3>
@@ -316,7 +356,7 @@
 
           <div class="vision-card">
             <div class="vision-icon">
-              <i class="fa-solid fa-bullseye"></i>
+              <i class="fa-solid fa-bullseye" aria-hidden="true"></i>
             </div>
 
             <h3>Sứ mệnh</h3>
@@ -331,7 +371,9 @@
       </div>
     </section>
 
-    <!--==================== CORE VALUES ====================-->
+    <!--==================================================
+                         CORE VALUES
+    ==================================================-->
 
     <section class="core-values">
       <div class="container">
@@ -341,20 +383,16 @@
           <h2>Những giá trị tạo nên Đăng Lưu</h2>
         </div>
 
-        <!-- Brand Quote -->
-
         <div class="brand-banner">
           <h3>
-            "Tận tâm đồng hành · Sáng tạo không ngừng · Chất lượng dẫn đầu"
+            “Tận tâm đồng hành · Sáng tạo không ngừng · Chất lượng dẫn đầu”
           </h3>
         </div>
-
-        <!-- Cards -->
 
         <div class="core-grid">
           <div class="core-card">
             <div class="core-icon">
-              <i class="fa-solid fa-seedling"></i>
+              <i class="fa-solid fa-seedling" aria-hidden="true"></i>
             </div>
 
             <h3>KIẾN TẠO</h3>
@@ -367,7 +405,7 @@
 
           <div class="core-card">
             <div class="core-icon">
-              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
             </div>
 
             <h3>BẢN LĨNH</h3>
@@ -380,7 +418,7 @@
 
           <div class="core-card">
             <div class="core-icon">
-              <i class="fa-solid fa-earth-asia"></i>
+              <i class="fa-solid fa-earth-asia" aria-hidden="true"></i>
             </div>
 
             <h3>HỘI NHẬP</h3>
@@ -394,7 +432,9 @@
       </div>
     </section>
 
-    <!--==================== PHILOSOPHY ====================-->
+    <!--==================================================
+                     EDUCATIONAL PHILOSOPHY
+    ==================================================-->
 
     <section class="philosophy">
       <div class="container">
@@ -405,13 +445,11 @@
         </div>
 
         <div class="philosophy-quote">
-          <i class="fa-solid fa-quote-left"></i>
+          <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
 
           <h3>
             Lấy người học làm trung tâm,<br />
-
             lấy trải nghiệm làm nền tảng,<br />
-
             lấy ngôn ngữ làm cầu nối với thế giới.
           </h3>
         </div>
@@ -449,9 +487,9 @@
       </div>
     </section>
 
-    <!--==================== COURSES ====================-->
-
-    <!--================ CAMBRIDGE ROADMAP ================-->
+    <!--==================================================
+                    CAMBRIDGE ROADMAP
+    ==================================================-->
 
     <section id="courses" class="roadmap">
       <div class="container">
@@ -466,39 +504,35 @@
           </p>
         </div>
 
-        <!-- Tabs -->
-
         <div class="roadmap-tabs">
-          <button class="tab-btn active" data-course="starters">
+          <button class="tab-btn active" data-course="starters" type="button">
             Starters
           </button>
 
-          <button class="tab-btn" data-course="movers">Movers</button>
+          <button class="tab-btn" data-course="movers" type="button">
+            Movers
+          </button>
 
-          <button class="tab-btn" data-course="flyers">Flyers</button>
+          <button class="tab-btn" data-course="flyers" type="button">
+            Flyers
+          </button>
 
-          <button class="tab-btn" data-course="ket">KET</button>
+          <button class="tab-btn" data-course="ket" type="button">KET</button>
 
-          <button class="tab-btn" data-course="pet">PET</button>
+          <button class="tab-btn" data-course="pet" type="button">PET</button>
 
-          <button class="tab-btn" data-course="fce">FCE</button>
+          <button class="tab-btn" data-course="fce" type="button">FCE</button>
         </div>
 
-        <!-- Content -->
-
         <div class="roadmap-content">
-          <!-- LEFT -->
-
           <div class="roadmap-image">
             <img
               id="courseImage"
               src="images/courses/starters.jpg"
-              alt="Cambridge"
+              alt="Khóa học Cambridge Starters"
               loading="lazy"
             />
           </div>
-
-          <!-- RIGHT -->
 
           <div class="roadmap-info">
             <span class="course-level"> Level 1 </span>
@@ -511,12 +545,19 @@
             </p>
 
             <div class="course-features">
-              <div>👦 Độ tuổi: <strong id="courseAge">6–8 tuổi</strong></div>
-
-              <div>📚 Thời lượng: <strong id="courseTime">72 buổi</strong></div>
+              <div>
+                👦 Độ tuổi:
+                <strong id="courseAge"> 6–8 tuổi </strong>
+              </div>
 
               <div>
-                🎯 Đầu ra: <strong id="courseOutput">YLE Starters</strong>
+                📚 Thời lượng:
+                <strong id="courseTime"> 72 buổi </strong>
+              </div>
+
+              <div>
+                🎯 Đầu ra:
+                <strong id="courseOutput"> YLE Starters </strong>
               </div>
             </div>
 
@@ -526,7 +567,9 @@
       </div>
     </section>
 
-    <!--==================== TEACHING METHOD ====================-->
+    <!--==================================================
+                       TEACHING METHOD
+    ==================================================-->
 
     <section class="method">
       <div class="container">
@@ -542,13 +585,11 @@
         </div>
 
         <div class="method-grid">
-          <!-- STEP -->
-
           <div class="method-card">
             <div class="method-number">01</div>
 
             <div class="method-icon">
-              <i class="fa-solid fa-lightbulb"></i>
+              <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
             </div>
 
             <h3>Khơi mở</h3>
@@ -559,13 +600,11 @@
             </p>
           </div>
 
-          <!-- STEP -->
-
           <div class="method-card">
             <div class="method-number">02</div>
 
             <div class="method-icon">
-              <i class="fa-solid fa-comments"></i>
+              <i class="fa-solid fa-comments" aria-hidden="true"></i>
             </div>
 
             <h3>Thực hành</h3>
@@ -576,13 +615,11 @@
             </p>
           </div>
 
-          <!-- STEP -->
-
           <div class="method-card">
             <div class="method-number">03</div>
 
             <div class="method-icon">
-              <i class="fa-solid fa-globe"></i>
+              <i class="fa-solid fa-globe" aria-hidden="true"></i>
             </div>
 
             <h3>Ứng dụng</h3>
@@ -593,13 +630,11 @@
             </p>
           </div>
 
-          <!-- STEP -->
-
           <div class="method-card">
             <div class="method-number">04</div>
 
             <div class="method-icon">
-              <i class="fa-solid fa-graduation-cap"></i>
+              <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
             </div>
 
             <h3>Phát triển</h3>
@@ -611,7 +646,10 @@
         </div>
       </div>
     </section>
-    <!--==================== TEACHERS ====================-->
+
+    <!--==================================================
+                           TEACHERS
+    ==================================================-->
 
     <section class="teachers">
       <div class="container">
@@ -627,13 +665,11 @@
         </div>
 
         <div class="teacher-grid">
-          <!-- Teacher -->
-
           <div class="teacher-card">
             <div class="teacher-image">
               <img
                 src="images/teachers/teacher1.jpg"
-                alt="Teacher"
+                alt="Giảng viên Cambridge tiếng Anh thiếu nhi"
                 loading="lazy"
               />
             </div>
@@ -645,21 +681,17 @@
 
               <ul>
                 <li>✔ Chuyên môn Cambridge</li>
-
                 <li>✔ Phương pháp lấy học viên làm trung tâm</li>
-
                 <li>✔ Đồng hành cùng học viên</li>
               </ul>
             </div>
           </div>
 
-          <!-- Teacher -->
-
           <div class="teacher-card">
             <div class="teacher-image">
               <img
                 src="images/teachers/teacher2.jpg"
-                alt="Teacher"
+                alt="Giảng viên Cambridge tiếng Anh thiếu niên"
                 loading="lazy"
               />
             </div>
@@ -671,21 +703,17 @@
 
               <ul>
                 <li>✔ Định hướng Cambridge</li>
-
                 <li>✔ Giao tiếp tự nhiên</li>
-
                 <li>✔ Phát triển tư duy</li>
               </ul>
             </div>
           </div>
 
-          <!-- Teacher -->
-
           <div class="teacher-card">
             <div class="teacher-image">
               <img
                 src="images/teachers/teacher3.jpg"
-                alt="Teacher"
+                alt="Giảng viên luyện thi Cambridge"
                 loading="lazy"
               />
             </div>
@@ -697,9 +725,7 @@
 
               <ul>
                 <li>✔ Luyện thi Cambridge</li>
-
                 <li>✔ Đồng hành từng học viên</li>
-
                 <li>✔ Đánh giá định kỳ</li>
               </ul>
             </div>
@@ -708,7 +734,9 @@
       </div>
     </section>
 
-    <!--==================== LEARNING ENVIRONMENT ====================-->
+    <!--==================================================
+                       LEARNING ENVIRONMENT
+    ==================================================-->
 
     <section class="gallery">
       <div class="container">
@@ -728,23 +756,37 @@
           <div class="gallery-main">
             <img
               src="images/gallery/classroom.jpg"
-              alt="Lớp học"
+              alt="Không gian lớp học tại Đăng Lưu"
               loading="lazy"
             />
           </div>
 
           <div class="gallery-side">
-            <img src="images/gallery/activity1.jpg" loading="lazy" />
+            <img
+              src="images/gallery/activity1.jpg"
+              alt="Hoạt động học tập tại Đăng Lưu"
+              loading="lazy"
+            />
 
-            <img src="images/gallery/activity2.jpg" loading="lazy" />
+            <img
+              src="images/gallery/activity2.jpg"
+              alt="Học viên tham gia hoạt động tiếng Anh"
+              loading="lazy"
+            />
 
-            <img src="images/gallery/activity3.jpg" loading="lazy" />
+            <img
+              src="images/gallery/activity3.jpg"
+              alt="Không gian học tập tại Đăng Lưu"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
     </section>
 
-    <!--==================== CONTACT ====================-->
+    <!--==================================================
+                         CONTACT FORM
+    ==================================================-->
 
     <section id="contact" class="contact">
       <div class="container">
@@ -760,49 +802,53 @@
         </div>
 
         <div class="contact-wrapper">
-          <!-- LEFT -->
-
           <div class="contact-map">
             <iframe
               src="https://www.google.com/maps?q=125%20B%C3%B9i%20Ng%E1%BB%8Dc%20Thu,%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh&output=embed"
+              title="Bản đồ Đăng Lưu English Center"
               loading="lazy"
               allowfullscreen
-            >
-            </iframe>
+            ></iframe>
           </div>
-
-          <!-- RIGHT -->
 
           <div class="contact-form">
             <form id="registerForm" novalidate>
               <div class="form-group">
-                <label for="fullname">Họ và tên phụ huynh</label>
+                <label for="fullname"> Họ và tên phụ huynh </label>
+
                 <input
                   type="text"
                   id="fullname"
                   name="fullname"
                   autocomplete="name"
+                  placeholder="Nhập họ và tên"
                   required
                 />
+
                 <small class="form-error"></small>
               </div>
 
               <div class="form-group">
-                <label for="phone">Số điện thoại</label>
+                <label for="phone"> Số điện thoại </label>
+
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
                   inputmode="tel"
                   autocomplete="tel"
+                  placeholder="09xxxxxxxx"
                   required
                 />
+
                 <small class="form-error"></small>
               </div>
 
               <div class="form-group">
                 <label for="email">
-                  Email <span class="optional-note">(Tùy chọn)</span>
+                  Email
+
+                  <span class="optional-note"> (Tùy chọn) </span>
                 </label>
 
                 <input
@@ -817,28 +863,30 @@
               </div>
 
               <div class="form-group">
-                <label for="course">Chương trình quan tâm</label>
+                <label for="course"> Chương trình quan tâm </label>
+
                 <select id="course" name="course" required>
                   <option value="">-- Chọn khóa học --</option>
 
-                  <option>Cambridge Starters</option>
+                  <option value="Cambridge Starters">Cambridge Starters</option>
 
-                  <option>Cambridge Movers</option>
+                  <option value="Cambridge Movers">Cambridge Movers</option>
 
-                  <option>Cambridge Flyers</option>
+                  <option value="Cambridge Flyers">Cambridge Flyers</option>
 
-                  <option>Cambridge KET</option>
+                  <option value="Cambridge KET">Cambridge KET</option>
 
-                  <option>Cambridge PET</option>
+                  <option value="Cambridge PET">Cambridge PET</option>
 
-                  <option>Cambridge FCE</option>
+                  <option value="Cambridge FCE">Cambridge FCE</option>
                 </select>
 
                 <small class="form-error"></small>
               </div>
 
               <div class="form-group">
-                <label for="message">Ghi chú</label>
+                <label for="message"> Ghi chú </label>
+
                 <textarea
                   id="message"
                   name="message"
@@ -855,32 +903,15 @@
         </div>
       </div>
     </section>
-    <!--==================== END HEADER ====================-->
-    <script src="js/config.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/validator.js"></script>
-    <script src="js/modal.js"></script>
-    <script src="js/form.js"></script>
-    <script src="js/course-tabs.js"></script>
-    <script src="js/mobile-menu.js"></script>
-    <script src="js/main.js"></script>
-    <!--==================== BACK TO TOP ====================-->
-    <button id="backToTop">
-      <i class="fa-solid fa-arrow-up"></i>
-    </button>
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
-    <script>
-      AOS.init({
-        duration: 800,
-        once: true,
-      });
-    </script>
-    <!--==================== FAQ ====================-->
+    <!--==================================================
+                              FAQ
+    ==================================================-->
+
     <section class="faq" id="faq">
       <div class="container faq-wrapper">
         <div class="faq-intro">
-          <span class="faq-subtitle">CÂU HỎI THƯỜNG GẶP</span>
+          <span class="faq-subtitle"> CÂU HỎI THƯỜNG GẶP </span>
 
           <h2>Giải đáp thắc mắc dành cho phụ huynh</h2>
 
@@ -891,6 +922,7 @@
 
           <a href="#contact" class="faq-contact-link">
             <i class="fa-solid fa-comment-dots" aria-hidden="true"></i>
+
             Gửi câu hỏi cho trung tâm
           </a>
         </div>
@@ -983,13 +1015,19 @@
         </div>
       </div>
     </section>
-    <!--==================== FOOTER ====================-->
+
+    <!--==================================================
+                            FOOTER
+    ==================================================-->
 
     <footer class="footer">
       <div class="container footer-container">
-        <!-- Logo -->
         <div class="footer-col">
-          <img src="images/logo/logo.png" alt="Logo" loading="lazy" />
+          <img
+            src="images/logo/logo.png"
+            alt="Logo Đăng Lưu English Center"
+            loading="lazy"
+          />
 
           <h3>ĐĂNG LƯU</h3>
 
@@ -1001,63 +1039,88 @@
           </p>
         </div>
 
-        <!-- Quick Links -->
-
         <div class="footer-col">
           <h4>Liên kết</h4>
 
           <ul>
-            <li><a href="#home">Trang chủ</a></li>
-            <li><a href="#about">Giới thiệu</a></li>
-            <li><a href="#courses">Chương trình</a></li>
-            <li><a href="#contact">Liên hệ</a></li>
-            <li><a href="#faq">Câu hỏi thường gặp</a></li>
+            <li>
+              <a href="#home">Trang chủ</a>
+            </li>
+
+            <li>
+              <a href="#about">Giới thiệu</a>
+            </li>
+
+            <li>
+              <a href="#courses">Chương trình</a>
+            </li>
+
+            <li>
+              <a href="#contact">Liên hệ</a>
+            </li>
+
+            <li>
+              <a href="#faq"> Câu hỏi thường gặp </a>
+            </li>
           </ul>
         </div>
-
-        <!-- Courses -->
 
         <div class="footer-col">
           <h4>Chương trình</h4>
 
           <ul>
             <li>Starters</li>
-
             <li>Movers</li>
-
             <li>Flyers</li>
-
             <li>KET</li>
-
             <li>PET</li>
-
             <li>FCE</li>
           </ul>
         </div>
-
-        <!-- Contact -->
 
         <div class="footer-col">
           <h4>Liên hệ</h4>
 
           <p>
-            <i class="fa-solid fa-location-dot"></i> 125 Bùi Ngọc Thu, TP.HCM
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+
+            125 Bùi Ngọc Thu, TP.HCM
           </p>
 
-          <p><i class="fa-solid fa-phone"></i> 0965 2727 24</p>
+          <p>
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
 
-          <p><i class="fa-solid fa-envelope"></i> info@dangleu.edu.vn</p>
+            0965 2727 24
+          </p>
 
-          <p><i class="fa-regular fa-clock"></i> 08:00 - 21:00</p>
+          <p>
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+
+            info@dangleu.edu.vn
+          </p>
+
+          <p>
+            <i class="fa-regular fa-clock" aria-hidden="true"></i>
+
+            08:00 - 21:00
+          </p>
 
           <div class="footer-social">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Facebook">
+              <i class="fab fa-facebook-f" aria-hidden="true"></i>
+            </a>
 
-            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="YouTube">
+              <i class="fab fa-youtube" aria-hidden="true"></i>
+            </a>
 
-            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#" aria-label="TikTok">
+              <i class="fab fa-tiktok" aria-hidden="true"></i>
+            </a>
 
-            <a href="#"><i class="fa-solid fa-comment"></i></a>
+            <a href="#contact" aria-label="Liên hệ với trung tâm">
+              <i class="fa-solid fa-comment" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
       </div>
@@ -1066,5 +1129,77 @@
         © 2026 Đăng Lưu English Center. All Rights Reserved.
       </div>
     </footer>
+
+    <!--==================================================
+                         BACK TO TOP
+    ==================================================-->
+
+    <button id="backToTop" type="button" aria-label="Cuộn lên đầu trang">
+      <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <!--==================================================
+                        SUCCESS MODAL
+    ==================================================-->
+
+    <div
+      class="success-modal"
+      id="successModal"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+      aria-labelledby="successModalTitle"
+    >
+      <div class="success-box">
+        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+
+        <h3 id="successModalTitle">Đăng ký thành công!</h3>
+
+        <p>
+          Cảm ơn bạn đã đăng ký. Đội ngũ Đăng Lưu sẽ liên hệ trong thời gian sớm
+          nhất.
+        </p>
+
+        <div class="registration-result">
+          <p>
+            <strong>Mã đăng ký:</strong>
+
+            <span id="registerID">...</span>
+          </p>
+
+          <p>
+            <strong>Thời gian:</strong>
+
+            <span id="registerTime">...</span>
+          </p>
+        </div>
+
+        <button id="closeModal" class="btn-primary" type="button">Đóng</button>
+      </div>
+    </div>
+
+    <!--==================================================
+                           JAVASCRIPT
+    ==================================================-->
+
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
+    </script>
+
+    <!-- Project scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/validator.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/form.js"></script>
+    <script src="js/course-tabs.js"></script>
+    <script src="js/mobile-menu.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
