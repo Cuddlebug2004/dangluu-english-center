@@ -181,3 +181,7 @@
 #closeModal {
   margin-top: 20px;
 }
+
+body.modal-open {
+  overflow: hidden;
+}

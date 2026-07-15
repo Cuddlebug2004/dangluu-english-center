@@ -859,13 +859,13 @@
     </section>
     <!--==================== END HEADER ====================-->
     <script src="js/config.js"></script>
-<script src="js/api.js"></script>
-<script src="js/validator.js"></script>
-<script src="js/modal.js"></script>
-<script src="js/form.js"></script>
-<script src="js/course-tabs.js"></script>
-<script src="js/mobile-menu.js"></script>
-<script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/validator.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/form.js"></script>
+    <script src="js/course-tabs.js"></script>
+    <script src="js/mobile-menu.js"></script>
+    <script src="js/main.js"></script>
     <!--==================== BACK TO TOP ====================-->
 
     <button id="backToTop">
@@ -880,11 +880,18 @@
       });
     </script>
     <script src="js/mobile-menu.js"></script>
-    <div class="success-modal" id="successModal">
+    <div
+      class="success-modal"
+      id="successModal"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+      aria-labelledby="successModalTitle"
+    >
       <div class="success-box">
-        <button id="closeModal" class="btn-primary<form id="registerForm" novalidate>">Đóng</button>
+        <button id="closeModal" class="btn-primary" type="button">Đóng</button>
         <i class="fa-solid fa-circle-check"></i>
-        <h3>Đăng ký thành công!</h3>
+        <h3 id="successModalTitle">Đăng ký thành công!</h3>
         <p>
           Cảm ơn bạn đã đăng ký. Đội ngũ Đăng Lưu sẽ liên hệ trong thời gian sớm
           nhất.
