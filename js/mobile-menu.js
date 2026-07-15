@@ -16,26 +16,45 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const icon = menuButton.querySelector("i");
+  const menuIcon = menuButton.querySelector("i");
 
-  const overlay = document.createElement("div");
+  /*
+   * Chỉ tạo overlay nếu chưa tồn tại.
+   * Việc này tránh sinh hai overlay nếu script bị gọi nhầm hai lần.
+   */
+  let overlay = document.querySelector(".menu-overlay");
 
-  overlay.className = "menu-overlay";
-  overlay.setAttribute("aria-hidden", "true");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "menu-overlay";
+    overlay.setAttribute("aria-hidden", "true");
 
-  document.body.appendChild(overlay);
+    document.body.appendChild(overlay);
+  }
 
   let savedScrollPosition = 0;
 
-  /**
-   * Kiểm tra menu đang mở.
-   */
   function isMenuOpen() {
     return menu.classList.contains("active");
   }
 
   /**
-   * Khóa trang tại đúng vị trí cuộn hiện tại.
+   * Cuộn tức thời, không bị ảnh hưởng bởi:
+   * html { scroll-behavior: smooth; }
+   */
+  function scrollImmediatelyTo(position) {
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+
+    root.style.scrollBehavior = "auto";
+
+    window.scrollTo(0, position);
+
+    root.style.scrollBehavior = previousScrollBehavior;
+  }
+
+  /**
+   * Khóa trang tại đúng vị trí đang xem.
    */
   function lockPageScroll() {
     savedScrollPosition = window.scrollY;
@@ -47,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Mở khóa trang và trả lại đúng vị trí cuộn.
+   * Mở khóa và trở về đúng vị trí trước khi mở menu.
    */
   function unlockPageScroll() {
     document.documentElement.classList.remove("menu-open");
@@ -55,16 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.style.removeProperty("top");
 
-    window.scrollTo({
-      top: savedScrollPosition,
-      left: 0,
-      behavior: "auto",
-    });
+    scrollImmediatelyTo(savedScrollPosition);
   }
 
-  /**
-   * Cập nhật nút hamburger.
-   */
   function updateMenuButtonState(isOpen) {
     menuButton.setAttribute("aria-expanded", String(isOpen));
 
@@ -73,17 +85,14 @@ document.addEventListener("DOMContentLoaded", () => {
       isOpen ? "Đóng menu điều hướng" : "Mở menu điều hướng",
     );
 
-    if (!icon) {
+    if (!menuIcon) {
       return;
     }
 
-    icon.classList.toggle("fa-bars", !isOpen);
-    icon.classList.toggle("fa-xmark", isOpen);
+    menuIcon.classList.toggle("fa-bars", !isOpen);
+    menuIcon.classList.toggle("fa-xmark", isOpen);
   }
 
-  /**
-   * Mở menu.
-   */
   function openMenu() {
     if (isMenuOpen()) {
       return;
@@ -99,9 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateMenuButtonState(true);
   }
 
-  /**
-   * Đóng menu.
-   */
   function closeMenu({ restoreFocus = false } = {}) {
     if (!isMenuOpen()) {
       return;
@@ -120,9 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  /**
-   * Mở hoặc đóng menu.
-   */
   function toggleMenu() {
     if (isMenuOpen()) {
       closeMenu();
@@ -131,25 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  /**
-   * Cuộn tới section và trừ chiều cao header.
-   */
-  function scrollToSection(targetElement) {
-    const headerHeight = header?.offsetHeight || 0;
-
-    const targetPosition =
-      targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
-
-    window.scrollTo({
-      top: Math.max(targetPosition, 0),
-      left: 0,
-      behavior: "smooth",
-    });
-  }
-
-  /**
-   * Cập nhật link active.
-   */
   function setActiveLink(activeLink) {
     navLinks.forEach((link) => {
       const isActive = link === activeLink;
@@ -173,8 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /*
-   * Chặn thao tác kéo trên overlay.
-   * passive: false là bắt buộc để preventDefault hoạt động.
+   * Không cho vuốt trang thông qua vùng overlay.
    */
   overlay.addEventListener(
     "touchmove",
@@ -204,20 +187,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
       event.preventDefault();
 
-      setActiveLink(link);
-      closeMenu();
+      /*
+       * Phải tính vị trí đích trước khi gỡ position: fixed
+       * khỏi body.
+       */
+      const headerHeight = header?.offsetHeight || 0;
 
-      window.requestAnimationFrame(() => {
-        scrollToSection(targetElement);
-      });
+      const currentDocumentScroll = isMenuOpen()
+        ? savedScrollPosition
+        : window.scrollY;
+
+      const targetPosition = Math.max(
+        targetElement.getBoundingClientRect().top +
+          currentDocumentScroll -
+          headerHeight,
+        0,
+      );
+
+      setActiveLink(link);
+
+      const menuWasOpen = isMenuOpen();
+
+      if (menuWasOpen) {
+        /*
+         * closeMenu sẽ trả trang về vị trí cũ tức thời,
+         * không dùng smooth.
+         */
+        closeMenu();
+      }
 
       window.history.replaceState(null, "", href);
+
+      /*
+       * Chờ body được mở khóa hoàn toàn rồi mới cuộn đến section.
+       * Dùng hai frame để tránh trình duyệt phục hồi vị trí cũ
+       * và ghi đè lệnh cuộn mới.
+       */
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          window.scrollTo({
+            top: targetPosition,
+            left: 0,
+            behavior: "smooth",
+          });
+        });
+      });
     });
   });
 
-  /**
-   * Đóng bằng phím Escape.
-   */
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && isMenuOpen()) {
       closeMenu({
@@ -226,9 +243,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /**
-   * Reset khi đổi từ mobile lên desktop.
-   */
   window.addEventListener(
     "resize",
     () => {
@@ -241,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   );
 
-  /**
+  /*
    * Scroll Spy.
    */
   const observedSections = navLinks
@@ -262,18 +276,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const visibleSections = entries
           .filter((entry) => entry.isIntersecting)
           .sort(
-            (first, second) =>
-              second.intersectionRatio - first.intersectionRatio,
+            (firstEntry, secondEntry) =>
+              secondEntry.intersectionRatio - firstEntry.intersectionRatio,
           );
 
         if (visibleSections.length === 0) {
           return;
         }
 
-        const sectionId = visibleSections[0].target.id;
+        const visibleSectionId = visibleSections[0].target.id;
 
         const matchingLink = navLinks.find(
-          (link) => link.getAttribute("href") === `#${sectionId}`,
+          (link) => link.getAttribute("href") === `#${visibleSectionId}`,
         );
 
         if (matchingLink) {
