@@ -108,3 +108,62 @@
 
   color: #aaa;
 }
+
+/*==================================================
+                FOOTER COLOR FIX
+==================================================*/
+
+.footer {
+  color: #d5d5d5;
+}
+
+/* Tiêu đề các cột Footer */
+
+.footer .footer-col h3,
+.footer .footer-col h4 {
+  color: #ffffff;
+}
+
+/* Dòng ENGLISH CENTER */
+
+.footer .footer-col > span {
+  color: var(--primary);
+}
+
+/* Nội dung thông thường */
+
+.footer .footer-col p,
+.footer .footer-col li,
+.footer .footer-col a {
+  color: #d2d2d2;
+}
+
+/* Link Footer */
+
+.footer .footer-col a {
+  text-decoration: none;
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.footer .footer-col a:hover {
+  color: var(--primary);
+}
+
+/* Icon liên hệ */
+
+.footer .footer-col p i {
+  color: var(--primary);
+}
+
+/* Chữ bản quyền */
+
+.footer .footer-bottom {
+  color: #bdbdbd;
+}
+
+.footer .footer-col:first-child h3 {
+  color: #ffffff;
+}

@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://dangluu-english-center.vercel.app/sitemap.xml
