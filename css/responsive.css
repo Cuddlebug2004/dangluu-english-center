@@ -135,31 +135,62 @@
     display: none;
   }
 
+  /* MOBILE MENU BUTTON */
+
   .menu-toggle {
     position: relative;
-    z-index: 1001;
+    z-index: 1002;
 
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 
     width: 46px;
     height: 46px;
+    padding: 0;
 
     color: var(--primary);
     background: var(--secondary);
 
+    border: 0;
     border-radius: 12px;
 
+    font-family: inherit;
     font-size: 24px;
+
     cursor: pointer;
+
+    transition:
+      color 0.25s ease,
+      background-color 0.25s ease,
+      transform 0.25s ease;
   }
+
+  .menu-toggle:hover {
+    color: #ffffff;
+    background: var(--primary);
+  }
+
+  .menu-toggle:active {
+    transform: scale(0.96);
+  }
+
+  .menu-toggle:focus-visible {
+    outline: 3px solid rgba(255, 107, 53, 0.28);
+    outline-offset: 3px;
+  }
+
+  .menu-toggle i {
+    pointer-events: none;
+  }
+
+  /* MOBILE MENU PANEL */
 
   .menu {
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 1001;
 
     width: min(320px, 86vw);
     height: 100dvh;
@@ -176,20 +207,24 @@
     overflow-y: auto;
     overscroll-behavior: contain;
 
-    background: rgba(255, 255, 255, 0.97);
+    background: rgba(255, 255, 255, 0.98);
 
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
 
-    box-shadow: -12px 0 35px rgba(0, 0, 0, 0.12);
+    box-shadow: -12px 0 40px rgba(0, 0, 0, 0.14);
 
     transform: translateX(105%);
+    visibility: hidden;
 
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      visibility 0.35s ease;
   }
 
   .menu.active {
     transform: translateX(0);
+    visibility: visible;
   }
 
   .menu li {
@@ -202,15 +237,29 @@
     width: 100%;
     padding: 14px 16px;
 
-    border-bottom: 1px solid #edf2f7;
-    border-radius: 10px;
+    color: var(--black);
+
+    border: 1px solid transparent;
+    border-radius: 12px;
 
     font-size: 17px;
+    font-weight: 600;
+
+    transition:
+      color 0.25s ease,
+      background-color 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  .menu a:hover {
+    color: var(--primary);
+    background: var(--secondary);
   }
 
   .menu a.active {
     color: var(--primary);
     background: var(--secondary);
+    border-color: rgba(255, 107, 53, 0.15);
   }
 
   .menu a.active::after {
@@ -880,5 +929,41 @@
 
     width: 48px;
     height: 48px;
+  }
+}
+
+/*==================================================
+                MOBILE MENU OVERLAY
+==================================================*/
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+
+  background: rgba(15, 23, 42, 0.56);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+
+.menu-overlay.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+@media (min-width: 993px) {
+  .menu-overlay {
+    display: none;
   }
 }

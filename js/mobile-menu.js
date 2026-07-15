@@ -1,76 +1,261 @@
 // ===============================
-// MOBILE MENU & SMOOTH SCROLLING
+// MOBILE MENU & NAVIGATION
 // ===============================
 
-const mobileMenuBtn = document.getElementById("mobile-menu");
-const menu = document.querySelector(".menu");
-const navLinks = document.querySelectorAll(".nav-link");
+document.addEventListener("DOMContentLoaded", () => {
+  const BREAKPOINT = 992;
 
-// 1. Mở/Đóng Menu trên Mobile
-if (mobileMenuBtn) {
-  mobileMenuBtn.addEventListener("click", () => {
-    menu.classList.toggle("active");
+  const menuButton = document.getElementById("mobile-menu");
+  const menu = document.getElementById("primary-menu");
+  const header = document.querySelector(".header");
+  const navLinks = Array.from(document.querySelectorAll(".nav-link"));
 
-    // Đổi Icon Hamburger <-> X
-    const icon = mobileMenuBtn.querySelector("i");
-    if (menu.classList.contains("active")) {
-      icon.classList.replace("fa-bars", "fa-xmark");
-    } else {
-      icon.classList.replace("fa-xmark", "fa-bars");
+  if (!menuButton || !menu) {
+    console.warn("Không tìm thấy nút hoặc danh sách mobile menu.");
+    return;
+  }
+
+  const icon = menuButton.querySelector("i");
+
+  // Tạo lớp nền tối phía sau menu.
+  const overlay = document.createElement("div");
+
+  overlay.className = "menu-overlay";
+  overlay.setAttribute("aria-hidden", "true");
+
+  document.body.appendChild(overlay);
+
+  /**
+   * Kiểm tra menu đang mở hay không.
+   */
+  function isMenuOpen() {
+    return menu.classList.contains("active");
+  }
+
+  /**
+   * Cập nhật icon và thuộc tính accessibility.
+   */
+  function updateMenuButtonState(isOpen) {
+    menuButton.setAttribute("aria-expanded", String(isOpen));
+
+    menuButton.setAttribute(
+      "aria-label",
+      isOpen ? "Đóng menu điều hướng" : "Mở menu điều hướng",
+    );
+
+    if (!icon) {
+      return;
     }
-  });
-}
 
-// 2. Click vào link -> Đóng menu & Cuộn mượt
-navLinks.forEach((link) => {
-  link.addEventListener("click", function (e) {
-    // Trên điện thoại, đóng menu lại
+    icon.classList.toggle("fa-bars", !isOpen);
+    icon.classList.toggle("fa-xmark", isOpen);
+  }
+
+  /**
+   * Mở mobile menu.
+   */
+  function openMenu() {
+    menu.classList.add("active");
+    overlay.classList.add("show");
+    document.body.classList.add("menu-open");
+
+    updateMenuButtonState(true);
+
+    const firstLink = menu.querySelector("a");
+
+    window.requestAnimationFrame(() => {
+      firstLink?.focus();
+    });
+  }
+
+  /**
+   * Đóng mobile menu.
+   */
+  function closeMenu({ restoreFocus = false } = {}) {
     menu.classList.remove("active");
-    if (mobileMenuBtn) {
-      mobileMenuBtn.querySelector("i").classList.replace("fa-xmark", "fa-bars");
+    overlay.classList.remove("show");
+    document.body.classList.remove("menu-open");
+
+    updateMenuButtonState(false);
+
+    if (restoreFocus) {
+      menuButton.focus();
     }
+  }
 
-    // Tự động cuộn đến phần mong muốn (Smooth Scroll)
-    e.preventDefault();
-    const targetId = this.getAttribute("href").substring(1);
-    const targetSection = document.getElementById(targetId);
+  /**
+   * Mở hoặc đóng menu.
+   */
+  function toggleMenu() {
+    if (isMenuOpen()) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
 
-    if (targetSection) {
-      // Cuộn xuống và trừ hao chiều cao của header (72px) để không bị che khuất tiêu đề
-      const headerOffset = 72;
-      const elementPosition = targetSection.getBoundingClientRect().top;
-      const offsetPosition =
-        elementPosition + window.pageYOffset - headerOffset;
+  /**
+   * Cuộn đến section và trừ chiều cao Header.
+   */
+  function scrollToSection(targetElement) {
+    const headerHeight = header?.offsetHeight || 0;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
+    const targetPosition =
+      targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+    window.scrollTo({
+      top: Math.max(targetPosition, 0),
+      behavior: "smooth",
+    });
+  }
+
+  /**
+   * Cập nhật link active.
+   */
+  function setActiveLink(activeLink) {
+    navLinks.forEach((link) => {
+      const isActive = link === activeLink;
+
+      link.classList.toggle("active", isActive);
+
+      if (isActive) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  }
+
+  menuButton.addEventListener("click", toggleMenu);
+
+  overlay.addEventListener("click", () => {
+    closeMenu({
+      restoreFocus: true,
+    });
+  });
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+
+      if (!href || !href.startsWith("#")) {
+        closeMenu();
+        return;
+      }
+
+      const targetElement = document.querySelector(href);
+
+      if (!targetElement) {
+        return;
+      }
+
+      event.preventDefault();
+
+      setActiveLink(link);
+      closeMenu();
+
+      scrollToSection(targetElement);
+
+      // Cập nhật hash mà không làm trình duyệt nhảy vị trí.
+      window.history.replaceState(null, "", href);
+    });
+  });
+
+  // Đóng menu bằng phím Escape.
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && isMenuOpen()) {
+      closeMenu({
+        restoreFocus: true,
       });
     }
   });
-});
 
-// 3. Scroll Spy: Tự động đổi màu menu khi cuộn trang
-const sections = document.querySelectorAll("section[id]");
+  // Giữ focus bên trong menu khi menu đang mở.
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Tab" || !isMenuOpen()) {
+      return;
+    }
 
-window.addEventListener("scroll", () => {
-  let scrollY = window.pageYOffset;
+    const focusableElements = [
+      menuButton,
+      ...menu.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ),
+    ];
 
-  sections.forEach((current) => {
-    const sectionHeight = current.offsetHeight;
-    // Trừ hao thêm 100px để hiệu ứng chuyển sớm hơn một chút khi người dùng cuộn
-    const sectionTop = current.offsetTop - 100;
-    const sectionId = current.getAttribute("id");
-    const currentMenuLink = document.querySelector(
-      `.menu a[href*="#${sectionId}"]`,
-    );
+    if (focusableElements.length === 0) {
+      return;
+    }
 
-    if (currentMenuLink) {
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        currentMenuLink.classList.add("active");
-      } else {
-        currentMenuLink.classList.remove("active");
-      }
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (event.shiftKey && document.activeElement === firstElement) {
+      event.preventDefault();
+      lastElement.focus();
+    } else if (!event.shiftKey && document.activeElement === lastElement) {
+      event.preventDefault();
+      firstElement.focus();
     }
   });
+
+  // Reset menu khi chuyển từ mobile lên desktop.
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > BREAKPOINT && isMenuOpen()) {
+      closeMenu();
+    }
+  });
+
+  /**
+   * Scroll Spy bằng IntersectionObserver.
+   */
+  const observedSections = navLinks
+    .map((link) => {
+      const href = link.getAttribute("href");
+
+      if (!href || !href.startsWith("#")) {
+        return null;
+      }
+
+      return document.querySelector(href);
+    })
+    .filter(Boolean);
+
+  if ("IntersectionObserver" in window) {
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort(
+            (first, second) =>
+              second.intersectionRatio - first.intersectionRatio,
+          );
+
+        if (visibleSections.length === 0) {
+          return;
+        }
+
+        const sectionId = visibleSections[0].target.id;
+
+        const matchingLink = navLinks.find(
+          (link) => link.getAttribute("href") === `#${sectionId}`,
+        );
+
+        if (matchingLink) {
+          setActiveLink(matchingLink);
+        }
+      },
+      {
+        root: null,
+        rootMargin: "-30% 0px -55% 0px",
+        threshold: [0, 0.1, 0.25, 0.5],
+      },
+    );
+
+    observedSections.forEach((section) => {
+      sectionObserver.observe(section);
+    });
+  }
+
+  updateMenuButtonState(false);
 });
