@@ -368,3 +368,9 @@
     margin-top: 45px;
   }
 }
+
+/* Chữ ĐĂNG LƯU trong Footer */
+.footer .footer-col:first-child h3 {
+  color: #756b65;
+  text-shadow: none;
+}
