@@ -31,7 +31,7 @@ if (registerForm) {
     }
 
     if (!isPhoneValid) {
-      showError(phoneInput, "Số điện thoại không hợp lệ. Ví dụ: 0965272724.");
+      showError(phoneInput, "Số điện thoại không hợp lệ. Ví dụ: 0978 328 610.");
     } else {
       showValid(phoneInput);
     }
@@ -89,7 +89,7 @@ if (registerForm) {
       console.error("Register form error:", error);
 
       alert(
-        "Không thể gửi đăng ký lúc này. Vui lòng thử lại hoặc liên hệ trực tiếp qua số 0965 2727 24.",
+        "Không thể gửi đăng ký lúc này. Vui lòng thử lại hoặc liên hệ trực tiếp qua số 0978 328 610.",
       );
     } finally {
       setSubmittingState(false);

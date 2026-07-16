@@ -647,3 +647,168 @@
 .gallery-side img:hover {
   transform: translateY(-6px);
 }
+
+/*==================================================
+          SECTION TITLE ALIGNMENT FIX
+==================================================*/
+
+/*
+  Chuẩn hóa tiêu đề cho các section chính.
+  Đặt ở cuối home.css để ghi đè các khai báo cũ.
+*/
+
+.section-title {
+  position: relative;
+
+  width: 100%;
+  max-width: 1080px;
+
+  margin: 0 auto 55px;
+  padding: 0 24px;
+
+  overflow: visible;
+
+  text-align: center;
+}
+
+/* Nhãn nhỏ phía trên tiêu đề */
+
+.section-title > span {
+  display: block;
+
+  margin: 0 0 14px;
+
+  color: var(--primary);
+
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+/* Tiêu đề chính */
+
+.section-title h2 {
+  width: 100%;
+  max-width: 1000px;
+
+  margin: 0 auto;
+
+  color: var(--black);
+
+  font-size: clamp(40px, 4.1vw, 60px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -1.2px;
+
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* Đoạn mô tả */
+
+.section-title p {
+  width: 100%;
+  max-width: 850px;
+
+  margin: 22px auto 0;
+
+  color: var(--text);
+
+  font-size: 17px;
+  line-height: 1.75;
+  text-align: center;
+}
+
+/* Bảo đảm các section có khoảng trống phía trên đồng đều */
+
+.vision,
+.roadmap,
+.method,
+.teachers,
+.gallery {
+  padding-top: 105px;
+  scroll-margin-top: 135px;
+  overflow: visible;
+}
+
+/* Không để phần tử đầu tiên tạo khoảng trống bất thường */
+
+.vision .section-title,
+.roadmap .section-title,
+.method .section-title,
+.teachers .section-title,
+.gallery .section-title {
+  padding-top: 0;
+}
+
+/*==================================================
+                    TABLET
+==================================================*/
+
+@media (max-width: 992px) {
+  .section-title {
+    max-width: 900px;
+    margin-bottom: 46px;
+  }
+
+  .section-title h2 {
+    font-size: clamp(36px, 5.5vw, 52px);
+    letter-spacing: -0.8px;
+  }
+
+  .section-title p {
+    max-width: 720px;
+    font-size: 16px;
+  }
+
+  .vision,
+  .roadmap,
+  .method,
+  .teachers,
+  .gallery {
+    padding-top: 85px;
+    scroll-margin-top: 110px;
+  }
+}
+
+/*==================================================
+                    MOBILE
+==================================================*/
+
+@media (max-width: 576px) {
+  .section-title {
+    margin-bottom: 36px;
+    padding: 0 16px;
+  }
+
+  .section-title > span {
+    margin-bottom: 10px;
+
+    font-size: 12px;
+    letter-spacing: 1.3px;
+  }
+
+  .section-title h2 {
+    font-size: clamp(31px, 9vw, 40px);
+    line-height: 1.18;
+    letter-spacing: -0.5px;
+  }
+
+  .section-title p {
+    margin-top: 16px;
+
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .vision,
+  .roadmap,
+  .method,
+  .teachers,
+  .gallery {
+    padding-top: 70px;
+    scroll-margin-top: 82px;
+  }
+}
