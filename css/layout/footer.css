@@ -114,7 +114,15 @@
 ==================================================*/
 
 .footer {
-  color: #d5d5d5;
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(235, 91, 40, 0.06),
+      transparent 38%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #fffaf7 100%);
+
+  border-top: 1px solid #f0e5df;
 }
 
 /* Tiêu đề các cột Footer */
@@ -338,9 +346,8 @@
   padding: 24px 20px;
 
   color: #6b615b;
-  background: rgba(255, 255, 255, 0.48);
-
-  border-top: 1px solid rgba(235, 91, 40, 0.14);
+  background: rgba(255, 255, 255, 0.72);
+  border-top: 1px solid #eee5e0;
 
   font-size: 14px;
   text-align: center;
