@@ -1,114 +1,268 @@
+// ======================================
+// CAMBRIDGE / IELTS COURSE TABS
+// ======================================
+
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Đã sửa tên biến từ 'courses' thành 'courseData'
-  const courseData = {
+  const tabButtons = Array.from(
+    document.querySelectorAll(".tab-btn[data-course]"),
+  );
+
+  const courseImage = document.getElementById("courseImage");
+  const courseLevel = document.querySelector(".course-level");
+  const courseTitle = document.getElementById("courseTitle");
+  const courseDesc = document.getElementById("courseDesc");
+  const courseAge = document.getElementById("courseAge");
+  const courseTime = document.getElementById("courseTime");
+  const courseOutput = document.getElementById("courseOutput");
+
+  if (
+    tabButtons.length === 0 ||
+    !courseImage ||
+    !courseLevel ||
+    !courseTitle ||
+    !courseDesc ||
+    !courseAge ||
+    !courseTime ||
+    !courseOutput
+  ) {
+    console.warn("Không tìm thấy đầy đủ thành phần của khu vực chương trình.");
+
+    return;
+  }
+
+  const courses = {
     "pre-starters": {
       level: "Foundation",
       title: "Pre-Starters",
-      desc: "Chương trình làm quen tiếng Anh dành cho học viên nhỏ tuổi...",
+      desc: "Chương trình làm quen tiếng Anh dành cho học viên nhỏ tuổi, giúp xây dựng nền tảng từ vựng, phát âm và phản xạ giao tiếp thông qua trò chơi, bài hát và hoạt động tương tác.",
       age: "4–6 tuổi",
       time: "60 buổi",
       output: "Nền tảng Pre-A1",
       image: "images/courses/starters.webp",
+      fallbackImage: "images/courses/starters.webp",
       alt: "Chương trình tiếng Anh Pre-Starters",
     },
+
     starters: {
       level: "Pre-A1",
       title: "Cambridge Starters",
-      desc: "Giúp học viên hình thành nền tảng tiếng Anh...",
+      desc: "Giúp học viên hình thành nền tảng tiếng Anh thông qua từ vựng, phát âm, trò chơi và các hoạt động giao tiếp phù hợp với độ tuổi.",
       age: "6–8 tuổi",
       time: "72 buổi",
       output: "YLE Starters",
       image: "images/courses/starters.webp",
+      fallbackImage: "images/courses/starters.webp",
       alt: "Chương trình Cambridge Starters",
     },
-    // ... (Các mục còn lại giữ nguyên)
+
+    movers: {
+      level: "A1",
+      title: "Cambridge Movers",
+      desc: "Phát triển khả năng nghe, nói, đọc và viết, đồng thời tăng phản xạ sử dụng tiếng Anh trong các tình huống quen thuộc.",
+      age: "8–10 tuổi",
+      time: "80 buổi",
+      output: "YLE Movers",
+      image: "images/courses/movers.webp",
+      fallbackImage: "images/courses/starters.webp",
+      alt: "Chương trình Cambridge Movers",
+    },
+
+    flyers: {
+      level: "A2",
+      title: "Cambridge Flyers",
+      desc: "Củng cố toàn diện bốn kỹ năng và giúp học viên sử dụng tiếng Anh tự tin hơn trong học tập và giao tiếp.",
+      age: "10–12 tuổi",
+      time: "90 buổi",
+      output: "YLE Flyers",
+      image: "images/courses/flyers.webp",
+      fallbackImage: "images/courses/starters.webp",
+      alt: "Chương trình Cambridge Flyers",
+    },
+
+    ket: {
+      level: "A2",
+      title: "Cambridge KET",
+      desc: "Phát triển năng lực tiếng Anh nền tảng và chuẩn bị cho kỳ thi Cambridge A2 Key với lộ trình học rõ ràng.",
+      age: "12 tuổi trở lên",
+      time: "100 buổi",
+      output: "A2 Key",
+      image: "images/courses/ket.webp",
+      fallbackImage: "images/courses/starters.webp",
+      alt: "Chương trình Cambridge KET",
+    },
+
+    pet: {
+      level: "B1",
+      title: "Cambridge PET",
+      desc: "Nâng cao khả năng sử dụng tiếng Anh độc lập trong học tập, giao tiếp và các tình huống thực tế.",
+      age: "13 tuổi trở lên",
+      time: "110 buổi",
+      output: "B1 Preliminary",
+      image: "images/courses/pet.webp",
+      fallbackImage: "images/courses/starters.webp",
+      alt: "Chương trình Cambridge PET",
+    },
+
+    ielts: {
+      level: "IELTS Foundation → Advanced",
+      title: "Luyện thi IELTS",
+      desc: "Phát triển toàn diện Listening, Speaking, Reading và Writing, kết hợp chiến lược làm bài theo mục tiêu điểm số của từng học viên.",
+      age: "15 tuổi trở lên",
+      time: "Theo trình độ đầu vào",
+      output: "IELTS theo mục tiêu",
+      image: "images/courses/fce.webp",
+      fallbackImage: "images/courses/starters.webp",
+      alt: "Chương trình luyện thi IELTS",
+    },
   };
 
-  const tabList = document.querySelector(".roadmap-tabs");
-  const tabs = Array.from(document.querySelectorAll(".tab-btn"));
-  const roadmapContent = document.querySelector(".roadmap-content");
-  const roadmapImage = document.querySelector(".roadmap-image");
-  const roadmapInfo = document.querySelector(".roadmap-info");
+  let latestChangeId = 0;
 
-  const levelElement = document.querySelector(".course-level");
-  const titleElement = document.getElementById("courseTitle");
-  const descriptionElement = document.getElementById("courseDesc");
-  const ageElement = document.getElementById("courseAge");
-  const timeElement = document.getElementById("courseTime");
-  const outputElement = document.getElementById("courseOutput");
-  const imageElement = document.getElementById("courseImage");
+  /**
+   * Cập nhật trạng thái nút đang chọn.
+   */
+  function updateActiveButton(selectedButton) {
+    tabButtons.forEach((button) => {
+      const isSelected = button === selectedButton;
 
-  const requiredElements = [
-    tabList,
-    roadmapContent,
-    roadmapImage,
-    roadmapInfo,
-    levelElement,
-    titleElement,
-    descriptionElement,
-    ageElement,
-    timeElement,
-    outputElement,
-    imageElement,
-  ];
-
-  if (tabs.length === 0 || requiredElements.some((element) => !element)) {
-    console.warn("Không tìm thấy đầy đủ thành phần Cambridge Roadmap.");
-    return;
-  }
-
-  const imageCache = new Map();
-  let activeCourse =
-    document.querySelector(".tab-btn.active")?.dataset.course || "starters";
-  let latestRequest = 0;
-
-  function preloadImage(source) {
-    if (imageCache.has(source)) return imageCache.get(source);
-    const imagePromise = new Promise((resolve, reject) => {
-      const preload = new Image();
-      preload.onload = () => resolve(source);
-      // 3. Xử lý fallback nếu ảnh lỗi
-      preload.onerror = () => {
-        console.warn(`Không tải được ảnh: ${source}`);
-        resolve("images/default-course.webp"); // Ảnh mặc định nếu lỗi
-      };
-      preload.src = source;
+      button.classList.toggle("active", isSelected);
+      button.setAttribute("aria-selected", String(isSelected));
+      button.setAttribute("tabindex", isSelected ? "0" : "-1");
     });
-    imageCache.set(source, imagePromise);
-    return imagePromise;
   }
 
-  function updateCourseContent(course) {
-    levelElement.textContent = course.level;
-    titleElement.textContent = course.title;
-    descriptionElement.textContent = course.desc;
-    ageElement.textContent = course.age;
-    timeElement.textContent = course.time;
-    outputElement.textContent = course.output;
-    imageElement.src = course.image;
-    imageElement.alt = `${course.title} tại Đăng Lưu English Center`;
+  /**
+   * Cập nhật ảnh nhưng không làm hỏng thao tác chuyển tab
+   * khi đường dẫn ảnh không tồn tại.
+   */
+  function updateCourseImage(course, changeId) {
+    const newImage = new Image();
+
+    newImage.onload = () => {
+      if (changeId !== latestChangeId) {
+        return;
+      }
+
+      courseImage.src = course.image;
+      courseImage.alt = course.alt;
+
+      courseImage.animate(
+        [
+          {
+            opacity: 0.25,
+          },
+          {
+            opacity: 1,
+          },
+        ],
+        {
+          duration: 280,
+          easing: "ease-out",
+        },
+      );
+    };
+
+    newImage.onerror = () => {
+      if (changeId !== latestChangeId) {
+        return;
+      }
+
+      /*
+       * Nếu ảnh riêng của khóa học bị thiếu,
+       * vẫn chuyển nội dung và dùng ảnh Starters tạm thời.
+       */
+      courseImage.src = course.fallbackImage;
+      courseImage.alt = `${course.alt} - ảnh minh họa`;
+    };
+
+    newImage.src = course.image;
   }
 
-  async function selectCourse(tab) {
-    const courseKey = tab.dataset.course;
-    const course = courseData[courseKey];
-    if (!course) return;
+  /**
+   * Hiển thị một chương trình.
+   */
+  function showCourse(courseKey, selectedButton) {
+    const course = courses[courseKey];
 
-    const requestId = ++latestRequest;
-    tabs.forEach((t) => t.classList.toggle("active", t === tab));
+    if (!course) {
+      console.warn(`Không có dữ liệu khóa học: ${courseKey}`);
+      return;
+    }
 
-    await preloadImage(course.image);
-    if (requestId !== latestRequest) return;
+    latestChangeId += 1;
 
-    updateCourseContent(course);
+    const currentChangeId = latestChangeId;
+
+    updateActiveButton(selectedButton);
+
+    /*
+     * Nội dung được đổi ngay lập tức.
+     * Không chờ ảnh tải xong.
+     */
+    courseLevel.textContent = course.level;
+    courseTitle.textContent = course.title;
+    courseDesc.textContent = course.desc;
+    courseAge.textContent = course.age;
+    courseTime.textContent = course.time;
+    courseOutput.textContent = course.output;
+
+    updateCourseImage(course, currentChangeId);
   }
 
-  // 2. Khởi tạo nội dung tab đầu tiên khi trang tải xong
-  const initialTab =
-    tabs.find((t) => t.dataset.course === activeCourse) || tabs[0];
-  updateCourseContent(courseData[initialTab.dataset.course]);
+  tabButtons.forEach((button, buttonIndex) => {
+    button.addEventListener("click", () => {
+      const courseKey = button.dataset.course;
 
-  tabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => selectCourse(tab));
+      showCourse(courseKey, button);
+    });
+
+    /*
+     * Điều hướng tab bằng phím trái/phải.
+     */
+    button.addEventListener("keydown", (event) => {
+      if (
+        event.key !== "ArrowLeft" &&
+        event.key !== "ArrowRight" &&
+        event.key !== "Home" &&
+        event.key !== "End"
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+      let nextIndex = buttonIndex;
+
+      if (event.key === "ArrowRight") {
+        nextIndex = (buttonIndex + 1) % tabButtons.length;
+      }
+
+      if (event.key === "ArrowLeft") {
+        nextIndex = (buttonIndex - 1 + tabButtons.length) % tabButtons.length;
+      }
+
+      if (event.key === "Home") {
+        nextIndex = 0;
+      }
+
+      if (event.key === "End") {
+        nextIndex = tabButtons.length - 1;
+      }
+
+      const nextButton = tabButtons[nextIndex];
+
+      nextButton.focus();
+      nextButton.click();
+    });
   });
+
+  /*
+   * Khởi tạo bằng nút đang có class active.
+   * Nếu không có, sử dụng nút đầu tiên.
+   */
+  const initialButton =
+    tabButtons.find((button) => button.classList.contains("active")) ||
+    tabButtons[0];
+
+  showCourse(initialButton.dataset.course, initialButton);
 });
