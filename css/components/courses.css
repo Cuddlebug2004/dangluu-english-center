@@ -209,3 +209,62 @@
   box-shadow: var(--shadow);
 }
 
+/*==================================================
+              ROADMAP TABS - 7 LEVELS
+==================================================*/
+
+.roadmap-tabs {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(105px, 1fr));
+  gap: 14px;
+
+  width: 100%;
+  margin-bottom: 48px;
+}
+
+.roadmap-tabs .tab-btn {
+  width: 100%;
+  min-width: 0;
+  min-height: 58px;
+  padding: 12px 14px;
+
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .roadmap-tabs {
+    display: flex;
+    justify-content: flex-start;
+
+    padding-bottom: 8px;
+
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+
+    scrollbar-width: none;
+  }
+
+  .roadmap-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .roadmap-tabs .tab-btn {
+    flex: 0 0 auto;
+    min-width: 135px;
+  }
+}
+
+@media (max-width: 576px) {
+  .roadmap-tabs {
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .roadmap-tabs .tab-btn {
+    min-width: 124px;
+    min-height: 52px;
+    padding: 10px 14px;
+
+    font-size: 14px;
+  }
+}

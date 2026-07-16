@@ -713,63 +713,130 @@
             </p>
           </div>
 
-          <div class="roadmap-tabs">
-            <button class="tab-btn active" data-course="starters" type="button">
-              Starters
-            </button>
+          <div
+  class="roadmap-tabs"
+  role="tablist"
+  aria-label="Các chương trình tiếng Anh"
+>
+  <button
+    class="tab-btn active"
+    data-course="pre-starters"
+    type="button"
+    role="tab"
+    aria-selected="true"
+  >
+    Pre-Starters
+  </button>
 
-            <button class="tab-btn" data-course="movers" type="button">
-              Movers
-            </button>
+  <button
+    class="tab-btn"
+    data-course="starters"
+    type="button"
+    role="tab"
+    aria-selected="false"
+  >
+    Starters
+  </button>
 
-            <button class="tab-btn" data-course="flyers" type="button">
-              Flyers
-            </button>
+  <button
+    class="tab-btn"
+    data-course="movers"
+    type="button"
+    role="tab"
+    aria-selected="false"
+  >
+    Movers
+  </button>
 
-            <button class="tab-btn" data-course="ket" type="button">KET</button>
+  <button
+    class="tab-btn"
+    data-course="flyers"
+    type="button"
+    role="tab"
+    aria-selected="false"
+  >
+    Flyers
+  </button>
 
-            <button class="tab-btn" data-course="pet" type="button">PET</button>
+  <button
+    class="tab-btn"
+    data-course="ket"
+    type="button"
+    role="tab"
+    aria-selected="false"
+  >
+    KET
+  </button>
 
-            <button class="tab-btn" data-course="fce" type="button">FCE</button>
-          </div>
+  <button
+    class="tab-btn"
+    data-course="pet"
+    type="button"
+    role="tab"
+    aria-selected="false"
+  >
+    PET
+  </button>
+
+  <button
+    class="tab-btn"
+    data-course="ielts"
+    type="button"
+    role="tab"
+    aria-selected="false"
+  >
+    IELTS
+  </button>
+</div>
 
           <div class="roadmap-content">
             <div class="roadmap-image">
               <img
-                id="courseImage"
-                src="images/courses/starters.webp"
-                alt="Khóa học Cambridge Starters"
-                loading="lazy"
-              />
+  id="courseImage"
+  src="images/courses/starters.webp"
+  alt="Chương trình tiếng Anh Pre-Starters"
+  loading="lazy"
+  decoding="async"
+/>
             </div>
 
             <div class="roadmap-info">
-              <span class="course-level"> Level 1 </span>
+              <span class="course-level">
+  Foundation
+</span>
 
-              <h3 id="courseTitle">Cambridge Starters</h3>
+<h3 id="courseTitle">
+  Pre-Starters
+</h3>
 
-              <p id="courseDesc">
-                Làm quen với tiếng Anh thông qua các hoạt động, trò chơi và giao
-                tiếp tự nhiên.
-              </p>
+<p id="courseDesc">
+  Chương trình làm quen tiếng Anh dành cho học viên nhỏ tuổi,
+  giúp xây dựng nền tảng từ vựng, phát âm và phản xạ giao tiếp
+  thông qua trò chơi, bài hát và hoạt động tương tác.
+</p>
 
-              <div class="course-features">
-                <div>
-                  👦 Độ tuổi:
-                  <strong id="courseAge"> 6–8 tuổi </strong>
-                </div>
+<div class="course-features">
+  <div>
+    👦 Độ tuổi:
+    <strong id="courseAge">
+      4–6 tuổi
+    </strong>
+  </div>
 
-                <div>
-                  📚 Thời lượng:
-                  <strong id="courseTime"> 72 buổi </strong>
-                </div>
+  <div>
+    📚 Thời lượng:
+    <strong id="courseTime">
+      60 buổi
+    </strong>
+  </div>
 
-                <div>
-                  🎯 Đầu ra:
-                  <strong id="courseOutput"> YLE Starters </strong>
-                </div>
-              </div>
-
+  <div>
+    🎯 Đầu ra:
+    <strong id="courseOutput">
+      Nền tảng Pre-A1
+    </strong>
+  </div>
+</div>
               <a href="#contact" class="btn-primary"> ĐĂNG KÝ TƯ VẤN </a>
             </div>
           </div>
@@ -1108,22 +1175,38 @@
                   <label for="course"> Chương trình quan tâm </label>
 
                   <select id="course" name="course" required>
-                    <option value="">-- Chọn khóa học --</option>
+  <option value="">
+    -- Chọn chương trình --
+  </option>
 
-                    <option value="Cambridge Starters">
-                      Cambridge Starters
-                    </option>
+  <option value="Pre-Starters">
+    Pre-Starters
+  </option>
 
-                    <option value="Cambridge Movers">Cambridge Movers</option>
+  <option value="Cambridge Starters">
+    Cambridge Starters
+  </option>
 
-                    <option value="Cambridge Flyers">Cambridge Flyers</option>
+  <option value="Cambridge Movers">
+    Cambridge Movers
+  </option>
 
-                    <option value="Cambridge KET">Cambridge KET</option>
+  <option value="Cambridge Flyers">
+    Cambridge Flyers
+  </option>
 
-                    <option value="Cambridge PET">Cambridge PET</option>
+  <option value="Cambridge KET">
+    Cambridge KET
+  </option>
 
-                    <option value="Cambridge FCE">Cambridge FCE</option>
-                  </select>
+  <option value="Cambridge PET">
+    Cambridge PET
+  </option>
+
+  <option value="IELTS">
+    IELTS
+  </option>
+</select>
 
                   <small class="form-error"></small>
                 </div>
@@ -1315,13 +1398,14 @@
           <h4>Chương trình</h4>
 
           <ul>
-            <li>Starters</li>
-            <li>Movers</li>
-            <li>Flyers</li>
-            <li>KET</li>
-            <li>PET</li>
-            <li>FCE</li>
-          </ul>
+  <li>Pre-Starters</li>
+  <li>Starters</li>
+  <li>Movers</li>
+  <li>Flyers</li>
+  <li>KET</li>
+  <li>PET</li>
+  <li>IELTS</li>
+</ul>
         </div>
 
         <div class="footer-col">
