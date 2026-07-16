@@ -411,3 +411,225 @@ body.modal-open {
     font-size: 25px;
   }
 }
+/*==================================================
+                  REGISTER FORM MODAL
+==================================================*/
+
+.contact-form {
+  position: relative;
+}
+
+/* Tiêu đề và nút đóng chỉ hiện khi mở modal */
+
+.register-form-heading,
+.register-modal-close {
+  display: none;
+}
+
+/* Nền tối phía sau */
+
+.register-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+
+  background: rgba(20, 24, 32, 0.66);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.register-modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Chuyển form hiện tại thành modal giữa màn hình */
+
+.contact-form.register-modal-open {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9001;
+
+  display: block;
+
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 38px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(235, 91, 40, 0.18);
+  border-radius: 26px;
+
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.28),
+    0 10px 30px rgba(235, 91, 40, 0.12);
+
+  transform: translate(-50%, -50%);
+
+  animation: registerModalAppear 0.35s ease both;
+
+  scrollbar-width: thin;
+}
+
+/* Tiêu đề trong modal */
+
+.contact-form.register-modal-open .register-form-heading {
+  display: block;
+
+  padding-right: 48px;
+  margin-bottom: 26px;
+}
+
+.register-form-heading > span {
+  display: inline-block;
+
+  margin-bottom: 7px;
+
+  color: var(--primary);
+
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.register-form-heading h3 {
+  margin: 0 0 8px;
+
+  color: var(--black);
+
+  font-size: 27px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.register-form-heading p {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Nút đóng */
+
+.contact-form.register-modal-open .register-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+  padding: 0;
+
+  color: #5f5752;
+  background: #fff4ee;
+
+  border: 1px solid rgba(235, 91, 40, 0.15);
+  border-radius: 50%;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.25s ease,
+    background-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.contact-form.register-modal-open .register-modal-close:hover {
+  color: #ffffff;
+  background: var(--primary);
+
+  transform: rotate(90deg);
+}
+
+/* Khóa trang phía sau */
+
+html.register-modal-active,
+body.register-modal-active {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
+
+body.register-modal-active {
+  position: fixed;
+  right: 0;
+  left: 0;
+
+  width: 100%;
+}
+
+/* Hiệu ứng xuất hiện */
+
+@keyframes registerModalAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -46%) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 576px) {
+  .contact-form.register-modal-open {
+    width: calc(100vw - 24px);
+    max-height: calc(100dvh - 24px);
+    padding: 30px 20px 24px;
+
+    border-radius: 22px;
+  }
+
+  .contact-form.register-modal-open .register-form-heading {
+    padding-right: 38px;
+    margin-bottom: 22px;
+  }
+
+  .register-form-heading h3 {
+    font-size: 23px;
+  }
+
+  .contact-form.register-modal-open .register-modal-close {
+    top: 14px;
+    right: 14px;
+
+    width: 38px;
+    height: 38px;
+
+    font-size: 18px;
+  }
+}
+
+/* Tắt animation khi người dùng không muốn chuyển động */
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-form.register-modal-open {
+    animation: none;
+  }
+}

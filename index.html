@@ -367,7 +367,11 @@
             <p>Connecting Knowledge, Guiding the Future</p>
 
             <div class="hero-buttons">
-              <a href="#contact" class="hero-btn">
+              <a
+  href="#contact"
+  class="hero-btn"
+  data-open-register-modal
+>
   <span class="hero-btn-label">
     <i class="fa-solid fa-rocket" aria-hidden="true"></i>
     ĐĂNG KÝ HỌC THỬ
@@ -1024,8 +1028,33 @@
               ></iframe>
             </div>
 
-            <div class="contact-form">
-              <form id="registerForm" novalidate>
+            <div
+  class="contact-form"
+  id="registerFormCard"
+>
+  <button
+    class="register-modal-close"
+    id="registerModalClose"
+    type="button"
+    aria-label="Đóng biểu mẫu đăng ký"
+  >
+    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+  </button>
+
+  <div class="register-form-heading">
+    <span>ĐĂNG KÝ HỌC THỬ</span>
+
+    <h3 id="registerModalTitle">
+      Nhận tư vấn lộ trình miễn phí
+    </h3>
+
+    <p>
+      Để lại thông tin, Đăng Lưu sẽ liên hệ và tư vấn chương
+      trình phù hợp.
+    </p>
+  </div>
+
+  <form id="registerForm" novalidate>
                 <div class="form-group">
                   <label for="fullname"> Họ và tên phụ huynh </label>
 
@@ -1354,7 +1383,15 @@
     <button id="backToTop" type="button" aria-label="Cuộn lên đầu trang">
       <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
     </button>
+<!--==================================================
+                    REGISTER MODAL OVERLAY
+==================================================-->
 
+<div
+  class="register-modal-overlay"
+  id="registerModalOverlay"
+  aria-hidden="true"
+></div>
     <!--==================================================
                         SUCCESS MODAL
     ==================================================-->
@@ -1414,6 +1451,7 @@
     <script src="js/api.js"></script>
     <script src="js/validator.js"></script>
     <script src="js/modal.js"></script>
+    <script src="js/register-modal.js"></script>
     <script src="js/form.js"></script>
     <script src="js/course-tabs.js"></script>
     <script src="js/mobile-menu.js"></script>
