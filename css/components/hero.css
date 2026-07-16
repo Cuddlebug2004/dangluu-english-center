@@ -157,14 +157,6 @@
   box-shadow: 0 5px 15px rgba(80, 45, 30, 0.08);
 }
 
-/* Không cho animation cũ làm lệch nút */
-
-.hero-btn,
-.hero-btn-label,
-.hero-btn-free {
-  animation: none;
-}
-
 .hero-btn:hover {
   transform: translateY(-6px);
 }
@@ -305,5 +297,158 @@
     padding: 0 12px;
 
     font-size: 16px;
+  }
+}
+
+/*==================================================
+          HERO CTA ATTENTION EFFECT
+==================================================*/
+
+.hero-btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  /*
+    Nhịp phát sáng toàn nút.
+    Không dùng transform để tránh xung đột hiệu ứng hover.
+  */
+  animation: heroCtaGlow 2.2s ease-in-out infinite;
+}
+
+/* Đưa nội dung lên trên tia sáng */
+
+.hero-btn-label,
+.hero-btn-free {
+  position: relative;
+  z-index: 2;
+}
+
+/* Tia sáng quét ngang nút */
+
+.hero-btn::before {
+  content: "";
+
+  position: absolute;
+  top: -70%;
+  left: -45%;
+  z-index: 1;
+
+  width: 28%;
+  height: 240%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.68),
+    transparent
+  );
+
+  transform: rotate(20deg) translateX(-220%);
+
+  animation: heroCtaShine 3.2s ease-in-out infinite;
+
+  pointer-events: none;
+}
+
+/* Chữ MIỄN PHÍ đập nhịp nhẹ */
+
+.hero-btn-free {
+  animation: heroFreePulse 1.7s ease-in-out infinite;
+}
+
+/* Icon tên lửa tạo cảm giác chuyển động */
+
+.hero-btn-label i {
+  transform-origin: center;
+
+  animation: heroRocketMove 1.5s ease-in-out infinite;
+}
+
+/* Khi rê chuột: nút nổi rõ hơn */
+
+.hero-btn:hover {
+  animation-play-state: paused;
+
+  box-shadow:
+    0 20px 45px rgba(235, 91, 40, 0.4),
+    0 0 0 7px rgba(235, 91, 40, 0.1);
+}
+
+.hero-btn:hover::before,
+.hero-btn:hover .hero-btn-free,
+.hero-btn:hover .hero-btn-label i {
+  animation-play-state: paused;
+}
+
+/*==================================================
+                    KEYFRAMES
+==================================================*/
+
+@keyframes heroCtaGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 14px 32px rgba(235, 91, 40, 0.24),
+      0 0 0 0 rgba(235, 91, 40, 0.2);
+  }
+
+  50% {
+    box-shadow:
+      0 20px 44px rgba(235, 91, 40, 0.38),
+      0 0 0 9px rgba(235, 91, 40, 0);
+  }
+}
+
+@keyframes heroCtaShine {
+  0%,
+  38% {
+    transform: rotate(20deg) translateX(-220%);
+  }
+
+  65%,
+  100% {
+    transform: rotate(20deg) translateX(620%);
+  }
+}
+
+@keyframes heroFreePulse {
+  0%,
+  100% {
+    color: var(--primary);
+    background: #ffffff;
+
+    box-shadow: 0 5px 15px rgba(80, 45, 30, 0.08);
+  }
+
+  50% {
+    color: #ffffff;
+    background: #ff8a57;
+
+    box-shadow:
+      0 8px 22px rgba(235, 91, 40, 0.3),
+      0 0 0 5px rgba(255, 255, 255, 0.17);
+  }
+}
+
+@keyframes heroRocketMove {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-4deg);
+  }
+
+  50% {
+    transform: translate(3px, -3px) rotate(4deg);
+  }
+}
+
+/* Tôn trọng người dùng tắt chuyển động */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-btn,
+  .hero-btn::before,
+  .hero-btn-free,
+  .hero-btn-label i {
+    animation: none !important;
   }
 }
