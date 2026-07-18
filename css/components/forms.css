@@ -633,15 +633,3 @@ body.register-modal-active {
     animation: none;
   }
 }
-
-
-/* Trường bẫy bot: người dùng thật không nhìn thấy và không thể focus. */
-.form-honeypot {
-  position: absolute !important;
-  left: -10000px !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}

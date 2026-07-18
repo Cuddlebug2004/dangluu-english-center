@@ -10,16 +10,6 @@ const ALLOWED_COURSES = new Set([
   "IELTS",
 ]);
 
-function jsonResponse(payload, status = 200) {
-  return Response.json(payload, {
-    status,
-    headers: {
-      "Cache-Control": "no-store",
-      "Content-Type": "application/json; charset=utf-8",
-    },
-  });
-}
-
 function cleanText(value, { maxLength, required = false, fieldName }) {
   const normalized = String(value ?? "")
     .replace(/[\u0000-\u001F\u007F]/g, " ")
@@ -69,16 +59,6 @@ function normalizeEmail(value) {
   return email;
 }
 
-function normalizeAge(value) {
-  const age = Number.parseInt(String(value ?? ""), 10);
-
-  if (!Number.isInteger(age) || age < 3 || age > 25) {
-    throw new Error("Tuổi học viên phải từ 3 đến 25.");
-  }
-
-  return age;
-}
-
 function formatVietnamTime(value) {
   const date = value instanceof Date ? value : new Date(value);
 
@@ -94,192 +74,159 @@ function formatVietnamTime(value) {
   }).format(date);
 }
 
-async function parseBody(request) {
-  const contentType = request.headers.get("content-type") || "";
+function parseBody(request) {
+  if (request.body && typeof request.body === "object") {
+    return request.body;
+  }
 
-  if (!contentType.toLowerCase().includes("application/json")) {
-    throw new Error("Yêu cầu phải sử dụng định dạng JSON.");
+  if (typeof request.body === "string" && request.body.trim()) {
+    try {
+      return JSON.parse(request.body);
+    } catch {
+      throw new Error("Dữ liệu gửi lên không hợp lệ.");
+    }
+  }
+
+  return {};
+}
+
+function sendJson(response, status, payload) {
+  response.setHeader("Cache-Control", "no-store");
+  response.setHeader("Content-Type", "application/json; charset=utf-8");
+  return response.status(status).json(payload);
+}
+
+export default async function handler(request, response) {
+  if (request.method === "GET") {
+    return sendJson(response, 200, {
+      result: "ok",
+      service: "website-registration",
+    });
+  }
+
+  if (request.method !== "POST") {
+    response.setHeader("Allow", "GET, POST");
+    return sendJson(response, 405, {
+      result: "error",
+      message: "Phương thức không được hỗ trợ.",
+    });
+  }
+
+  if (!process.env.DATABASE_URL) {
+    console.error("DATABASE_URL is missing in Vercel Environment Variables.");
+    return sendJson(response, 503, {
+      result: "error",
+      message: "Hệ thống đăng ký chưa được cấu hình. Vui lòng liên hệ trung tâm.",
+    });
   }
 
   try {
-    return await request.json();
-  } catch {
-    throw new Error("Dữ liệu gửi lên không hợp lệ.");
+    const body = parseBody(request);
+
+    // Form hiển thị giữ nguyên: phụ huynh, điện thoại, email, chương trình, ghi chú.
+    const parentName = cleanText(body.parent ?? body.fullname, {
+      maxLength: 120,
+      required: true,
+      fieldName: "họ tên phụ huynh",
+    });
+    const phone = normalizePhone(body.phone);
+    const email = normalizeEmail(body.email);
+    const course = cleanText(body.course, {
+      maxLength: 100,
+      required: true,
+      fieldName: "chương trình quan tâm",
+    });
+    const note = cleanText(body.note ?? body.message, {
+      maxLength: 1000,
+      required: false,
+      fieldName: "ghi chú",
+    });
+
+    if (!ALLOWED_COURSES.has(course)) {
+      throw new Error("Chương trình quan tâm không hợp lệ.");
+    }
+
+    const sql = neon(process.env.DATABASE_URL);
+
+    // Chỉ chặn một lượt gửi giống hệt trong thời gian ngắn để tránh bấm hai lần.
+    // Không chặn phụ huynh đăng ký cho nhiều học viên khác nhau trong cùng ngày.
+    const duplicateRows = await sql`
+      SELECT registration_code, submitted_at
+      FROM website_registrations
+      WHERE phone = ${phone}
+        AND LOWER(parent_name) = LOWER(${parentName})
+        AND course = ${course}
+        AND COALESCE(LOWER(email), '') = COALESCE(LOWER(${email}), '')
+        AND COALESCE(note, '') = ${note}
+        AND submitted_at >= CURRENT_TIMESTAMP - INTERVAL '10 minutes'
+      ORDER BY submitted_at DESC
+      LIMIT 1
+    `;
+
+    if (duplicateRows.length > 0) {
+      return sendJson(response, 200, {
+        result: "success",
+        duplicate: true,
+        id: duplicateRows[0].registration_code,
+        time: formatVietnamTime(duplicateRows[0].submitted_at),
+        message: "Thông tin đã được ghi nhận trước đó.",
+      });
+    }
+
+    const insertedRows = await sql`
+      INSERT INTO website_registrations (
+        parent_name,
+        phone,
+        email,
+        course,
+        note,
+        source,
+        status
+      )
+      VALUES (
+        ${parentName},
+        ${phone},
+        ${email},
+        ${course},
+        ${note || null},
+        'website',
+        'new'
+      )
+      RETURNING registration_code, submitted_at
+    `;
+
+    return sendJson(response, 201, {
+      result: "success",
+      duplicate: false,
+      id: insertedRows[0].registration_code,
+      time: formatVietnamTime(insertedRows[0].submitted_at),
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Không thể lưu đăng ký.";
+
+    console.error("Registration API error:", error);
+
+    if (message.includes("website_registrations") || message.includes("does not exist")) {
+      return sendJson(response, 503, {
+        result: "error",
+        message: "Hệ thống đăng ký đang được cập nhật. Vui lòng thử lại sau.",
+      });
+    }
+
+    const validationMessages = [
+      "Vui lòng",
+      "không hợp lệ",
+      "không đúng",
+      "không được vượt",
+      "Dữ liệu gửi lên",
+    ];
+    const isValidationError = validationMessages.some((text) => message.includes(text));
+
+    return sendJson(response, isValidationError ? 400 : 500, {
+      result: "error",
+      message: isValidationError
+        ? message
+        : "Không thể lưu đăng ký lúc này. Vui lòng thử lại sau.",
+    });
   }
 }
-
-export default {
-  async fetch(request) {
-    if (request.method === "GET") {
-      return jsonResponse({
-        result: "ok",
-        service: "website-registration",
-      });
-    }
-
-    if (request.method !== "POST") {
-      return jsonResponse(
-        {
-          result: "error",
-          message: "Phương thức không được hỗ trợ.",
-        },
-        405,
-      );
-    }
-
-    if (!process.env.DATABASE_URL) {
-      console.error("DATABASE_URL is missing in Vercel Environment Variables.");
-      return jsonResponse(
-        {
-          result: "error",
-          message: "Hệ thống đăng ký chưa được cấu hình. Vui lòng liên hệ trung tâm.",
-        },
-        503,
-      );
-    }
-
-    try {
-      const body = await parseBody(request);
-
-      // Honeypot: bot thường tự điền trường ẩn này. Trả thành công giả để
-      // không tiết lộ cơ chế chống spam, nhưng không ghi dữ liệu vào database.
-      if (String(body.website ?? "").trim()) {
-        return jsonResponse({
-          result: "success",
-          id: "DLE-RECEIVED",
-          time: formatVietnamTime(new Date()),
-        });
-      }
-
-      const parentName = cleanText(body.parent, {
-        maxLength: 120,
-        required: true,
-        fieldName: "họ tên phụ huynh",
-      });
-      const studentName = cleanText(body.student, {
-        maxLength: 120,
-        required: true,
-        fieldName: "họ tên học viên",
-      }).toUpperCase();
-      const studentAge = normalizeAge(body.age);
-      const phone = normalizePhone(body.phone);
-      const email = normalizeEmail(body.email);
-      const course = cleanText(body.course, {
-        maxLength: 100,
-        required: true,
-        fieldName: "chương trình quan tâm",
-      });
-      const note = cleanText(body.note ?? body.message, {
-        maxLength: 1000,
-        required: false,
-        fieldName: "ghi chú",
-      });
-
-      if (!ALLOWED_COURSES.has(course)) {
-        throw new Error("Chương trình quan tâm không hợp lệ.");
-      }
-
-      const sql = neon(process.env.DATABASE_URL);
-
-      const duplicateRows = await sql`
-        SELECT registration_code, submitted_at
-        FROM website_registrations
-        WHERE phone = ${phone}
-          AND LOWER(student_name) = LOWER(${studentName})
-          AND course = ${course}
-          AND submitted_at >= CURRENT_TIMESTAMP - INTERVAL '24 hours'
-        ORDER BY submitted_at DESC
-        LIMIT 1
-      `;
-
-      if (duplicateRows.length > 0) {
-        return jsonResponse({
-          result: "success",
-          duplicate: true,
-          id: duplicateRows[0].registration_code,
-          time: formatVietnamTime(duplicateRows[0].submitted_at),
-          message: "Thông tin đã được ghi nhận trước đó.",
-        });
-      }
-
-      const insertedRows = await sql`
-        INSERT INTO website_registrations (
-          parent_name,
-          student_name,
-          student_age,
-          phone,
-          email,
-          course,
-          note,
-          source,
-          status
-        )
-        VALUES (
-          ${parentName},
-          ${studentName},
-          ${studentAge},
-          ${phone},
-          ${email},
-          ${course},
-          ${note || null},
-          'website',
-          'new'
-        )
-        RETURNING registration_code, submitted_at
-      `;
-
-      return jsonResponse(
-        {
-          result: "success",
-          duplicate: false,
-          id: insertedRows[0].registration_code,
-          time: formatVietnamTime(insertedRows[0].submitted_at),
-        },
-        201,
-      );
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Không thể lưu đăng ký.";
-
-      console.error("Registration API error:", error);
-
-      if (
-        message.includes("website_registrations") ||
-        message.includes("does not exist")
-      ) {
-        return jsonResponse(
-          {
-            result: "error",
-            message:
-              "Hệ thống đăng ký đang được cập nhật. Vui lòng thử lại sau.",
-          },
-          503,
-        );
-      }
-
-      const validationMessages = [
-        "Vui lòng",
-        "không hợp lệ",
-        "không đúng",
-        "không được vượt",
-        "phải từ",
-        "phải sử dụng",
-        "Dữ liệu gửi lên",
-      ];
-
-      const isValidationError = validationMessages.some((prefix) =>
-        message.includes(prefix),
-      );
-
-      return jsonResponse(
-        {
-          result: "error",
-          message: isValidationError
-            ? message
-            : "Không thể lưu đăng ký lúc này. Vui lòng thử lại sau.",
-        },
-        isValidationError ? 400 : 500,
-      );
-    }
-  },
-};
