@@ -121,7 +121,6 @@
     <link rel="stylesheet" href="css/pages/home.css" />
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/responsive.css" />
-    <link rel="stylesheet" href="css/layout/footer-modern.css">
 
     <!--==================================================
                     STRUCTURED DATA
@@ -306,6 +305,17 @@
     </a>
   </li>
 
+  <li class="menu-register-item">
+    <a
+      class="nav-register-btn"
+      href="#contact"
+      data-open-register-modal
+    >
+      <i class="fa-regular fa-user" aria-hidden="true"></i>
+      Đăng ký học thử
+    </a>
+  </li>
+
   <li class="mobile-menu-extra" aria-label="Thông tin tư vấn nhanh">
     <div class="mobile-menu-card">
       <span class="mobile-menu-card-label">
@@ -392,17 +402,73 @@
           </div>
 
           <div class="hero-right">
-            <div class="hero-image">
-              <img
-  src="images/hero/hero.webp"
-  alt="Học viên tại Đăng Lưu English Center"
-  fetchpriority="high"
-  decoding="async"
-/>
+            <div
+              class="hero-slider"
+              data-hero-slider
+              aria-label="Hình ảnh hoạt động tại Đăng Lưu English Center"
+            >
+              <div class="hero-slides">
+                <figure class="hero-slide active" aria-hidden="false">
+                  <img
+                    src="images/hero/hero.webp"
+                    alt="Hoạt động học tập tại Đăng Lưu English Center"
+                    fetchpriority="high"
+                    decoding="async"
+                  />
+                  <figcaption>
+                    <strong>Môi trường học tập truyền cảm hứng</strong>
+                    <span>Khơi mở sự tự tin qua từng trải nghiệm.</span>
+                  </figcaption>
+                </figure>
 
-              <div class="hero-shape shape1"></div>
-              <div class="hero-shape shape2"></div>
-              <div class="hero-shape shape3"></div>
+                <figure class="hero-slide" aria-hidden="true">
+                  <img
+                    src="images/gallery/classroom.webp"
+                    alt="Học viên tham gia hoạt động tiếng Anh"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <figcaption>
+                    <strong>Học chủ động, tương tác tự nhiên</strong>
+                    <span>Phát triển phản xạ ngôn ngữ trong lớp học.</span>
+                  </figcaption>
+                </figure>
+
+                <figure class="hero-slide" aria-hidden="true">
+                  <img
+                    src="images/gallery/activity1.webp"
+                    alt="Không gian lớp học và hoạt động tập thể"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <figcaption>
+                    <strong>Đồng hành cùng từng học viên</strong>
+                    <span>Nuôi dưỡng bản lĩnh và năng lực hội nhập.</span>
+                  </figcaption>
+                </figure>
+              </div>
+
+              <button
+                class="hero-slider-arrow hero-slider-prev"
+                type="button"
+                aria-label="Xem hình trước"
+              >
+                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+              </button>
+
+              <button
+                class="hero-slider-arrow hero-slider-next"
+                type="button"
+                aria-label="Xem hình tiếp theo"
+              >
+                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+              </button>
+
+              <div class="hero-slider-dots" role="tablist" aria-label="Chọn hình ảnh">
+                <button class="active" type="button" data-slide-to="0" aria-label="Hình 1" aria-selected="true"></button>
+                <button type="button" data-slide-to="1" aria-label="Hình 2" aria-selected="false"></button>
+                <button type="button" data-slide-to="2" aria-label="Hình 3" aria-selected="false"></button>
+              </div>
             </div>
           </div>
         </div>
@@ -821,13 +887,6 @@
     👦 Độ tuổi:
     <strong id="courseAge">
       4–6 tuổi
-    </strong>
-  </div>
-
-  <div>
-    📚 Thời lượng:
-    <strong id="courseTime">
-      60 buổi
     </strong>
   </div>
 

@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const courseTitle = document.getElementById("courseTitle");
   const courseDesc = document.getElementById("courseDesc");
   const courseAge = document.getElementById("courseAge");
-  const courseTime = document.getElementById("courseTime");
   const courseOutput = document.getElementById("courseOutput");
 
   if (
@@ -22,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     !courseTitle ||
     !courseDesc ||
     !courseAge ||
-    !courseTime ||
     !courseOutput
   ) {
     console.warn("Không tìm thấy đầy đủ thành phần của khu vực chương trình.");
@@ -36,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Pre-Starters",
       desc: "Chương trình làm quen tiếng Anh dành cho học viên nhỏ tuổi, giúp xây dựng nền tảng từ vựng, phát âm và phản xạ giao tiếp thông qua trò chơi, bài hát và hoạt động tương tác.",
       age: "4–6 tuổi",
-      time: "60 buổi",
       output: "Nền tảng Pre-A1",
       image: "images/courses/starters.webp",
       fallbackImage: "images/courses/starters.webp",
@@ -48,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Cambridge Starters",
       desc: "Giúp học viên hình thành nền tảng tiếng Anh thông qua từ vựng, phát âm, trò chơi và các hoạt động giao tiếp phù hợp với độ tuổi.",
       age: "6–8 tuổi",
-      time: "72 buổi",
       output: "YLE Starters",
       image: "images/courses/starters.webp",
       fallbackImage: "images/courses/starters.webp",
@@ -60,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Cambridge Movers",
       desc: "Phát triển khả năng nghe, nói, đọc và viết, đồng thời tăng phản xạ sử dụng tiếng Anh trong các tình huống quen thuộc.",
       age: "8–10 tuổi",
-      time: "80 buổi",
       output: "YLE Movers",
       image: "images/courses/movers.webp",
       fallbackImage: "images/courses/starters.webp",
@@ -72,7 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Cambridge Flyers",
       desc: "Củng cố toàn diện bốn kỹ năng và giúp học viên sử dụng tiếng Anh tự tin hơn trong học tập và giao tiếp.",
       age: "10–12 tuổi",
-      time: "90 buổi",
       output: "YLE Flyers",
       image: "images/courses/flyers.webp",
       fallbackImage: "images/courses/starters.webp",
@@ -84,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Cambridge KET",
       desc: "Phát triển năng lực tiếng Anh nền tảng và chuẩn bị cho kỳ thi Cambridge A2 Key với lộ trình học rõ ràng.",
       age: "12 tuổi trở lên",
-      time: "100 buổi",
       output: "A2 Key",
       image: "images/courses/ket.webp",
       fallbackImage: "images/courses/starters.webp",
@@ -96,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Cambridge PET",
       desc: "Nâng cao khả năng sử dụng tiếng Anh độc lập trong học tập, giao tiếp và các tình huống thực tế.",
       age: "13 tuổi trở lên",
-      time: "110 buổi",
       output: "B1 Preliminary",
       image: "images/courses/pet.webp",
       fallbackImage: "images/courses/starters.webp",
@@ -108,7 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Luyện thi IELTS",
       desc: "Phát triển toàn diện Listening, Speaking, Reading và Writing, kết hợp chiến lược làm bài theo mục tiêu điểm số của từng học viên.",
       age: "15 tuổi trở lên",
-      time: "Theo trình độ đầu vào",
       output: "IELTS theo mục tiêu",
       image: "images/courses/fce.webp",
       fallbackImage: "images/courses/starters.webp",
@@ -203,7 +194,6 @@ document.addEventListener("DOMContentLoaded", () => {
     courseTitle.textContent = course.title;
     courseDesc.textContent = course.desc;
     courseAge.textContent = course.age;
-    courseTime.textContent = course.time;
     courseOutput.textContent = course.output;
 
     updateCourseImage(course, currentChangeId);

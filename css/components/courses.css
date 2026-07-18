@@ -189,6 +189,7 @@
 
 .course-features {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
   margin-bottom: 40px;
 }
@@ -266,5 +267,23 @@
     padding: 10px 14px;
 
     font-size: 14px;
+  }
+}
+
+
+/*==================================================
+          COURSE FEATURES - NO DURATION
+==================================================*/
+
+.course-features > div {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 576px) {
+  .course-features {
+    grid-template-columns: 1fr;
   }
 }
