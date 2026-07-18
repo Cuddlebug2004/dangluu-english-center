@@ -6,10 +6,13 @@ const registerForm = document.getElementById("registerForm");
 
 if (registerForm) {
   const fullnameInput = document.getElementById("fullname");
+  const studentInput = document.getElementById("student");
+  const ageInput = document.getElementById("age");
   const phoneInput = document.getElementById("phone");
   const emailInput = document.getElementById("email");
   const courseInput = document.getElementById("course");
   const messageInput = document.getElementById("message");
+  const websiteInput = document.getElementById("website");
   const submitButton = registerForm.querySelector(".submit-btn");
 
   registerForm.addEventListener("submit", handleRegisterSubmit);
@@ -17,9 +20,15 @@ if (registerForm) {
   async function handleRegisterSubmit(event) {
     event.preventDefault();
 
+    if (submitButton.disabled) {
+      return;
+    }
+
     clearErrors();
 
     const isFullnameValid = validateFullname(fullnameInput.value);
+    const isStudentValid = validateFullname(studentInput.value);
+    const isAgeValid = validateStudentAge(ageInput.value);
     const isPhoneValid = validatePhone(phoneInput.value);
     const isEmailValid = validateEmail(emailInput.value);
     const isCourseValid = courseInput.value.trim() !== "";
@@ -28,6 +37,18 @@ if (registerForm) {
       showError(fullnameInput, "Vui lòng nhập họ và tên phụ huynh.");
     } else {
       showValid(fullnameInput);
+    }
+
+    if (!isStudentValid) {
+      showError(studentInput, "Vui lòng nhập họ và tên học viên.");
+    } else {
+      showValid(studentInput);
+    }
+
+    if (!isAgeValid) {
+      showError(ageInput, "Tuổi học viên phải từ 3 đến 25.");
+    } else {
+      showValid(ageInput);
     }
 
     if (!isPhoneValid) {
@@ -49,7 +70,12 @@ if (registerForm) {
     }
 
     const isFormValid =
-      isFullnameValid && isPhoneValid && isEmailValid && isCourseValid;
+      isFullnameValid &&
+      isStudentValid &&
+      isAgeValid &&
+      isPhoneValid &&
+      isEmailValid &&
+      isCourseValid;
 
     if (!isFormValid) {
       const firstInvalidField = registerForm.querySelector(".is-invalid");
@@ -63,10 +89,13 @@ if (registerForm) {
 
     const formData = {
       parent: fullnameInput.value.trim(),
+      student: studentInput.value.trim(),
+      age: Number.parseInt(ageInput.value, 10),
       phone: phoneInput.value.trim(),
       email: emailInput.value.trim(),
       course: courseInput.value,
-      message: messageInput.value.trim(),
+      note: messageInput.value.trim(),
+      website: websiteInput?.value.trim() || "",
     };
 
     setSubmittingState(true);
@@ -83,13 +112,14 @@ if (registerForm) {
 
       showSuccessModal(
         result.id || "Đang cập nhật",
-        result.time || formData.registerTime,
+        result.time || "Đang cập nhật",
       );
     } catch (error) {
       console.error("Register form error:", error);
 
       alert(
-        "Không thể gửi đăng ký lúc này. Vui lòng thử lại hoặc liên hệ trực tiếp qua số 0978 328 610.",
+        error?.message ||
+          "Không thể gửi đăng ký lúc này. Vui lòng thử lại hoặc liên hệ trực tiếp qua số 0978 328 610.",
       );
     } finally {
       setSubmittingState(false);
@@ -128,6 +158,9 @@ if (registerForm) {
 
   function setSubmittingState(isSubmitting) {
     submitButton.disabled = isSubmitting;
-    submitButton.textContent = isSubmitting ? "ĐANG GỬI..." : "ĐĂNG KÝ HỌC THỬ";
+    submitButton.setAttribute("aria-busy", String(isSubmitting));
+    submitButton.textContent = isSubmitting
+      ? "ĐANG GỬI..."
+      : "ĐĂNG KÝ HỌC THỬ";
   }
 }

@@ -1139,6 +1139,39 @@
                 </div>
 
                 <div class="form-group">
+                  <label for="student"> Họ và tên học viên </label>
+
+                  <input
+                    type="text"
+                    id="student"
+                    name="student"
+                    autocomplete="name"
+                    placeholder="Nhập họ và tên học viên"
+                    maxlength="120"
+                    required
+                  />
+
+                  <small class="form-error"></small>
+                </div>
+
+                <div class="form-group">
+                  <label for="age"> Tuổi học viên </label>
+
+                  <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    inputmode="numeric"
+                    min="3"
+                    max="25"
+                    placeholder="Ví dụ: 8"
+                    required
+                  />
+
+                  <small class="form-error"></small>
+                </div>
+
+                <div class="form-group">
                   <label for="phone"> Số điện thoại </label>
 
                   <input
@@ -1221,6 +1254,17 @@
                     rows="4"
                     placeholder="Thông tin cần tư vấn..."
                   ></textarea>
+                </div>
+
+                <div class="form-honeypot" aria-hidden="true">
+                  <label for="website">Website</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    tabindex="-1"
+                    autocomplete="off"
+                  />
                 </div>
 
                 <button class="btn-primary submit-btn" type="submit">

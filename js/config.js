@@ -1,3 +1,5 @@
-/**config.js  */
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbx4rQEzFnDvC2SYUGNNeAV-iAulAh8kFFTDdXVMKxhCfaVRUU6giUxoLY-hVF216F2b/exec";
+/**
+ * Dùng đường dẫn tương đối để cùng hoạt động trên tên miền vercel.app
+ * và tên miền riêng được gắn vào dự án sau này.
+ */
+const API_URL = "/api/register";
