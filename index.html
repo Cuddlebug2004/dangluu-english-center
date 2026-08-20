@@ -84,7 +84,7 @@
   content="https://dangluu-english-center.vercel.app/images/hero/hero.webp"
 />
 
-    <link rel="icon" href="images/logo/favicon.png" />
+    <link rel="icon" href="images/logo/logo.png" />
 
     <!-- Preload logo -->
     <link
@@ -117,10 +117,12 @@
     <link rel="stylesheet" href="css/components/hero.css" />
     <link rel="stylesheet" href="css/components/courses.css" />
     <link rel="stylesheet" href="css/components/forms.css" />
+    <link rel="stylesheet" href="css/components/opening-schedule.css" />
     <link rel="stylesheet" href="css/components/faq.css" />
     <link rel="stylesheet" href="css/pages/home.css" />
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/components/floating-contact.css" />
 
     <!--==================================================
                     STRUCTURED DATA
@@ -137,7 +139,7 @@
     "logo": "https://dangluu-english-center.vercel.app/images/logo/logo.png",
     "image": "https://dangluu-english-center.vercel.app/images/hero/hero.webp",
     "description": "Trung tâm đào tạo tiếng Anh Cambridge cho trẻ em và thiếu niên với lộ trình từ Starters đến FCE.",
-    "telephone": "+84965272724",
+    "telephone": "+84978328610",
     "email": "ngoaingudangluu@gmail.com",
     "address": {
       "@type": "PostalAddress",
@@ -242,7 +244,14 @@
             <div class="top-item">
               <i class="fa-solid fa-phone" aria-hidden="true"></i>
 
-              <span>0978.328.610</span>
+              <button
+                class="topbar-contact-button"
+                type="button"
+                data-open-contact-choice
+                aria-haspopup="dialog"
+              >
+                0978.328.610
+              </button>
             </div>
 
             <div class="top-item">
@@ -300,6 +309,12 @@
   </li>
 
   <li>
+    <a class="nav-link" href="#opening-schedule">
+      Lịch khai giảng
+    </a>
+  </li>
+
+  <li>
     <a class="nav-link" href="#contact">
       Liên hệ
     </a>
@@ -343,7 +358,7 @@
 
       <a
         class="mobile-menu-phone"
-        href="tel:+84965272724"
+        href="tel:+84978328610"
       >
         <i class="fa-solid fa-phone" aria-hidden="true"></i>
         0978 328 610
@@ -359,9 +374,11 @@
     </div>
   </li>
 </ul>
+        </div>
+      </nav>
     </header>
 
-    <div class="registration-result" aria-live="polite">
+    <main id="main-content">
       <!--==================================================
                             HERO
     ==================================================-->
@@ -469,6 +486,115 @@
                 <button type="button" data-slide-to="1" aria-label="Hình 2" aria-selected="false"></button>
                 <button type="button" data-slide-to="2" aria-label="Hình 3" aria-selected="false"></button>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--==================================================
+                       OPENING SCHEDULE
+    ==================================================-->
+
+      <section
+        class="opening-schedule"
+        id="opening-schedule"
+        data-opening-date="2026-10-11T08:00:00+07:00"
+        aria-labelledby="openingScheduleTitle"
+      >
+        <div class="container">
+          <div class="opening-schedule-card">
+            <div class="opening-schedule-intro">
+              <span class="opening-schedule-badge">
+                <i class="fa-solid fa-bell" aria-hidden="true"></i>
+                ĐỢT TUYỂN SINH MỚI
+              </span>
+
+              <h2 id="openingScheduleTitle">Lịch khai giảng khóa mới</h2>
+
+              <p>
+                Đăng ký sớm để được tư vấn trình độ, chọn khung giờ phù hợp và
+                giữ chỗ trong lớp học tối đa 10 học viên.
+              </p>
+
+              <div class="opening-date-card">
+                <span class="opening-date-icon" aria-hidden="true">
+                  <i class="fa-regular fa-calendar-check"></i>
+                </span>
+
+                <div>
+                  <span class="opening-date-label">Dự kiến khai giảng</span>
+                  <time datetime="2026-10-11" data-opening-date-text>
+                    Chủ nhật, 11/10/2026
+                  </time>
+                </div>
+              </div>
+
+              <ul class="opening-schedule-benefits" aria-label="Quyền lợi đăng ký">
+                <li>
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  Kiểm tra trình độ và học thử miễn phí
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  Tư vấn lộ trình Cambridge phù hợp
+                </li>
+              </ul>
+            </div>
+
+            <div class="opening-schedule-countdown">
+              <span class="opening-countdown-kicker">THỜI GIAN CÒN LẠI</span>
+              <h3>Sẵn sàng cho hành trình tiếng Anh mới</h3>
+
+              <div
+                class="countdown-grid"
+                role="timer"
+                aria-live="off"
+                aria-label="Thời gian còn lại đến ngày khai giảng"
+              >
+                <div class="countdown-item">
+                  <strong data-countdown-days>00</strong>
+                  <span>Ngày</span>
+                </div>
+
+                <div class="countdown-item">
+                  <strong data-countdown-hours>00</strong>
+                  <span>Giờ</span>
+                </div>
+
+                <div class="countdown-item">
+                  <strong data-countdown-minutes>00</strong>
+                  <span>Phút</span>
+                </div>
+
+                <div class="countdown-item">
+                  <strong data-countdown-seconds>00</strong>
+                  <span>Giây</span>
+                </div>
+              </div>
+
+              <p class="opening-countdown-note" data-countdown-message>
+                Giữ chỗ sớm để trung tâm sắp xếp lớp và lịch học phù hợp cho học viên.
+              </p>
+
+              <div class="opening-schedule-actions">
+                <a
+                  class="opening-schedule-primary"
+                  href="#contact"
+                  data-open-register-modal
+                >
+                  ĐĂNG KÝ GIỮ CHỖ
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+
+                <a class="opening-schedule-secondary" href="#courses">
+                  Xem lộ trình học
+                </a>
+              </div>
+
+              <span class="opening-schedule-contact">
+                Cần tư vấn nhanh?
+                <a href="tel:+84978328610">0978 328 610</a>
+              </span>
             </div>
           </div>
         </div>
@@ -1440,6 +1566,10 @@
             </li>
 
             <li>
+              <a href="#opening-schedule">Lịch khai giảng</a>
+            </li>
+
+            <li>
               <a href="#contact">Liên hệ</a>
             </li>
 
@@ -1491,8 +1621,23 @@
           </p>
 
           <div class="footer-social">
-            <a href="#" aria-label="Facebook">
+            <a
+              href="https://www.facebook.com/61592774969048/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook Đăng Lưu English Center"
+            >
               <i class="fab fa-facebook-f" aria-hidden="true"></i>
+            </a>
+
+            <a
+              class="footer-zalo-link"
+              href="https://zalo.me/0978328610"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Zalo Đăng Lưu English Center"
+            >
+              <span aria-hidden="true">Zalo</span>
             </a>
 
             <a href="#" aria-label="YouTube">
@@ -1514,6 +1659,205 @@
         © 2026 Đăng Lưu English Center. All Rights Reserved.
       </div>
     </footer>
+
+    <!--==================================================
+                   FLOATING CONTACT & ASSISTANT
+    ==================================================-->
+
+    <aside
+      class="floating-ai-panel"
+      id="aiAssistantPanel"
+      aria-hidden="true"
+      aria-labelledby="aiAssistantTitle"
+    >
+      <div class="floating-ai-header">
+        <div class="floating-ai-identity">
+          <span class="floating-ai-avatar" aria-hidden="true">
+            <img src="images/logo/logo.png" alt="" />
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </span>
+
+          <div>
+            <h2 id="aiAssistantTitle">Trợ lý Đăng Lưu</h2>
+            <span><i aria-hidden="true"></i> Đang trực tuyến</span>
+          </div>
+        </div>
+
+        <button
+          class="floating-ai-close"
+          id="aiAssistantClose"
+          type="button"
+          aria-label="Đóng trợ lý tư vấn"
+        >
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div
+        class="floating-ai-messages"
+        id="aiAssistantMessages"
+        role="log"
+        aria-live="polite"
+        aria-relevant="additions"
+      >
+        <div class="floating-ai-message floating-ai-message-bot">
+          Xin chào! Mình là trợ lý của Đăng Lưu. Mình có thể giúp phụ huynh tìm
+          hiểu nhanh thông tin nào ạ?
+        </div>
+      </div>
+
+      <div class="floating-ai-suggestions" aria-label="Câu hỏi gợi ý">
+        <button type="button" data-assistant-question="opening">
+          Lịch khai giảng
+        </button>
+        <button type="button" data-assistant-question="courses">
+          Chương trình học
+        </button>
+        <button type="button" data-assistant-question="trial">
+          Học phí &amp; học thử
+        </button>
+        <button type="button" data-assistant-question="address">
+          Địa chỉ trung tâm
+        </button>
+      </div>
+
+      <form class="floating-ai-form" id="aiAssistantForm">
+        <label class="visually-hidden" for="aiAssistantInput">
+          Nhập câu hỏi cho trợ lý
+        </label>
+        <input
+          id="aiAssistantInput"
+          type="text"
+          maxlength="180"
+          autocomplete="off"
+          placeholder="Nhập câu hỏi..."
+        />
+        <button type="submit" aria-label="Gửi câu hỏi">
+          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+        </button>
+      </form>
+
+      <p class="floating-ai-disclaimer">
+        Trợ lý trả lời thông tin cơ bản. Tư vấn viên sẽ hỗ trợ chi tiết qua Zalo.
+      </p>
+    </aside>
+
+    <nav class="floating-contact-rail" aria-label="Liên hệ nhanh">
+      <a
+        class="floating-contact-item floating-contact-facebook"
+        href="https://www.facebook.com/61592774969048/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Mở Facebook Đăng Lưu"
+      >
+        <span class="floating-contact-label">Facebook</span>
+        <span class="floating-contact-icon">
+          <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+        </span>
+      </a>
+
+      <a
+        class="floating-contact-item floating-contact-zalo"
+        href="https://zalo.me/0978328610"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Mở Zalo Đăng Lưu"
+      >
+        <span class="floating-contact-label">Zalo</span>
+        <span class="floating-contact-icon floating-zalo-word" aria-hidden="true">
+          Zalo
+        </span>
+      </a>
+
+      <button
+        class="floating-contact-item floating-contact-phone"
+        type="button"
+        data-open-contact-choice
+        aria-label="Chọn cách liên hệ qua điện thoại"
+        aria-haspopup="dialog"
+      >
+        <span class="floating-contact-label">Gọi ngay</span>
+        <span class="floating-contact-icon">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
+        </span>
+      </button>
+
+      <button
+        class="floating-contact-item floating-contact-assistant"
+        id="aiAssistantLauncher"
+        type="button"
+        aria-label="Mở trợ lý Đăng Lưu"
+        aria-controls="aiAssistantPanel"
+        aria-expanded="false"
+      >
+        <span class="floating-contact-label">Trợ lý AI</span>
+        <span class="floating-contact-icon floating-assistant-avatar">
+          <i
+            class="fa-solid fa-robot floating-assistant-robot"
+            aria-hidden="true"
+          ></i>
+          <i
+            class="fa-solid fa-wand-magic-sparkles floating-assistant-sparkle"
+            aria-hidden="true"
+          ></i>
+        </span>
+      </button>
+    </nav>
+
+    <div
+      class="contact-choice-overlay"
+      id="contactChoiceOverlay"
+      aria-hidden="true"
+    >
+      <section
+        class="contact-choice-dialog"
+        id="contactChoiceDialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contactChoiceTitle"
+      >
+        <button
+          class="contact-choice-close"
+          id="contactChoiceClose"
+          type="button"
+          aria-label="Đóng lựa chọn liên hệ"
+        >
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+
+        <span class="contact-choice-heading-icon" aria-hidden="true">
+          <i class="fa-solid fa-headset"></i>
+        </span>
+
+        <h2 id="contactChoiceTitle">
+          Bạn muốn liên hệ với Đăng Lưu bằng cách nào?
+        </h2>
+        <p>Chọn hình thức thuận tiện nhất để được hỗ trợ nhanh nhé.</p>
+
+        <div class="contact-choice-actions">
+          <a class="contact-choice-sim" href="tel:+84978328610">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <span>
+              <strong>Gọi trực tiếp qua SIM</strong>
+              <small>0978 328 610</small>
+            </span>
+          </a>
+
+          <a
+            class="contact-choice-zalo"
+            href="https://zalo.me/0978328610"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="contact-choice-zalo-icon" aria-hidden="true">Zalo</span>
+            <span>
+              <strong>Trao đổi qua Zalo</strong>
+              <small>Nhắn tin hoặc gọi Zalo</small>
+            </span>
+          </a>
+        </div>
+      </section>
+    </div>
 
     <!--==================================================
                          BACK TO TOP
@@ -1593,6 +1937,8 @@
     <script src="js/register-modal.js"></script>
     <script src="js/form.js"></script>
     <script src="js/course-tabs.js"></script>
+    <script src="js/opening-schedule.js"></script>
+    <script src="js/floating-contact.js"></script>
     <script src="js/mobile-menu.js"></script>
     <script src="js/main.js"></script>
   </body>
