@@ -84,7 +84,7 @@
   content="https://dangluu-english-center.vercel.app/images/hero/hero.webp"
 />
 
-    <link rel="icon" href="images/logo/favicon.png" />
+    <link rel="icon" href="images/logo/logo.png" />
 
     <!-- Preload logo -->
     <link
@@ -117,6 +117,7 @@
     <link rel="stylesheet" href="css/components/hero.css" />
     <link rel="stylesheet" href="css/components/courses.css" />
     <link rel="stylesheet" href="css/components/forms.css" />
+    <link rel="stylesheet" href="css/components/opening-schedule.css" />
     <link rel="stylesheet" href="css/components/faq.css" />
     <link rel="stylesheet" href="css/pages/home.css" />
     <link rel="stylesheet" href="css/animations.css" />
@@ -300,6 +301,12 @@
   </li>
 
   <li>
+    <a class="nav-link" href="#opening-schedule">
+      Lịch khai giảng
+    </a>
+  </li>
+
+  <li>
     <a class="nav-link" href="#contact">
       Liên hệ
     </a>
@@ -359,9 +366,11 @@
     </div>
   </li>
 </ul>
+        </div>
+      </nav>
     </header>
 
-    <div class="registration-result" aria-live="polite">
+    <main id="main-content">
       <!--==================================================
                             HERO
     ==================================================-->
@@ -469,6 +478,115 @@
                 <button type="button" data-slide-to="1" aria-label="Hình 2" aria-selected="false"></button>
                 <button type="button" data-slide-to="2" aria-label="Hình 3" aria-selected="false"></button>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--==================================================
+                       OPENING SCHEDULE
+    ==================================================-->
+
+      <section
+        class="opening-schedule"
+        id="opening-schedule"
+        data-opening-date="2026-10-11T08:00:00+07:00"
+        aria-labelledby="openingScheduleTitle"
+      >
+        <div class="container">
+          <div class="opening-schedule-card">
+            <div class="opening-schedule-intro">
+              <span class="opening-schedule-badge">
+                <i class="fa-solid fa-bell" aria-hidden="true"></i>
+                ĐỢT TUYỂN SINH MỚI
+              </span>
+
+              <h2 id="openingScheduleTitle">Lịch khai giảng khóa mới</h2>
+
+              <p>
+                Đăng ký sớm để được tư vấn trình độ, chọn khung giờ phù hợp và
+                giữ chỗ trong lớp học tối đa 10 học viên.
+              </p>
+
+              <div class="opening-date-card">
+                <span class="opening-date-icon" aria-hidden="true">
+                  <i class="fa-regular fa-calendar-check"></i>
+                </span>
+
+                <div>
+                  <span class="opening-date-label">Dự kiến khai giảng</span>
+                  <time datetime="2026-10-11" data-opening-date-text>
+                    Chủ nhật, 11/10/2026
+                  </time>
+                </div>
+              </div>
+
+              <ul class="opening-schedule-benefits" aria-label="Quyền lợi đăng ký">
+                <li>
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  Kiểm tra trình độ và học thử miễn phí
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  Tư vấn lộ trình Cambridge phù hợp
+                </li>
+              </ul>
+            </div>
+
+            <div class="opening-schedule-countdown">
+              <span class="opening-countdown-kicker">THỜI GIAN CÒN LẠI</span>
+              <h3>Sẵn sàng cho hành trình tiếng Anh mới</h3>
+
+              <div
+                class="countdown-grid"
+                role="timer"
+                aria-live="off"
+                aria-label="Thời gian còn lại đến ngày khai giảng"
+              >
+                <div class="countdown-item">
+                  <strong data-countdown-days>00</strong>
+                  <span>Ngày</span>
+                </div>
+
+                <div class="countdown-item">
+                  <strong data-countdown-hours>00</strong>
+                  <span>Giờ</span>
+                </div>
+
+                <div class="countdown-item">
+                  <strong data-countdown-minutes>00</strong>
+                  <span>Phút</span>
+                </div>
+
+                <div class="countdown-item">
+                  <strong data-countdown-seconds>00</strong>
+                  <span>Giây</span>
+                </div>
+              </div>
+
+              <p class="opening-countdown-note" data-countdown-message>
+                Giữ chỗ sớm để trung tâm sắp xếp lớp và lịch học phù hợp cho học viên.
+              </p>
+
+              <div class="opening-schedule-actions">
+                <a
+                  class="opening-schedule-primary"
+                  href="#contact"
+                  data-open-register-modal
+                >
+                  ĐĂNG KÝ GIỮ CHỖ
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+
+                <a class="opening-schedule-secondary" href="#courses">
+                  Xem lộ trình học
+                </a>
+              </div>
+
+              <span class="opening-schedule-contact">
+                Cần tư vấn nhanh?
+                <a href="tel:+84978328610">0978 328 610</a>
+              </span>
             </div>
           </div>
         </div>
@@ -1440,6 +1558,10 @@
             </li>
 
             <li>
+              <a href="#opening-schedule">Lịch khai giảng</a>
+            </li>
+
+            <li>
               <a href="#contact">Liên hệ</a>
             </li>
 
@@ -1593,6 +1715,7 @@
     <script src="js/register-modal.js"></script>
     <script src="js/form.js"></script>
     <script src="js/course-tabs.js"></script>
+    <script src="js/opening-schedule.js"></script>
     <script src="js/mobile-menu.js"></script>
     <script src="js/main.js"></script>
   </body>
