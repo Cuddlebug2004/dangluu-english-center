@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="theme-color" content="#6c4bc3" />
+    <title>Góc học tập · Đăng Lưu English Center</title>
+    <link rel="icon" href="../images/logo/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
+      defer
+    ></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#learning-main">Đi thẳng đến nội dung</a>
+    <header class="learning-header">
+      <a class="brand" href="../" aria-label="Về trang chủ Đăng Lưu">
+        <img src="../images/logo/logo.png" alt="" />
+        <span><strong>ĐĂNG LƯU</strong><small>GÓC HỌC TẬP</small></span>
+      </a>
+      <div class="header-actions">
+        <span class="student-chip" id="student-chip" hidden></span>
+        <button class="quiet-button" id="logout-button" type="button" hidden>Đăng xuất</button>
+      </div>
+    </header>
+
+    <main id="learning-main">
+      <section class="auth-view" id="auth-view">
+        <div class="auth-intro">
+          <span class="eyebrow">CAMBRIDGE PRACTICE</span>
+          <h1>Học vui, làm bài<br /><em>thật tự tin!</em></h1>
+          <p>
+            Không gian luyện đề dành riêng cho học viên STARTERS, MOVERS và FLYERS
+            của Trung tâm Ngoại ngữ Đăng Lưu.
+          </p>
+          <div class="level-pills" aria-label="Các cấp độ">
+            <span>STARTERS</span><span>MOVERS</span><span>FLYERS</span>
+          </div>
+        </div>
+
+        <div class="auth-card">
+          <div class="auth-tabs" role="tablist" aria-label="Tài khoản học viên">
+            <button class="auth-tab active" id="login-tab" type="button" role="tab" aria-selected="true">
+              Đăng nhập
+            </button>
+            <button class="auth-tab" id="activate-tab" type="button" role="tab" aria-selected="false">
+              Kích hoạt lần đầu
+            </button>
+          </div>
+
+          <form id="login-form" autocomplete="on">
+            <h2>Chào mừng con trở lại!</h2>
+            <p class="form-note">Dùng mã học viên/CCCD đã đăng ký với Trung tâm.</p>
+            <label>
+              CCCD / Mã học viên
+              <input name="cccd" inputmode="numeric" autocomplete="username" maxlength="14" required />
+            </label>
+            <label>
+              Mật khẩu
+              <input name="password" type="password" autocomplete="current-password" maxlength="72" required />
+            </label>
+            <button class="primary-button full" type="submit">VÀO GÓC HỌC TẬP</button>
+          </form>
+
+          <form id="activate-form" autocomplete="off" hidden>
+            <h2>Kích hoạt tài khoản</h2>
+            <p class="form-note">Cần mã kích hoạt do Trung tâm cấp riêng.</p>
+            <div class="form-grid">
+              <label>
+                CCCD / Mã học viên
+                <input name="cccd" inputmode="numeric" autocomplete="username" maxlength="14" required />
+              </label>
+              <label>
+                Ngày sinh
+                <input name="dateOfBirth" type="date" required />
+              </label>
+            </div>
+            <label>
+              Mã kích hoạt
+              <input name="activationCode" autocomplete="one-time-code" maxlength="10" required />
+            </label>
+            <label>
+              Mật khẩu mới
+              <input name="password" type="password" autocomplete="new-password" maxlength="72" required />
+              <small>Từ 12 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt.</small>
+            </label>
+            <label>
+              Nhập lại mật khẩu
+              <input name="confirmPassword" type="password" autocomplete="new-password" maxlength="72" required />
+            </label>
+            <button class="primary-button full" type="submit">KÍCH HOẠT VÀ ĐĂNG NHẬP</button>
+          </form>
+          <p class="message" id="auth-message" role="alert" aria-live="polite"></p>
+          <p class="privacy-note">🔒 Thông tin đăng nhập được mã hóa và không hiển thị công khai.</p>
+        </div>
+      </section>
+
+      <section class="dashboard-view" id="dashboard-view" hidden>
+        <div class="dashboard-hero">
+          <div>
+            <span class="eyebrow">GÓC HỌC TẬP CỦA CON</span>
+            <h1>Xin chào, <span id="student-name"></span>!</h1>
+            <p id="dashboard-copy">Sẵn sàng cho thử thách hôm nay chưa?</p>
+          </div>
+          <div class="level-badge"><small>CẤP ĐỘ</small><strong id="student-level"></strong></div>
+        </div>
+        <div class="dashboard-grid">
+          <article class="start-card">
+            <div class="card-icon">✏️</div>
+            <div>
+              <span class="card-kicker">ĐỀ NGẪU NHIÊN · KHÔNG LẶP</span>
+              <h2 id="start-title">Bắt đầu bài kiểm tra mới</h2>
+              <p id="start-description">
+                Hệ thống chọn một đề chưa làm, đúng cấp độ của con. Bài làm được tự động lưu.
+              </p>
+            </div>
+            <button class="primary-button" id="start-button" type="button">BẮT ĐẦU NGAY →</button>
+          </article>
+          <aside class="tip-card">
+            <span>💡 Mẹo nhỏ</span>
+            <p>Chuẩn bị tai nghe, giấy nháp và ngồi ở nơi yên tĩnh trước khi bắt đầu.</p>
+          </aside>
+        </div>
+        <p class="message" id="dashboard-message" role="alert" aria-live="polite"></p>
+      </section>
+
+      <section class="exam-view" id="exam-view" hidden>
+        <div class="exam-toolbar">
+          <div>
+            <span class="level-mini" id="exam-level"></span>
+            <h1 id="exam-title"></h1>
+          </div>
+          <div class="exam-status">
+            <span id="save-status">Đã lưu</span>
+            <strong id="timer" aria-label="Thời gian còn lại">--:--</strong>
+          </div>
+        </div>
+        <div class="paper-tabs" role="tablist" aria-label="Phần thi">
+          <button class="paper-tab active" type="button" data-paper="listening">🎧 Nghe</button>
+          <button class="paper-tab" type="button" data-paper="reading_writing">📖 Đọc - Viết</button>
+        </div>
+        <div class="audio-dock" id="audio-dock">
+          <span>🎧 Audio phần Nghe</span>
+          <audio id="exam-audio" controls controlslist="nodownload"></audio>
+        </div>
+        <div class="exam-help">
+          Điền trực tiếp vào ô trống, chạm vào hình để chọn, nối tên với nhân vật hoặc chọn màu rồi chạm vào đồ vật.
+        </div>
+        <div class="pdf-stage" id="pdf-stage" aria-live="polite"></div>
+        <p class="message" id="exam-message" role="alert" aria-live="polite"></p>
+        <div class="finish-bar">
+          <div><strong id="answer-progress">0/0 câu đã trả lời</strong><small>Bài được lưu tự động</small></div>
+          <button class="finish-button" id="finish-button" type="button">FINISH</button>
+        </div>
+      </section>
+
+      <section class="result-view" id="result-view" hidden>
+        <div class="result-card">
+          <span class="result-icon">🏆</span>
+          <p class="eyebrow">HOÀN THÀNH BÀI KIỂM TRA</p>
+          <h1>Con đã làm rất tốt!</h1>
+          <div class="score-ring"><strong id="result-percentage">0%</strong><span>tổng điểm</span></div>
+          <p id="result-points"></p>
+          <div class="part-results" id="part-results"></div>
+          <p class="result-note">
+            Kết quả đầy đủ đã được gửi vào hệ thống quản lý của Trung tâm.
+          </p>
+          <div class="result-actions">
+            <button class="quiet-button" id="review-button" type="button">XEM BÀI ĐÃ CHẤM</button>
+            <button class="primary-button" id="result-home-button" type="button">VỀ GÓC HỌC TẬP</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="loading-cover" id="loading-cover" hidden>
+      <div class="spinner" aria-hidden="true"></div>
+      <p id="loading-text">Đang tải...</p>
+    </div>
+  </body>
+</html>

@@ -171,6 +171,61 @@
   width: 30px;
 }
 
+.menu-learning {
+  position: relative;
+}
+
+.menu-learning > .nav-link i {
+  margin-left: 4px;
+  font-size: 9px;
+  transition: transform 0.2s ease;
+}
+
+.learning-submenu {
+  position: absolute;
+  top: calc(100% + 17px);
+  left: 50%;
+  z-index: 20;
+  display: grid;
+  min-width: 170px;
+  padding: 8px;
+  margin: 0;
+  background: #ffffff;
+  border: 1px solid rgba(235, 91, 40, 0.12);
+  border-radius: 13px;
+  box-shadow: 0 18px 38px rgba(63, 42, 33, 0.14);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -6px);
+  transition: 0.2s ease;
+}
+
+.learning-submenu a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #4b3c65;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.learning-submenu a:hover {
+  color: var(--primary);
+  background: var(--secondary);
+}
+
+.menu-learning:hover .learning-submenu,
+.menu-learning:focus-within .learning-submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.menu-learning:hover > .nav-link i,
+.menu-learning:focus-within > .nav-link i {
+  transform: rotate(180deg);
+}
+
 /*================ REGISTER CTA ================*/
 
 .menu-register-item {

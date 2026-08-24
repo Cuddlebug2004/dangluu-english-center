@@ -1176,6 +1176,33 @@ body.menu-open {
 }
 
 @media (max-width: 992px) {
+  .menu-learning > .nav-link i {
+    display: none;
+  }
+
+  .learning-submenu {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    min-width: 0;
+    padding: 4px 8px 8px;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .menu .learning-submenu a {
+    padding: 8px 3px;
+    color: #6b548b;
+    background: #f5efff;
+    border-radius: 7px;
+    font-size: 9px;
+    text-align: center;
+  }
+
   .navbar-wrapper {
     grid-template-columns: minmax(0, 1fr) auto;
   }
