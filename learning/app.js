@@ -241,7 +241,13 @@ async function fetchSignedUrl(endpoint) {
 async function openExam(bundle) {
   state.bundle = bundle;
   state.answers = { ...(bundle.answers || {}) };
-  state.activePaper = "listening";
+  const firstPaper = bundle.files?.listening
+    ? "listening"
+    : bundle.files?.readingWriting
+      ? "reading_writing"
+      : null;
+  if (!firstPaper) throw new ApiError("Đề chưa có PDF hợp lệ.", 409, "TEST_FILES_MISSING");
+  state.activePaper = firstPaper;
   state.fileUrls = {};
   state.pdfDocuments = {};
   state.selectedConnect = null;
@@ -259,17 +265,22 @@ async function openExam(bundle) {
   updatePaperTabs();
   updateProgress();
   showView("exam");
-  setLoading(true, "Đang mở đề và file nghe bảo mật...");
+  setLoading(true, "Đang mở tệp đề bảo mật...");
   try {
-    const [listening, readingWriting, audio] = await Promise.all([
-      fetchSignedUrl(bundle.files.listening),
-      fetchSignedUrl(bundle.files.readingWriting),
-      fetchSignedUrl(bundle.files.audio),
-    ]);
-    state.fileUrls = { listening, reading_writing: readingWriting, audio };
-    elements.examAudio.src = audio;
+    const requestedFiles = [];
+    if (bundle.files.listening) requestedFiles.push(["listening", bundle.files.listening]);
+    if (bundle.files.readingWriting) requestedFiles.push(["reading_writing", bundle.files.readingWriting]);
+    if (bundle.files.audio) requestedFiles.push(["audio", bundle.files.audio]);
+    const signedFiles = await Promise.all(
+      requestedFiles.map(async ([role, endpoint]) => [role, await fetchSignedUrl(endpoint)]),
+    );
+    state.fileUrls = Object.fromEntries(signedFiles);
+    if (state.fileUrls.audio) {
+      elements.examAudio.src = state.fileUrls.audio;
+    }
+    updatePaperTabs();
     startTimer(bundle.attempt.deadlineAt);
-    await renderPaper("listening");
+    await renderPaper(firstPaper);
   } catch (error) {
     setMessage(elements.examMessage, error.message);
   } finally {
@@ -279,9 +290,13 @@ async function openExam(bundle) {
 
 function updatePaperTabs() {
   document.querySelectorAll(".paper-tab").forEach((button) => {
+    const available = button.dataset.paper === "listening"
+      ? Boolean(state.bundle?.files?.listening)
+      : Boolean(state.bundle?.files?.readingWriting);
+    button.hidden = !available;
     button.classList.toggle("active", button.dataset.paper === state.activePaper);
   });
-  elements.audioDock.hidden = state.activePaper !== "listening";
+  elements.audioDock.hidden = state.activePaper !== "listening" || !state.fileUrls.audio;
 }
 
 async function loadPdf(paper) {
@@ -651,7 +666,15 @@ async function finishTest(timeExpired = false) {
 
 function renderResult(result) {
   elements.resultPercentage.textContent = `${Number(result.percentage).toFixed(2)}%`;
-  elements.resultPoints.textContent = `${Number(result.earnedPoints).toFixed(2).replace(/\.00$/, "")} / ${Number(result.maxPoints).toFixed(2).replace(/\.00$/, "")} điểm`;
+  const correctCount = result.partScores.reduce(
+    (total, part) => total + Number(part.correctCount),
+    0,
+  );
+  const totalQuestions = result.partScores.reduce(
+    (total, part) => total + Number(part.totalQuestions),
+    0,
+  );
+  elements.resultPoints.textContent = `${correctCount}/${totalQuestions} câu đúng`;
   elements.partResults.replaceChildren();
   for (const part of result.partScores) {
     const card = document.createElement("div");
@@ -697,7 +720,7 @@ async function initialize() {
   document.querySelectorAll(".paper-tab").forEach((button) => {
     button.addEventListener("click", async () => {
       const paper = button.dataset.paper;
-      if (!paper || paper === state.activePaper) return;
+      if (!paper || button.hidden || !state.fileUrls[paper] || paper === state.activePaper) return;
       setLoading(true, "Đang chuyển phần thi...");
       await renderPaper(paper);
       setLoading(false);

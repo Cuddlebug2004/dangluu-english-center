@@ -79,7 +79,7 @@ export default async function handler(req, res) {
     const testId = Number(claimed[0].test_id);
     const [questions, answers] = await Promise.all([
       sql.query(
-        `SELECT id, paper, part_no, question_type, points, answer_key
+        `SELECT id, paper, part_no, question_type, answer_key
            FROM learning_questions WHERE test_id = $1
           ORDER BY CASE paper WHEN 'listening' THEN 1 ELSE 2 END, part_no, question_no`,
         [testId],

@@ -12,7 +12,8 @@ export async function getAttemptBundle(student, attemptPublicId = null) {
   const attempts = await sql.query(
     `SELECT a.id, a.public_id, a.status, a.started_at, a.last_saved_at,
             t.id AS test_id, t.public_id AS test_public_id, t.title,
-            t.learning_level, t.duration_minutes
+            t.learning_level, t.duration_minutes,
+            t.listening_pdf_path, t.reading_pdf_path, t.listening_audio_path
        FROM learning_attempts a
        JOIN learning_tests t ON t.id = a.test_id
       WHERE a.student_id = $1
@@ -30,7 +31,7 @@ export async function getAttemptBundle(student, attemptPublicId = null) {
   const [questions, answers] = await Promise.all([
     sql.query(
       `SELECT id, paper, part_no, question_no, page_no,
-              question_type, points, interaction_config
+              question_type, interaction_config
          FROM learning_questions
         WHERE test_id = $1
         ORDER BY CASE paper WHEN 'listening' THEN 1 ELSE 2 END,
@@ -56,9 +57,15 @@ export async function getAttemptBundle(student, attemptPublicId = null) {
       ).toISOString(),
     },
     files: {
-      listening: `/api/learning/test/file-url?attempt=${encodeURIComponent(attempt.public_id)}&role=listening_pdf`,
-      readingWriting: `/api/learning/test/file-url?attempt=${encodeURIComponent(attempt.public_id)}&role=reading_pdf`,
-      audio: `/api/learning/test/file-url?attempt=${encodeURIComponent(attempt.public_id)}&role=listening_audio`,
+      ...(attempt.listening_pdf_path
+        ? { listening: `/api/learning/test/file-url?attempt=${encodeURIComponent(attempt.public_id)}&role=listening_pdf` }
+        : {}),
+      ...(attempt.reading_pdf_path
+        ? { readingWriting: `/api/learning/test/file-url?attempt=${encodeURIComponent(attempt.public_id)}&role=reading_pdf` }
+        : {}),
+      ...(attempt.listening_audio_path
+        ? { audio: `/api/learning/test/file-url?attempt=${encodeURIComponent(attempt.public_id)}&role=listening_audio` }
+        : {}),
     },
     questions: questions.map((question) => ({
       id: Number(question.id),
@@ -67,7 +74,6 @@ export async function getAttemptBundle(student, attemptPublicId = null) {
       questionNo: Number(question.question_no),
       pageNo: Number(question.page_no),
       type: question.question_type,
-      points: Number(question.points),
       interaction: question.interaction_config,
     })),
     answers: Object.fromEntries(

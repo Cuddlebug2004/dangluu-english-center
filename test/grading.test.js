@@ -29,9 +29,9 @@ test("builds percentages for each Part and the full attempt", () => {
     { question_id: 2, answer_json: { value: "C" } },
     { question_id: 3, answer_json: { value: "spiders" } },
   ]);
-  assert.equal(result.earnedPoints, 3);
-  assert.equal(result.maxPoints, 4);
-  assert.equal(result.percentage, 75);
+  assert.equal(result.earnedPoints, 2);
+  assert.equal(result.maxPoints, 3);
+  assert.equal(result.percentage, 66.67);
   assert.deepEqual(result.partScores.map((part) => part.percentage), [50, 100]);
 });
 

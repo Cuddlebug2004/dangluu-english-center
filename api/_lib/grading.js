@@ -36,12 +36,11 @@ export function gradeAttempt(questions, answerRows) {
   let maxPoints = 0;
 
   for (const question of questions) {
-    const points = Number(question.points);
     const answer = answersByQuestion.get(String(question.id)) || {};
     const isCorrect = gradeAnswer(question.question_type, question.answer_key, answer);
-    const awarded = isCorrect ? points : 0;
+    const awarded = isCorrect ? 1 : 0;
     earnedPoints += awarded;
-    maxPoints += points;
+    maxPoints += 1;
     gradedAnswers.push({
       questionId: Number(question.id),
       answer,
@@ -58,7 +57,7 @@ export function gradeAttempt(questions, answerRows) {
       maxPoints: 0,
     };
     part.totalQuestions += 1;
-    part.maxPoints += points;
+    part.maxPoints += 1;
     part.correctCount += isCorrect ? 1 : 0;
     part.earnedPoints += awarded;
     parts.set(partKey, part);
@@ -66,7 +65,9 @@ export function gradeAttempt(questions, answerRows) {
 
   const partScores = [...parts.values()].map((part) => ({
     ...part,
-    percentage: part.maxPoints ? Number(((part.earnedPoints / part.maxPoints) * 100).toFixed(2)) : 0,
+    percentage: part.totalQuestions
+      ? Number(((part.correctCount / part.totalQuestions) * 100).toFixed(2))
+      : 0,
   }));
   return {
     gradedAnswers,

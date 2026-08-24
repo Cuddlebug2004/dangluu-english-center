@@ -20,6 +20,9 @@ export default async function handler(req, res) {
         `SELECT COUNT(*)::integer AS count
            FROM learning_tests t
           WHERE t.learning_level = $1 AND t.status = 'published'
+            AND (t.listening_pdf_path IS NOT NULL OR t.reading_pdf_path IS NOT NULL)
+            AND ((t.listening_pdf_path IS NULL) = (t.listening_audio_path IS NULL))
+            AND EXISTS (SELECT 1 FROM learning_questions q WHERE q.test_id = t.id)
             AND NOT EXISTS (
               SELECT 1 FROM learning_attempts a
                WHERE a.student_id = $2 AND a.test_id = t.id
