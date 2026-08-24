@@ -1,6 +1,22 @@
 import crypto from "node:crypto";
 import { HttpError } from "./http.js";
 
+function canonicalize(value) {
+  if (Array.isArray(value)) return value.map(canonicalize);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.keys(value)
+        .sort()
+        .map((key) => [key, canonicalize(value[key])]),
+    );
+  }
+  return value;
+}
+
+export function canonicalJson(body) {
+  return JSON.stringify(canonicalize(body));
+}
+
 export function verifyInternalRequest(req, body) {
   const secret = String(process.env.LEARNING_INTERNAL_SECRET || "");
   if (Buffer.byteLength(secret, "utf8") < 32) {
@@ -12,7 +28,9 @@ export function verifyInternalRequest(req, body) {
   if (!Number.isInteger(unixSeconds) || Math.abs(Date.now() / 1000 - unixSeconds) > 300) {
     throw new HttpError(401, "Chữ ký đã hết hạn.", "INVALID_SIGNATURE");
   }
-  const rawBody = JSON.stringify(body);
+  // Both the Streamlit app and this API sign a canonical representation, so
+  // parsing middleware or key insertion order cannot invalidate the HMAC.
+  const rawBody = canonicalJson(body);
   const expected = crypto
     .createHmac("sha256", secret)
     .update(`${timestamp}.${rawBody}`, "utf8")
