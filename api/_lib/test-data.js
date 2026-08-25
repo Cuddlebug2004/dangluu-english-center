@@ -31,7 +31,7 @@ export async function getAttemptBundle(student, attemptPublicId = null) {
   const [questions, answers] = await Promise.all([
     sql.query(
       `SELECT id, paper, part_no, question_no, page_no,
-              question_type, interaction_config
+              question_type, points, interaction_config
          FROM learning_questions
         WHERE test_id = $1
         ORDER BY CASE paper WHEN 'listening' THEN 1 ELSE 2 END,
@@ -74,6 +74,7 @@ export async function getAttemptBundle(student, attemptPublicId = null) {
       questionNo: Number(question.question_no),
       pageNo: Number(question.page_no),
       type: question.question_type,
+      points: Number(question.points || 1),
       interaction: question.interaction_config,
     })),
     answers: Object.fromEntries(

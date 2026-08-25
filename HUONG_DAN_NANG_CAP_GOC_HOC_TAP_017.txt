@@ -1,0 +1,58 @@
+HƯỚNG DẪN NÂNG CẤP GÓC HỌC TẬP — BẢN 017
+
+1. TÍNH NĂNG ĐÃ THÊM
+
+- Câu trả lời ngắn hoặc đoạn văn do giáo viên chấm, không có đáp án đúng/sai.
+- Giáo viên nhập điểm và nhận xét, có thể lưu tạm nhiều lần rồi hoàn tất.
+- Điểm giáo viên được cộng với điểm tự động để tính tỷ lệ cuối.
+- Danh sách chọn (dropdown) với nhiều phương án do Admin nhập trước.
+- Đúng/Sai hiển thị bằng một ô vuông, học viên bấm để đổi giữa ✓ và ✕.
+- Ô nhập số trang ở góc trên bên phải trình biên soạn; nhập số rồi nhấn Enter.
+- Tối ưu xem trước PDF bằng cache và giảm kích thước ảnh dựng trang.
+
+2. THỨ TỰ TRIỂN KHAI
+
+1) Sao lưu database Neon.
+2) Chạy file sql/migrations/017_learning_manual_grading.sql trong Neon SQL Editor.
+3) Triển khai source website DLE_Web trước.
+4) Triển khai source app Quản lý nhân sự sau.
+
+Không chạy lại schema.sql hoặc migration cũ trên database đang có dữ liệu.
+
+3. CÁCH TẠO CÂU VIẾT GIÁO VIÊN CHẤM
+
+Góc học tập -> Ngân hàng đề -> chọn đề Bản nháp -> Biên soạn đề
+-> Câu tương tác khác -> chọn “Câu viết · giáo viên chấm”.
+
+- Chọn câu trả lời ngắn hoặc đoạn văn nhiều dòng.
+- Đặt số ký tự tối đa và điểm tối đa giáo viên có thể chấm.
+- Kéo một khung trên đúng vị trí của PDF rồi bấm “Lưu câu hỏi”.
+- Câu này không cần nhập answer key và không đổi xanh/đỏ sau FINISH.
+
+4. CÁCH GIÁO VIÊN CHẤM
+
+Góc học tập -> Kết quả -> chọn lượt làm đang “Chờ GV chấm”.
+
+- Đọc nguyên văn câu trả lời của học viên.
+- Tick “Đã chấm”, nhập điểm và nhận xét.
+- “Lưu điểm tạm” để quay lại chấm tiếp.
+- “Lưu và hoàn tất chấm” để cộng điểm tự luận với điểm tự động và tính tỷ lệ cuối.
+
+5. DROPDOWN VÀ ĐÚNG/SAI
+
+- Dropdown: mỗi dòng nhập theo dạng mã|nội dung, ví dụ on|on, in|in, at|at;
+  sau đó chọn đáp án đúng và kéo một khung trên PDF.
+- Đúng/Sai: chọn đáp án đúng trong Admin rồi kéo một ô vuông. Học viên bấm ô
+  để đổi giữa ✓ và ✕. Nếu thiết bị không có glyph, có thể hiểu tương ứng V và X.
+
+6. CHUYỂN TRANG NHANH
+
+Trong thanh phía trên PDF, nhập trực tiếp số trang và nhấn Enter. Các trang đã dựng
+được cache nên khi quay lại sẽ nhanh hơn; ảnh xem trước được giảm độ rộng để nhẹ hơn.
+
+7. LƯU Ý
+
+- Bài có câu viết sẽ hiển thị điểm tự động ngay và trạng thái “Chờ GV chấm”.
+- Tỷ lệ cuối chỉ được chốt sau khi giáo viên đã nhập điểm cho mọi câu viết.
+- Câu viết không bị tính sai, không hiện đỏ và không nằm trong phần trăm tự động.
+- Website không trả answer_key xuống trình duyệt; kết quả chi tiết vẫn chỉ xem trong app Admin.

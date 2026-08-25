@@ -13,9 +13,25 @@ test("normalizes typed English answers without accepting different words", () =>
 test("grades every supported interaction type", () => {
   assert.equal(gradeAnswer("boolean", { value: false }, { value: false }), true);
   assert.equal(gradeAnswer("choice", { value: "B" }, { value: "b" }), true);
+  assert.equal(gradeAnswer("dropdown", { value: "in" }, { value: "IN" }), true);
   assert.equal(gradeAnswer("connect", { target: "girl_reading" }, { target: "girl_reading" }), true);
   assert.equal(gradeAnswer("color", { value: "yellow" }, { value: "Yellow" }), true);
   assert.equal(gradeAnswer("boolean", { value: false }, {}), false);
+});
+
+test("keeps teacher-graded writing out of the automatic percentage", () => {
+  const result = gradeAttempt([
+    { id: 1, paper: "reading_writing", part_no: 1, question_type: "text", points: 1, answer_key: { accepted: ["kite"] } },
+    { id: 2, paper: "reading_writing", part_no: 2, question_type: "manual", points: 5, answer_key: {} },
+  ], [
+    { question_id: 1, answer_json: { value: "kite" } },
+    { question_id: 2, answer_json: { value: "My story..." } },
+  ]);
+  assert.equal(result.percentage, 100);
+  assert.equal(result.manualCount, 1);
+  assert.equal(result.manualMaxPoints, 5);
+  assert.equal(result.gradedAnswers[1].isCorrect, null);
+  assert.equal(result.gradedAnswers[1].pointsAwarded, null);
 });
 
 test("builds percentages for each Part and the full attempt", () => {

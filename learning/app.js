@@ -31,6 +31,9 @@ const elements = {
   loadingCover: document.getElementById("loading-cover"),
   loadingText: document.getElementById("loading-text"),
   resultPercentage: document.getElementById("result-percentage"),
+  resultTitle: document.getElementById("result-title"),
+  resultScoreLabel: document.getElementById("result-score-label"),
+  resultNote: document.getElementById("result-note"),
   resultPoints: document.getElementById("result-points"),
   partResults: document.getElementById("part-results"),
   reviewButton: document.getElementById("review-button"),
@@ -358,11 +361,10 @@ async function renderPaper(paper) {
   }
 }
 
-function applyZone(element, zone, expandBoolean = false) {
-  const width = expandBoolean ? Math.max(Number(zone.w || 0.06), 0.105) : Number(zone.w || 0.06);
+function applyZone(element, zone) {
   element.style.left = `${Number(zone.x) * 100}%`;
   element.style.top = `${Number(zone.y) * 100}%`;
-  element.style.width = `${width * 100}%`;
+  element.style.width = `${Number(zone.w || 0.06) * 100}%`;
   element.style.height = `${Number(zone.h || 0.05) * 100}%`;
 }
 
@@ -380,6 +382,8 @@ function gradeControl(element, questionId) {
 function renderInteractions(layer, questions) {
   for (const question of questions.filter((item) => item.type !== "connect")) {
     if (question.type === "text") renderText(layer, question);
+    if (question.type === "dropdown") renderDropdown(layer, question);
+    if (question.type === "manual") renderManual(layer, question);
     if (question.type === "boolean") renderBoolean(layer, question);
     if (question.type === "choice") renderChoice(layer, question);
     if (question.type === "color") renderColor(layer, question);
@@ -405,28 +409,64 @@ function renderText(layer, question) {
   layer.append(input);
 }
 
-function renderBoolean(layer, question) {
-  const wrapper = document.createElement("div");
-  wrapper.className = "answer-control boolean-answer";
-  applyZone(wrapper, question.interaction.zone, true);
-  gradeControl(wrapper, question.id);
-  const current = answerFor(question.id).value;
-  for (const [value, label] of [[true, "✓"], [false, "✕"]]) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.textContent = label;
-    button.disabled = state.finished;
-    button.classList.toggle("selected", current === value);
-    button.setAttribute("aria-label", value ? "Đúng" : "Sai");
-    button.addEventListener("click", () => {
-      setAnswer(question.id, { value });
-      wrapper.querySelectorAll("button").forEach((item, index) => {
-        item.classList.toggle("selected", (index === 0) === value);
-      });
-    });
-    wrapper.append(button);
+function renderDropdown(layer, question) {
+  const select = document.createElement("select");
+  select.className = "answer-control dropdown-answer";
+  select.disabled = state.finished;
+  select.setAttribute("aria-label", `${question.paper}, Part ${question.partNo}, câu ${question.questionNo}`);
+  const empty = document.createElement("option");
+  empty.value = "";
+  empty.textContent = "Chọn đáp án";
+  select.append(empty);
+  for (const option of question.interaction.options || []) {
+    const item = document.createElement("option");
+    item.value = String(option.id);
+    item.textContent = String(option.label || option.id);
+    select.append(item);
   }
-  layer.append(wrapper);
+  select.value = String(answerFor(question.id).value || "");
+  applyZone(select, question.interaction.zone);
+  gradeControl(select, question.id);
+  select.addEventListener("change", () => setAnswer(question.id, { value: select.value }));
+  layer.append(select);
+}
+
+function renderManual(layer, question) {
+  const paragraph = question.interaction.input_mode !== "short";
+  const input = document.createElement(paragraph ? "textarea" : "input");
+  input.className = `answer-control manual-answer ${paragraph ? "paragraph" : "short"}`;
+  if (!paragraph) input.type = "text";
+  input.maxLength = Math.min(5000, Math.max(20, Number(question.interaction.max_length || 2000)));
+  input.placeholder = question.interaction.placeholder || "Viết câu trả lời của con tại đây...";
+  input.value = answerFor(question.id).value || "";
+  input.disabled = state.finished;
+  input.setAttribute("aria-label", `Câu viết Part ${question.partNo}, câu ${question.questionNo}`);
+  applyZone(input, question.interaction.zone);
+  gradeControl(input, question.id);
+  input.addEventListener("input", () => setAnswer(question.id, { value: input.value }));
+  layer.append(input);
+}
+
+function renderBoolean(layer, question) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "answer-control boolean-answer";
+  applyZone(button, question.interaction.zone);
+  gradeControl(button, question.id);
+  const current = answerFor(question.id).value;
+  button.textContent = current === true ? "✓" : current === false ? "✕" : "";
+  button.disabled = state.finished;
+  button.classList.toggle("selected", typeof current === "boolean");
+  button.setAttribute("aria-label", "Chọn đúng hoặc sai; nhấn để đổi giữa dấu tick và dấu X");
+  button.title = "Nhấn để đổi ✓ / ✕";
+  button.addEventListener("click", () => {
+    const previous = answerFor(question.id).value;
+    const value = previous === true ? false : true;
+    setAnswer(question.id, { value });
+    button.textContent = value ? "✓" : "✕";
+    button.classList.add("selected");
+  });
+  layer.append(button);
 }
 
 function renderChoice(layer, question) {
@@ -665,7 +705,17 @@ async function finishTest(timeExpired = false) {
 }
 
 function renderResult(result) {
-  elements.resultPercentage.textContent = `${Number(result.percentage).toFixed(2)}%`;
+  const pendingManual = Boolean(result.pendingManualGrading);
+  const shownPercentage = pendingManual ? result.automaticPercentage : result.percentage;
+  elements.resultTitle.textContent = pendingManual
+    ? "Con đã nộp bài thành công!"
+    : "Con đã làm rất tốt!";
+  elements.resultPercentage.textContent = shownPercentage == null
+    ? "ĐÃ NỘP"
+    : `${Number(shownPercentage).toFixed(2)}%`;
+  elements.resultScoreLabel.textContent = pendingManual
+    ? (shownPercentage == null ? "chờ giáo viên chấm" : "phần tự chấm")
+    : "tỷ lệ đúng";
   const correctCount = result.partScores.reduce(
     (total, part) => total + Number(part.correctCount),
     0,
@@ -674,7 +724,9 @@ function renderResult(result) {
     (total, part) => total + Number(part.totalQuestions),
     0,
   );
-  elements.resultPoints.textContent = `${correctCount}/${totalQuestions} câu đúng`;
+  elements.resultPoints.textContent = totalQuestions
+    ? `${correctCount}/${totalQuestions} câu tự chấm đúng`
+    : "Bài gồm phần viết do giáo viên chấm";
   elements.partResults.replaceChildren();
   for (const part of result.partScores) {
     const card = document.createElement("div");
@@ -688,6 +740,26 @@ function renderResult(result) {
     card.append(label, percent, count);
     elements.partResults.append(card);
   }
+  if (Number(result.manualMaxPoints || 0) > 0) {
+    const card = document.createElement("div");
+    card.className = "part-result manual-pending-result";
+    const label = document.createElement("small");
+    label.textContent = "Câu viết / đoạn văn";
+    const status = document.createElement("strong");
+    status.textContent = pendingManual
+      ? "Chờ giáo viên chấm"
+      : `${Number(result.manualEarnedPoints || 0).toFixed(1)}/${Number(result.manualMaxPoints).toFixed(1)} điểm`;
+    const note = document.createElement("span");
+    note.textContent = "Giáo viên sẽ đọc bài và cộng vào kết quả chung";
+    card.append(label, status, note);
+    elements.partResults.append(card);
+  }
+  elements.resultNote.textContent = pendingManual
+    ? "Các câu tự chấm đã có kết quả. Phần viết đã được gửi cho giáo viên và chưa tính vào tỷ lệ cuối."
+    : "Kết quả đầy đủ đã được gửi vào hệ thống quản lý của Trung tâm.";
+  elements.reviewButton.textContent = pendingManual
+    ? "XEM LẠI BÀI ĐÃ NỘP"
+    : "XEM BÀI ĐÃ CHẤM";
   showView("result");
 }
 

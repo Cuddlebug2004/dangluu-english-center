@@ -14,11 +14,14 @@ function validateAnswers(value) {
     if (!Number.isSafeInteger(questionId) || questionId < 1 || !answer || typeof answer !== "object" || Array.isArray(answer)) {
       throw new HttpError(400, "Câu trả lời không hợp lệ.", "INVALID_ANSWER");
     }
+    if (typeof answer.value === "string" && answer.value.length > 5000) {
+      throw new HttpError(400, "Câu trả lời vượt quá giới hạn cho phép.", "ANSWER_TOO_LONG");
+    }
     if (seen.has(questionId)) continue;
     seen.add(questionId);
     normalized.push({ question_id: questionId, answer });
   }
-  if (Buffer.byteLength(JSON.stringify(normalized), "utf8") > 128 * 1024) {
+  if (Buffer.byteLength(JSON.stringify(normalized), "utf8") > 220 * 1024) {
     throw new HttpError(413, "Dữ liệu câu trả lời quá lớn.", "ANSWERS_TOO_LARGE");
   }
   return normalized;

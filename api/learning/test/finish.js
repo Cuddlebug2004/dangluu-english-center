@@ -3,11 +3,15 @@ import { gradeAttempt } from "../../_lib/grading.js";
 import { requireStudent } from "../../_lib/learning-auth.js";
 import { assertSameOrigin, handleApiError, HttpError, method, readJson, sendJson } from "../../_lib/http.js";
 
-async function completedResult(sql, attemptId, studentId) {
+async function submittedResult(sql, attemptId, studentId) {
   const attempts = await sql.query(
-    `SELECT id, earned_points, max_points, percentage, finished_at
+    `SELECT id, status, earned_points, max_points, percentage, finished_at,
+            automatic_earned_points, automatic_max_points,
+            manual_earned_points, manual_max_points
        FROM learning_attempts
-      WHERE public_id = $1::uuid AND student_id = $2 AND status = 'completed'
+      WHERE public_id = $1::uuid AND student_id = $2
+        AND status IN ('submitted', 'completed')
+        AND finished_at IS NOT NULL
       LIMIT 1`,
     [attemptId, studentId],
   );
@@ -29,10 +33,22 @@ async function completedResult(sql, attemptId, studentId) {
       [attempt.id],
     ),
   ]);
+  const automaticEarned = Number(attempt.automatic_earned_points || 0);
+  const automaticMax = Number(attempt.automatic_max_points || 0);
+  const pendingManualGrading = attempt.status === "submitted";
   return {
-    earnedPoints: Number(attempt.earned_points),
-    maxPoints: Number(attempt.max_points),
-    percentage: Number(attempt.percentage),
+    status: attempt.status,
+    pendingManualGrading,
+    automaticEarnedPoints: automaticEarned,
+    automaticMaxPoints: automaticMax,
+    automaticPercentage: automaticMax
+      ? Number(((automaticEarned / automaticMax) * 100).toFixed(2))
+      : null,
+    manualEarnedPoints: Number(attempt.manual_earned_points || 0),
+    manualMaxPoints: Number(attempt.manual_max_points || 0),
+    earnedPoints: Number(attempt.earned_points || 0),
+    maxPoints: Number(attempt.max_points || 0),
+    percentage: attempt.percentage == null ? null : Number(attempt.percentage),
     finishedAt: attempt.finished_at,
     partScores: parts.map((part) => ({
       paper: part.paper,
@@ -45,7 +61,7 @@ async function completedResult(sql, attemptId, studentId) {
     })),
     questionResults: answers.map((answer) => ({
       questionId: Number(answer.question_id),
-      isCorrect: Boolean(answer.is_correct),
+      isCorrect: answer.is_correct == null ? null : Boolean(answer.is_correct),
     })),
   };
 }
@@ -62,7 +78,7 @@ export default async function handler(req, res) {
       throw new HttpError(400, "Lượt làm bài không hợp lệ.", "INVALID_ATTEMPT");
     }
     const sql = getSql();
-    const previous = await completedResult(sql, attemptId, student.student_id);
+    const previous = await submittedResult(sql, attemptId, student.student_id);
     if (previous) return sendJson(res, 200, { ok: true, result: previous });
 
     const claimed = await sql.query(
@@ -79,7 +95,7 @@ export default async function handler(req, res) {
     const testId = Number(claimed[0].test_id);
     const [questions, answers] = await Promise.all([
       sql.query(
-        `SELECT id, paper, part_no, question_type, answer_key
+        `SELECT id, paper, part_no, question_type, points, answer_key
            FROM learning_questions WHERE test_id = $1
           ORDER BY CASE paper WHEN 'listening' THEN 1 ELSE 2 END, part_no, question_no`,
         [testId],
@@ -90,10 +106,10 @@ export default async function handler(req, res) {
         [gradingAttemptId],
       ),
     ]);
-    if (!questions.length) {
-      throw new Error("Attempt test contains no questions");
-    }
+    if (!questions.length) throw new Error("Attempt test contains no questions");
+
     const grade = gradeAttempt(questions, answers);
+    const hasManual = grade.manualCount > 0;
     const answerPayload = grade.gradedAnswers.map((answer) => ({
       question_id: answer.questionId,
       answer: answer.answer,
@@ -109,6 +125,7 @@ export default async function handler(req, res) {
       max_points: part.maxPoints,
       percentage: part.percentage,
     }));
+    const totalMaxPoints = grade.maxPoints + grade.manualMaxPoints;
 
     await sql.transaction((tx) => [
       tx.query(
@@ -139,20 +156,43 @@ export default async function handler(req, res) {
       ),
       tx.query(
         `UPDATE learning_attempts
-            SET status = 'completed', finished_at = CURRENT_TIMESTAMP,
-                earned_points = $2, max_points = $3, percentage = $4,
+            SET status = $2, finished_at = CURRENT_TIMESTAMP,
+                automatic_earned_points = $3,
+                automatic_max_points = $4,
+                manual_earned_points = 0,
+                manual_max_points = $5,
+                earned_points = $3,
+                max_points = $6,
+                percentage = $7,
                 last_saved_at = CURRENT_TIMESTAMP
           WHERE id = $1 AND status = 'grading'`,
-        [gradingAttemptId, grade.earnedPoints, grade.maxPoints, grade.percentage],
+        [
+          gradingAttemptId,
+          hasManual ? "submitted" : "completed",
+          grade.earnedPoints,
+          grade.maxPoints,
+          grade.manualMaxPoints,
+          totalMaxPoints,
+          hasManual ? null : grade.percentage,
+        ],
       ),
       tx.query(
         `INSERT INTO learning_audit_logs
            (actor_type, actor_id, action, entity_type, entity_id, metadata)
          VALUES ('student', $1, 'attempt.finish', 'learning_attempt', $2, $3::jsonb)`,
-        [student.account_id, gradingAttemptId, JSON.stringify({ percentage: grade.percentage })],
+        [
+          student.account_id,
+          gradingAttemptId,
+          JSON.stringify({
+            automaticPercentage: grade.percentage,
+            pendingManualGrading: hasManual,
+            manualQuestionCount: grade.manualCount,
+          }),
+        ],
       ),
     ]);
-    const result = await completedResult(sql, attemptId, student.student_id);
+    gradingAttemptId = null;
+    const result = await submittedResult(sql, attemptId, student.student_id);
     return sendJson(res, 200, { ok: true, result });
   } catch (error) {
     if (gradingAttemptId) {

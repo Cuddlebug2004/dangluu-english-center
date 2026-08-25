@@ -14,13 +14,14 @@ export function gradeAnswer(questionType, answerKey, submittedAnswer) {
     const value = normalizeText(submitted.value);
     return Array.isArray(key.accepted) && key.accepted.some((item) => normalizeText(item) === value);
   }
+  if (questionType === "manual") return null;
   if (questionType === "boolean") {
     return typeof submitted.value === "boolean" && submitted.value === key.value;
   }
   if (questionType === "connect") {
     return String(submitted.target || "") === String(key.target || "");
   }
-  if (questionType === "choice" || questionType === "color") {
+  if (questionType === "choice" || questionType === "dropdown" || questionType === "color") {
     return String(submitted.value || "").toLocaleLowerCase("en-US") === String(key.value || "").toLocaleLowerCase("en-US");
   }
   return false;
@@ -34,9 +35,22 @@ export function gradeAttempt(questions, answerRows) {
   const parts = new Map();
   let earnedPoints = 0;
   let maxPoints = 0;
+  let manualCount = 0;
+  let manualMaxPoints = 0;
 
   for (const question of questions) {
     const answer = answersByQuestion.get(String(question.id)) || {};
+    if (question.question_type === "manual") {
+      manualCount += 1;
+      manualMaxPoints += Math.max(0, Number(question.points || 0));
+      gradedAnswers.push({
+        questionId: Number(question.id),
+        answer,
+        isCorrect: null,
+        pointsAwarded: null,
+      });
+      continue;
+    }
     const isCorrect = gradeAnswer(question.question_type, question.answer_key, answer);
     const awarded = isCorrect ? 1 : 0;
     earnedPoints += awarded;
@@ -75,5 +89,7 @@ export function gradeAttempt(questions, answerRows) {
     earnedPoints,
     maxPoints,
     percentage: maxPoints ? Number(((earnedPoints / maxPoints) * 100).toFixed(2)) : 0,
+    manualCount,
+    manualMaxPoints,
   };
 }
